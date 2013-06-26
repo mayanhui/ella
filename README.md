@@ -4,7 +4,7 @@ https://github.com/mayanhui/ella/wiki
 ###################################################
 ## Ella ############
 ###################################################
-Ella is a "Border Collie", a beautiful and smart lady.
+Ella is a "Border Collie", a beautiful and smart dog.
 
 
 
