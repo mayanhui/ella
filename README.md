@@ -2,10 +2,15 @@
 https://github.com/mayanhui/ella/wiki
 
 ###################################################
-## Methods of Ella ############
+## Ella ############
 ###################################################
+Ella is a "Border Collie", a handsome and smart dog.
+
+
+
 
 ##Environment
 
 ##License
 Released under the GPLv3 license. For full details, pleasesee the LICENSE file included in this distribution.
+
