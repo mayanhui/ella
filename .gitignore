@@ -1,0 +1,16 @@
+*.ipr
+*.iws
+*.iml
+.idea
+.classpath
+out/*
+logs/*
+tests/log/*
+.DS_Store
+*.swp
+*~
+.project
+*.kpf
+.settings
+target
+
