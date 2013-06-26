@@ -1,0 +1,5 @@
+ITHBase (Indexed-Transanctional HBase)
+https://github.com/hbase-trx/hbase-transactional-tableindexed
+
+HBase 0.94.0
+hadoop 1.0.4
