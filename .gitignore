@@ -13,4 +13,5 @@ tests/log/*
 *.kpf
 .settings
 target
-
+*.log
+SurfShop
