@@ -4,8 +4,13 @@ https://github.com/mayanhui/ella/wiki
 ###################################################
 ## Ella ############
 ###################################################
+Ella is a "Border Collie", a beautiful and smart lady.
+
+
+
 
 ##Environment
 
 ##License
 Released under the GPLv3 license. For full details, pleasesee the LICENSE file included in this distribution.
+
