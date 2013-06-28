@@ -27,7 +27,6 @@ public class RequestDAO {
 
 			if (rs.next())
 				maxItemNumber = rs.getInt(1);
-			System.out.println(maxItemNumber);
 			
 			rs.close();
 			stmt.close();
@@ -41,9 +40,9 @@ public class RequestDAO {
 		return (this.maxItemNumber);
 	}
 
-	public Request getRequest(int targetItemNumber) {
+	public RegionRequestCount getRequest(int targetItemNumber) {
 
-		Request product = null;
+		RegionRequestCount product = null;
 
 		try {
 			pstmt.clearParameters();
@@ -61,7 +60,7 @@ public class RequestDAO {
 				Timestamp updateTime = rs.getTimestamp("UPDATETIME");
 				Timestamp insertTime = rs.getTimestamp("INSERTTIME");
 
-				product = new Request(host, regionName, tableName, writeCount,
+				product = new RegionRequestCount(host, regionName, tableName, writeCount,
 						readCount, totalCount, updateTime, insertTime);
 			}
 

@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 
-import com.adintellig.ella.derby.model.Request;
+import com.adintellig.ella.derby.model.RegionRequestCount;
 import com.adintellig.ella.derby.model.RequestDAO;
 
 //import java.sql.ResultSet;
@@ -51,8 +51,7 @@ public class DBManager {
 			} catch (BatchUpdateException bue) {
 				try {
 					con.rollback();
-					System.err
-							.println("Batch Update Exception: Transaction Rolled Back");
+					System.err.println("Batch Update Exception: Transaction Rolled Back");
 					printSQLException((SQLException) bue);
 				} catch (SQLException se) {
 					printSQLException(se);
@@ -140,7 +139,7 @@ public class DBManager {
 	public static void main(String[] args) throws SQLException {
 		DBManager dbm = new DBManager();
 		RequestDAO rdao = dbm.getRequestDAO();
-		Request r = rdao.getRequest(1);
+		RegionRequestCount r = rdao.getRequest(1);
 		System.out.println(r.toString());
 //		dbm.batchInsertData(insertRequestsSQL);
 	}

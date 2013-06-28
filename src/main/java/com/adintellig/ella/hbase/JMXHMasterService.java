@@ -4,11 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.List;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 
 import com.adintellig.ella.derby.DBManager;
+import com.adintellig.ella.derby.model.RegionRequestCount;
 import com.adintellig.ella.derby.model.RequestDAO;
 import com.adintellig.ella.hbase.beans.MasterServiceBean;
 import com.adintellig.ella.hbase.beans.MasterServiceBeans;
@@ -65,24 +67,17 @@ public class JMXHMasterService {
 
 	public static void main(String[] args) throws JsonParseException,
 			JsonMappingException, IOException {
-
+		long st = System.currentTimeMillis();
 		JMXHMasterService service = new JMXHMasterService();
 
 		String result = service.request(url);
 		MasterServiceBeans bean = service.parseBean(result);
 
-		MasterServiceBean[] beans = bean.getBeans();
-		RegionServer[] rs = beans[0].getRegionServers();
-		for (RegionServer r : rs) {
-			RegionsLoad[] rl = r.getValue().getRegionsLoad();
-			for (RegionsLoad l : rl) {
-				System.out.println(l.getValue().getNameAsString());
-				System.out.println(l.getValue().getReadRequestsCount());
-				System.out.println(l.getValue().getWriteRequestsCount());
-				System.out.println(l.getValue().getRequestsCount());
-			}
-			System.out.println("----------");
+		List<RegionRequestCount> list = RequestPopulator.populate(bean);
+		for (RegionRequestCount req : list) {
+			System.out.println(req);
 		}
-
+		long en = System.currentTimeMillis();
+		System.out.println((en - st) );
 	}
 }
