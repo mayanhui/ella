@@ -1,4 +1,4 @@
-package net.hbase.secondaryindex.util;
+package com.adintellig.ella.util;
 
 import java.io.IOException;
 import java.io.InputStream;
