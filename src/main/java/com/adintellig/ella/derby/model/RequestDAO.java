@@ -1,4 +1,4 @@
-package com.adintellig.ella.derby;
+package com.adintellig.ella.derby.model;
 
 import java.sql.Connection;
 import java.sql.Statement;

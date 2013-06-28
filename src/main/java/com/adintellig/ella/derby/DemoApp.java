@@ -3,6 +3,9 @@ package com.adintellig.ella.derby;
 import java.io.BufferedReader ;
 import java.io.InputStreamReader ;
 
+import com.adintellig.ella.derby.model.Request;
+import com.adintellig.ella.derby.model.RequestDAO;
+
 public class DemoApp {
 	private DBManager dbm = null ;
 	private RequestDAO pdao = null ;

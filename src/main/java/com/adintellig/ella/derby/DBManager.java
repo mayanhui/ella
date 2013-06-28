@@ -8,6 +8,9 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 
+import com.adintellig.ella.derby.model.Request;
+import com.adintellig.ella.derby.model.RequestDAO;
+
 //import java.sql.ResultSet;
 
 public class DBManager {

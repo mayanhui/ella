@@ -8,6 +8,8 @@ import java.net.URL;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 
+import com.adintellig.ella.derby.DBManager;
+import com.adintellig.ella.derby.model.RequestDAO;
 import com.adintellig.ella.hbase.beans.MasterServiceBean;
 import com.adintellig.ella.hbase.beans.MasterServiceBeans;
 import com.adintellig.ella.hbase.beans.RegionServer;
@@ -16,18 +18,24 @@ import com.alibaba.fastjson.JSON;
 
 public class JMXHMasterService {
 
-	public static void main(String[] args) throws JsonParseException,
-			JsonMappingException, IOException {
+	public static String url = "http://hadoop-node-20:60010/jmx?qry=hadoop:service=Master,name=Master";
 
-		JMXHMasterService service = new JMXHMasterService();
+	private DBManager dbm = null;
+	private RequestDAO rdao = null;
+	private int maxItemNumber = 0;
 
-		String urlStr = "http://hadoop-node-20:60010/jmx?qry=hadoop:service=Master,name=Master";
+	public JMXHMasterService() {
+		this.dbm = new DBManager();
+		this.rdao = dbm.getRequestDAO();
+		this.maxItemNumber = rdao.getMaxItemNumber();
+	}
 
+	public String request(String urlString) {
 		URL url = null;
 		BufferedReader in = null;
 		StringBuffer sb = new StringBuffer();
 		try {
-			url = new URL(urlStr);
+			url = new URL(urlString);
 			in = new BufferedReader(new InputStreamReader(url.openStream(),
 					"UTF-8"));
 			String str = null;
@@ -45,9 +53,23 @@ public class JMXHMasterService {
 				ex.printStackTrace();
 			}
 		}
-		String result = sb.toString();
-		MasterServiceBeans bean = JSON.parseObject(result,
-				MasterServiceBeans.class);
+		return sb.toString();
+	}
+
+	public MasterServiceBeans parseBean(String jsonString) {
+		MasterServiceBeans bean = null;
+		if (null != jsonString && jsonString.trim().length() > 0)
+			bean = JSON.parseObject(jsonString, MasterServiceBeans.class);
+		return bean;
+	}
+
+	public static void main(String[] args) throws JsonParseException,
+			JsonMappingException, IOException {
+
+		JMXHMasterService service = new JMXHMasterService();
+
+		String result = service.request(url);
+		MasterServiceBeans bean = service.parseBean(result);
 
 		MasterServiceBean[] beans = bean.getBeans();
 		RegionServer[] rs = beans[0].getRegionServers();
@@ -61,7 +83,6 @@ public class JMXHMasterService {
 			}
 			System.out.println("----------");
 		}
-		
 
 	}
 }
