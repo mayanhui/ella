@@ -6,8 +6,11 @@ import java.sql.SQLException;
 import java.sql.BatchUpdateException;
 import java.sql.Statement;
 
+import com.adintellig.ella.derby.model.RequestDAO;
+
 public class DBManager {
 	private static Connection con = null;
+	private RequestDAO rdao = null;
 
 	private static final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
 	private static final String url = "jdbc:derby:";
@@ -68,6 +71,7 @@ public class DBManager {
 						+ " not found in CLASSPATH");
 			}
 		}
+		rdao = new RequestDAO(con);
 	}
 
 	public void close() {
@@ -112,5 +116,9 @@ public class DBManager {
 
 			se = se.getNextException();
 		}
+	}
+
+	public RequestDAO getRequestDAO() {
+		return rdao;
 	}
 }

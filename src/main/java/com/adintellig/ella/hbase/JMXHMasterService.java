@@ -18,16 +18,18 @@ import com.alibaba.fastjson.JSON;
 
 public class JMXHMasterService {
 
-	public static String url = "http://hadoop-node-20:60010/jmx?qry=hadoop:service=Master,name=Master";
+	// public static String url =
+	// "http://hadoop-node-20:60010/jmx?qry=hadoop:service=Master,name=Master";
+	public static String url = "http://hbase-master:60010/jmx?qry=hadoop:service=Master,name=Master";
 
 	private DBManager dbm = null;
 	private RequestDAO rdao = null;
-	private int maxItemNumber = 0;
+//	private int maxItemNumber = 0;
 
 	public JMXHMasterService() {
 		this.dbm = new DBManager();
 		this.rdao = dbm.getRequestDAO();
-		this.maxItemNumber = rdao.getMaxItemNumber();
+//		this.maxItemNumber = rdao.getMaxItemNumber();
 	}
 
 	public String request(String urlString) {

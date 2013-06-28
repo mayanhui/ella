@@ -6,13 +6,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class RequestDAO {
 
 	private String getRequestSQL = "SELECT * FROM hbase.requests WHERE ID = ?";
-	private static final String insertRequestsSQL = "INSERT INTO hbase.requests(HOST, REGIONNAME, TABLENAME, WRITECOUNT, READCOUNT, TOTALCOUNT, UPDATETIME, INSERTTIME) "
-			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-	
+	private static final String insertRegionRequestsSQL = "INSERT INTO HBASE.REGIONREQUEST(REGIONNAME, WRITECOUNT, READCOUNT, TOTALCOUNT, UPDATETIME, INSERTTIME) "
+			+ "VALUES(?, ?, ?, ?, ?, ?)";
+	private static final String insertTableRequestsSQL = "INSERT INTO HBASE.TABLEREQUEST(TABLENAME, WRITECOUNT, READCOUNT, TOTALCOUNT, UPDATETIME, INSERTTIME) "
+			+ "VALUES(?, ?, ?, ?, ?, ?)";
+	private static final String insertServerRequestsSQL = "INSERT INTO HBASE.SERVERREQUEST(HOST, WRITECOUNT, READCOUNT, TOTALCOUNT, UPDATETIME, INSERTTIME) "
+			+ "VALUES(?, ?, ?, ?, ?, ?)";
+
 	private Connection con = null;
 	private PreparedStatement pstmt = null;
 	private int maxItemNumber = 0;
@@ -87,7 +92,8 @@ public class RequestDAO {
 		}
 	}
 
-	private void batchInsertData(String sql) throws SQLException {
+	private void batchInsert(String sql, List<Object> beans)
+			throws SQLException {
 
 		// PreparedStatement stmt = con.prepareStatement(sql) ;
 		//
