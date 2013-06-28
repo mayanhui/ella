@@ -1,4 +1,4 @@
-package com.adintellig.ella.derby;
+package com.adintellig.ella.derby.product;
 
 import java.math.BigDecimal;
 import java.sql.Date;

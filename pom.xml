@@ -70,6 +70,7 @@
 			<artifactId>guava</artifactId>
 			<version>r09</version>
 		</dependency>
+<!--
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
@@ -85,6 +86,7 @@
 			<artifactId>json-lib</artifactId>
 			<version>2.4</version>
 		</dependency>
+-->
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
@@ -102,6 +104,12 @@
 			<version>6.1.26</version>
 		</dependency>
 
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.1.32</version>
+		</dependency>
 
 	</dependencies>
 
@@ -193,6 +201,7 @@
 									<artifactId>libthrift</artifactId>
 									<version>0.9.0</version>
 								</artifactItem>
+								<!--
 								<artifactItem>
 									<groupId>org.apache.hive</groupId>
 									<artifactId>hive-common</artifactId>
@@ -213,6 +222,7 @@
 									<artifactId>libfb303</artifactId>
 									<version>0.7.0</version>
 								</artifactItem>
+								-->
 								<artifactItem>
 									<groupId>org.apache.hbase</groupId>
 									<artifactId>hbase</artifactId>
@@ -223,11 +233,13 @@
 									<artifactId>hadoop-core</artifactId>
 									<version>${hadoop.version}</version>
 								</artifactItem>
+								<!--
 								<artifactItem>
 									<groupId>com.hadoop</groupId>
 									<artifactId>hadoop-lzo</artifactId>
 									<version>0.4.8</version>
 								</artifactItem>
+								-->
 								<artifactItem>
 									<groupId>org.apache.zookeeper</groupId>
 									<artifactId>zookeeper</artifactId>
@@ -243,6 +255,7 @@
 									<artifactId>guava</artifactId>
 									<version>r09</version>
 								</artifactItem>
+								<!--
 								<artifactItem>
 									<groupId>org.codehaus.jackson</groupId>
 									<artifactId>jackson-core-asl</artifactId>
@@ -258,6 +271,7 @@
 									<artifactId>json-lib</artifactId>
 									<version>2.4</version>
 								</artifactItem>
+								-->
 								<artifactItem>
 									<groupId>commons-lang</groupId>
 									<artifactId>commons-lang</artifactId>
@@ -298,6 +312,13 @@
 									<artifactId>servlet-api</artifactId>
 									<version>2.5-20081211</version>
 								</artifactItem>
+								<artifactItem>
+     								<groupId>com.alibaba</groupId>
+     								<artifactId>fastjson</artifactId>
+    							 	<version>1.1.32</version>
+								</artifactItem>
+								
+
 							</artifactItems>
 							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
 						</configuration>

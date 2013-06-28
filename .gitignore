@@ -16,3 +16,4 @@ target
 *.log
 SurfShop
 build
+DerbyHBase

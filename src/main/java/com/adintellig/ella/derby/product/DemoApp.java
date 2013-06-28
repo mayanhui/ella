@@ -1,23 +1,23 @@
-package com.adintellig.ella.derby;
+package com.adintellig.ella.derby.product;
 
 import java.io.BufferedReader ;
 import java.io.InputStreamReader ;
 
 public class DemoApp {
 	private DBManager dbm = null ;
-	private RequestDAO pdao = null ;
+	private ProductDAO pdao = null ;
 	private int maxItemNumber = 0 ;
 
 	public DemoApp() {
 		this.dbm = new DBManager() ;
-//		this.pdao = dbm.getProductDAO() ;
+		this.pdao = dbm.getProductDAO() ;
 		this.maxItemNumber = pdao.getMaxItemNumber() ;
 	}
 
 	public void showProduct() {
 
 		int itemNumber = 0 ;
-		Request p = null ;
+		Product p = null ;
 
 		BufferedReader cin = new BufferedReader(new InputStreamReader(System.in)) ;
 
@@ -34,8 +34,8 @@ public class DemoApp {
 			else if ((itemNumber < 0) || (itemNumber > this.maxItemNumber))
 				System.out.println ("Invalid product item number, please try again.") ;
 			else{
-//				p = pdao.getProduct(itemNumber) ;
-//				p.printProduct() ;
+				p = pdao.getProduct(itemNumber) ;
+				p.printProduct() ;
 			}
 		}
 		dbm.close() ;
