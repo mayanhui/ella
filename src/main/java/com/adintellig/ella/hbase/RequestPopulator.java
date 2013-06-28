@@ -3,7 +3,7 @@ package com.adintellig.ella.hbase;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -86,6 +86,7 @@ public class RequestPopulator {
 					tableName = regionName
 							.substring(0, regionName.indexOf(","));
 					TableRequestCount request = null;
+
 					if (null != tableNameMap.get(tableName)) {
 						request = tableNameMap.get(tableName);
 						request.setReadCount(request.getReadCount() + readCount);
@@ -93,8 +94,6 @@ public class RequestPopulator {
 								+ writeCount);
 						request.setTotalCount(request.getTotalCount()
 								+ totalCount);
-						request.setInsertTime(insertTime);
-						request.setUpdateTime(updateTime);
 					} else {
 						request = new TableRequestCount();
 						request.setTableName(tableName);
@@ -103,14 +102,22 @@ public class RequestPopulator {
 						request.setTotalCount(totalCount);
 						request.setInsertTime(insertTime);
 						request.setUpdateTime(updateTime);
-						tableNameMap.put(tableName, request);
 					}
-
-					requests.add(request);
+					tableNameMap.put(tableName, request);
 				}
 			}
 		}
 
+		if (tableNameMap.size() > 0) {
+			Set<Map.Entry<String, TableRequestCount>> set = tableNameMap
+					.entrySet();
+			for (Iterator<Map.Entry<String, TableRequestCount>> it = set
+					.iterator(); it.hasNext();) {
+				Map.Entry<String, TableRequestCount> entry = (Map.Entry<String, TableRequestCount>) it
+						.next();
+				requests.add(entry.getValue());
+			}
+		}
 		return requests;
 	}
 

@@ -5,13 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.BatchUpdateException;
 import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.sql.Timestamp;
-
-import com.adintellig.ella.derby.model.RegionRequestCount;
-import com.adintellig.ella.derby.model.RequestDAO;
-
-//import java.sql.ResultSet;
 
 public class DBManager {
 	private static Connection con = null;
@@ -20,20 +13,30 @@ public class DBManager {
 	private static final String url = "jdbc:derby:";
 	private static final String dbName = "DerbyHBase";
 
-	private static final String createRequestSQL = "CREATE TABLE IF NOT EXISTS hbase.requests ("
+	private static final String createRegionRequestSQL = "CREATE TABLE IF NOT EXISTS HBASE.REGIONREQUEST ("
 			+ "ID INT NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT rid_pk PRIMARY KEY,"
-			+ "HOST VARCHAR(200),"
 			+ "REGIONNAME VARCHAR(200),"
+			+ "WRITECOUNT BIGINT,"
+			+ "READCOUNT BIGINT,"
+			+ "TOTALCOUNT BIGINT,"
+			+ "UPDATETIME TIMESTAMP," + "INSERTTIME TIMESTAMP" + ")";
+
+	private static final String createTableRequestSQL = "CREATE TABLE IF NOT EXISTS HBASE.TABLEREQUEST ("
+			+ "ID INT NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT rid_pk PRIMARY KEY,"
 			+ "TABLENAME VARCHAR(200),"
 			+ "WRITECOUNT BIGINT,"
 			+ "READCOUNT BIGINT,"
 			+ "TOTALCOUNT BIGINT,"
 			+ "UPDATETIME TIMESTAMP," + "INSERTTIME TIMESTAMP" + ")";
 
-	private static final String insertRequestsSQL = "INSERT INTO hbase.requests(HOST, REGIONNAME, TABLENAME, WRITECOUNT, READCOUNT, TOTALCOUNT, UPDATETIME, INSERTTIME) "
-			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-
-	private RequestDAO rdao = null;
+	private static final String createServerRequestSQL = "CREATE TABLE IF NOT EXISTS HBASE.SERVERREQUEST ("
+			+ "ID INT NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT rid_pk PRIMARY KEY,"
+			+ "HOST VARCHAR(200),"
+			+ "WRITECOUNT BIGINT,"
+			+ "READCOUNT BIGINT,"
+			+ "TOTALCOUNT BIGINT,"
+			+ "UPDATETIME TIMESTAMP,"
+			+ "INSERTTIME TIMESTAMP" + ")";
 
 	public DBManager() {
 		if (!dbExists()) {
@@ -42,16 +45,18 @@ public class DBManager {
 				con = DriverManager
 						.getConnection(url + dbName + ";create=true");
 
-				processStatement(createRequestSQL);
+				processStatement(createRegionRequestSQL);
+				processStatement(createTableRequestSQL);
+				processStatement(createServerRequestSQL);
 
 				con.setAutoCommit(false);
-//				batchInsertData(insertRequestsSQL);
 				con.commit();
 
 			} catch (BatchUpdateException bue) {
 				try {
 					con.rollback();
-					System.err.println("Batch Update Exception: Transaction Rolled Back");
+					System.err
+							.println("Batch Update Exception: Transaction Rolled Back");
 					printSQLException((SQLException) bue);
 				} catch (SQLException se) {
 					printSQLException(se);
@@ -63,7 +68,6 @@ public class DBManager {
 						+ " not found in CLASSPATH");
 			}
 		}
-		rdao = new RequestDAO(con);
 	}
 
 	public void close() {
@@ -73,10 +77,6 @@ public class DBManager {
 			; // Do Nothing. System has shut down.
 		}
 		con = null;
-	}
-
-	public RequestDAO getRequestDAO() {
-		return rdao;
 	}
 
 	private Boolean dbExists() {
@@ -94,54 +94,13 @@ public class DBManager {
 	// We ignore wranings and return counts for simplicity in this demo
 
 	private void processStatement(String sql) throws SQLException {
-
 		Statement stmt = con.createStatement();
-		int count = stmt.executeUpdate(sql);
-
+		stmt.executeUpdate(sql);
 		stmt.close();
-	}
-
-	private void batchInsertData(String sql) throws SQLException {
-
-		// PreparedStatement stmt = con.prepareStatement(sql) ;
-		//
-		// for(int itemNumber: itemNumbers){
-		// stmt.setInt(1, itemNumbers[itemNumber - 1]) ;
-		// stmt.setBigDecimal(2, prices[itemNumber - 1]) ;
-		// stmt.setDate(3, dates[itemNumber - 1]) ;
-		// stmt.setString(4, descriptions[itemNumber - 1]) ;
-		// stmt.addBatch() ;
-		// }
-		//
-		// int[] counts = stmt.executeBatch() ;
-		//
-		// stmt.close() ;
-
-		PreparedStatement stmt = con.prepareStatement(sql);
-
-		stmt.setString(1, "hadoop-node-20");
-		stmt.setString(
-				2,
-				"lvv_uid,{0405BD52-C505-C3D6-EC89-C735F3D6DEB3},1372149624541.5ed9f894d4e640fa2260fdcada5fc59a.");
-		stmt.setString(3, "lvv_uid");
-		stmt.setLong(4, 100L);
-		stmt.setLong(5, 1000L);
-		stmt.setLong(6, 1100L);
-		stmt.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
-		stmt.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
-		stmt.addBatch();
-		
-		int[] counts = stmt.executeBatch();
-		stmt.close();
-
 	}
 
 	public static void main(String[] args) throws SQLException {
-		DBManager dbm = new DBManager();
-		RequestDAO rdao = dbm.getRequestDAO();
-		RegionRequestCount r = rdao.getRequest(1);
-		System.out.println(r.toString());
-//		dbm.batchInsertData(insertRequestsSQL);
+		// DBManager dbm = new DBManager();
 	}
 
 	private void printSQLException(SQLException se) {

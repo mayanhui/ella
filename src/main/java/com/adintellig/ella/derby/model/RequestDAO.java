@@ -10,7 +10,9 @@ import java.sql.Timestamp;
 public class RequestDAO {
 
 	private String getRequestSQL = "SELECT * FROM hbase.requests WHERE ID = ?";
-
+	private static final String insertRequestsSQL = "INSERT INTO hbase.requests(HOST, REGIONNAME, TABLENAME, WRITECOUNT, READCOUNT, TOTALCOUNT, UPDATETIME, INSERTTIME) "
+			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+	
 	private Connection con = null;
 	private PreparedStatement pstmt = null;
 	private int maxItemNumber = 0;
@@ -27,7 +29,7 @@ public class RequestDAO {
 
 			if (rs.next())
 				maxItemNumber = rs.getInt(1);
-			
+
 			rs.close();
 			stmt.close();
 
@@ -60,8 +62,9 @@ public class RequestDAO {
 				Timestamp updateTime = rs.getTimestamp("UPDATETIME");
 				Timestamp insertTime = rs.getTimestamp("INSERTTIME");
 
-				product = new RegionRequestCount(host, regionName, tableName, writeCount,
-						readCount, totalCount, updateTime, insertTime);
+				// product = new RegionRequestCount(host, regionName, tableName,
+				// writeCount,
+				// readCount, totalCount, updateTime, insertTime);
 			}
 
 			rs.close();
@@ -82,5 +85,40 @@ public class RequestDAO {
 
 			se = se.getNextException();
 		}
+	}
+
+	private void batchInsertData(String sql) throws SQLException {
+
+		// PreparedStatement stmt = con.prepareStatement(sql) ;
+		//
+		// for(int itemNumber: itemNumbers){
+		// stmt.setInt(1, itemNumbers[itemNumber - 1]) ;
+		// stmt.setBigDecimal(2, prices[itemNumber - 1]) ;
+		// stmt.setDate(3, dates[itemNumber - 1]) ;
+		// stmt.setString(4, descriptions[itemNumber - 1]) ;
+		// stmt.addBatch() ;
+		// }
+		//
+		// int[] counts = stmt.executeBatch() ;
+		//
+		// stmt.close() ;
+
+		PreparedStatement stmt = con.prepareStatement(sql);
+
+		stmt.setString(1, "hadoop-node-20");
+		stmt.setString(
+				2,
+				"lvv_uid,{0405BD52-C505-C3D6-EC89-C735F3D6DEB3},1372149624541.5ed9f894d4e640fa2260fdcada5fc59a.");
+		stmt.setString(3, "lvv_uid");
+		stmt.setLong(4, 100L);
+		stmt.setLong(5, 1000L);
+		stmt.setLong(6, 1100L);
+		stmt.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
+		stmt.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
+		stmt.addBatch();
+
+		int[] counts = stmt.executeBatch();
+		stmt.close();
+
 	}
 }

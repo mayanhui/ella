@@ -10,12 +10,10 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 
 import com.adintellig.ella.derby.DBManager;
-import com.adintellig.ella.derby.model.RegionRequestCount;
+import com.adintellig.ella.derby.model.RegionServerRequestCount;
 import com.adintellig.ella.derby.model.RequestDAO;
-import com.adintellig.ella.hbase.beans.MasterServiceBean;
+import com.adintellig.ella.derby.model.TableRequestCount;
 import com.adintellig.ella.hbase.beans.MasterServiceBeans;
-import com.adintellig.ella.hbase.beans.RegionServer;
-import com.adintellig.ella.hbase.beans.RegionsLoad;
 import com.alibaba.fastjson.JSON;
 
 public class JMXHMasterService {
@@ -71,13 +69,36 @@ public class JMXHMasterService {
 		JMXHMasterService service = new JMXHMasterService();
 
 		String result = service.request(url);
+		long en = System.currentTimeMillis();
+		System.out.println((en - st));
+		st = en;
+		System.out.println("=========request url===========");
 		MasterServiceBeans bean = service.parseBean(result);
 
-		List<RegionRequestCount> list = RequestPopulator.populate(bean);
-		for (RegionRequestCount req : list) {
+		en = System.currentTimeMillis();
+		System.out.println((en - st));
+		st = en;
+		System.out.println("=========parseBean===========");
+		List<RegionServerRequestCount> list1 = RequestPopulator
+				.populateRegionServerRequestCount(bean);
+
+		for (RegionServerRequestCount req : list1) {
 			System.out.println(req);
 		}
-		long en = System.currentTimeMillis();
-		System.out.println((en - st) );
+
+		en = System.currentTimeMillis();
+		System.out.println((en - st));
+		st = en;
+		System.out.println("=========populate regionserver===========");
+		List<TableRequestCount> list2 = RequestPopulator
+				.populateTableRequestCount(bean);
+
+		for (TableRequestCount req : list2) {
+			System.out.println(req);
+		}
+
+		en = System.currentTimeMillis();
+		System.out.println((en - st));
+		System.out.println("=========populate table===========");
 	}
 }
