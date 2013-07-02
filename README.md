@@ -15,6 +15,16 @@ Ella is a "Border Collie", a handsome and smart dog.
 Released under the GPLv3 license. For full details, pleasesee the LICENSE file included in this distribution.
 
 
+## Framwork
+Java 1.6
+Jetty 6.1.26
+Derby 10.10.1.1
+JMX
+FastJson
+Quartz 1.5
+
+
+
 ##cronExpression配置说明  
   
 字段   允许值   允许的特殊字符

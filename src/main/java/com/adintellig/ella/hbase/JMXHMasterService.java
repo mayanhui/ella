@@ -26,8 +26,7 @@ public class JMXHMasterService extends Thread {
 
 	static ConfigProperties config = ConfigFactory.getInstance()
 			.getConfigProperties(ConfigFactory.ELLA_CONFIG_PATH);
-	// public static String url =
-	// "http://hadoop-node-20:60010/jmx?qry=hadoop:service=Master,name=Master";
+
 	public static String url;
 
 	private DBManager dbm = null;
