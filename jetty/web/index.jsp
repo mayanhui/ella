@@ -1,3 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+        pageEncoding="UTF-8"%>
+        
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%@ page language="java" import="java.util.*"%>
+<%@ page language="java" import="com.adintellig.ella.derby.*"%>
+<%@ page language="java" import="com.adintellig.ella.derby.model.*"%>
+
+<%
+       DBManager dbm = new DBManager();
+	   List<TableRequestCount> tables = dbm.getRequestDAO().getRequests();
+	   request.setAttribute("tables",tables);
+%>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <title>HBase Master: hbase-master,60000,1363167283031</title>
@@ -23,9 +38,14 @@
 <table id="requests_table">
 <tr><th>Table Name</th><th>Write Count</th><th>Read Count</th><th>Total Count</th></tr>
 
-
-<tr><td>HBase Version</td><td>0.94.0, r1332822</td><td>HBase version and revision</td></tr>
-<tr><td>HBase Compiled</td><td>Tue May  1 21:43:54 UTC 2012, jenkins</td><td>When HBase version was compiled and by whom</td></tr>
+<c:forEach var="t" items="${tables}"> 
+        <tr> 
+          <th>${t.tableName}</th>
+          <th>${t.writeCount}</th>
+          <th>${t.readCount}</th>
+          <th>${t.totalCount}</th>  
+        </tr> 
+</c:forEach> 
 
 </table>
 

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RequestDAO {
@@ -81,19 +82,27 @@ public class RequestDAO {
 		return product;
 	}
 
-	public void getRequests() {
-		String sql = "SELECT count(*) FROM HBASE.REGIONREQUEST WHERE UPDATETIME >'2013-07-02 00:00:00'";
+	public List<TableRequestCount> getRequests() {
+		List<TableRequestCount> list = new ArrayList<TableRequestCount>();
+		String sql = "SELECT TABLENAME,WRITECOUNT,READCOUNT,TOTALCOUNT FROM HBASE.TABLEREQUEST WHERE UPDATETIME >'2013-07-02 00:00:00'";
 		try {
 			Statement stmt = con.createStatement();
-
+			stmt.setMaxRows(14);
 			ResultSet rs = stmt.executeQuery(sql);
 
-			while (rs.next())
-				System.out.println(rs.getString(1));
+			while (rs.next()) {
+				TableRequestCount req = new TableRequestCount();
+				req.setTableName(rs.getString(1));
+				req.setWriteCount(rs.getLong(2));
+				req.setReadCount(rs.getLong(3));
+				req.setTotalCount(rs.getLong(4));
+				list.add(req);
+			}
+			System.out.println(list.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		return list;
 	}
 
 	private void printSQLException(SQLException se) {
