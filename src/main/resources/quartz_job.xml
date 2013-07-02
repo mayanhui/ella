@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quartz>
+	<job>
+		<job-detail>
+			<name>RunQuartzJob</name>
+			<group>DEFAULT</group>
+			<description>RunQuartzJob</description>
+			<job-class>com.adintellig.ella.quartz.CronQuartzJob</job-class>
+			<volatility>false</volatility>
+			<durability>false</durability>
+			<recover>false</recover>
+		</job-detail>
+
+		<trigger>
+			<cron>
+				<name>RunQuartzJobTrigger</name>
+				<group>DEFAULT</group>
+				<description>RunQuartzJobTrigger</description>
+				<job-name>RunQuartzJob</job-name>
+				<job-group>DEFAULT</job-group>
+
+				<cron-expression>0/10 * * * * ?</cron-expression>
+			</cron>
+		</trigger>
+
+	</job>
+</quartz>

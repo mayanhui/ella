@@ -16,7 +16,7 @@ import com.adintellig.ella.derby.model.RequestDAO;
 import com.adintellig.ella.hbase.beans.MasterServiceBeans;
 import com.alibaba.fastjson.JSON;
 
-public class JMXHMasterService {
+public class JMXHMasterService extends Thread {
 
 	// public static String url =
 	// "http://hadoop-node-20:60010/jmx?qry=hadoop:service=Master,name=Master";
@@ -24,12 +24,13 @@ public class JMXHMasterService {
 
 	private DBManager dbm = null;
 	private RequestDAO rdao = null;
-//	private int maxItemNumber = 0;
+
+	// private int maxItemNumber = 0;
 
 	public JMXHMasterService() {
 		this.dbm = new DBManager();
 		this.rdao = dbm.getRequestDAO();
-//		this.maxItemNumber = rdao.getMaxItemNumber();
+		// this.maxItemNumber = rdao.getMaxItemNumber();
 	}
 
 	public String request(String urlString) {
@@ -65,47 +66,31 @@ public class JMXHMasterService {
 		return bean;
 	}
 
+	@Override
+	public void run() {
+		String result = request(url);
+		MasterServiceBeans bean = parseBean(result);
+		try {
+			// region
+			List<RequestCount> list = RequestPopulator
+					.populateRegionRequestCount(bean);
+			rdao.batchInsert(list);
+			// server
+			list = RequestPopulator.populateRegionServerRequestCount(bean);
+			rdao.batchInsert(list);
+			// table
+			list = RequestPopulator.populateTableRequestCount(bean);
+			rdao.batchInsert(list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public static void main(String[] args) throws JsonParseException,
 			JsonMappingException, IOException, SQLException {
-		long st = System.currentTimeMillis();
 		JMXHMasterService service = new JMXHMasterService();
-
-		String result = service.request(url);
-		long en = System.currentTimeMillis();
-		System.out.println((en - st));
-		st = en;
-		System.out.println("=========request url===========");
-		MasterServiceBeans bean = service.parseBean(result);
-
-		List<RequestCount> list0 = RequestPopulator
-				.populateRegionRequestCount(bean);
-		service.rdao.batchInsert(list0);
-		
-		
-		en = System.currentTimeMillis();
-		System.out.println((en - st));
-		st = en;
-		System.out.println("=========parseBean===========");
-		List<RequestCount> list1 = RequestPopulator
-				.populateRegionServerRequestCount(bean);
-		service.rdao.batchInsert(list1);
-		for (RequestCount req : list1) {
-			System.out.println(req);
-		}
-		
-		en = System.currentTimeMillis();
-		System.out.println((en - st));
-		st = en;
-		System.out.println("=========populate regionserver===========");
-		List<RequestCount> list2 = RequestPopulator
-				.populateTableRequestCount(bean);
-		service.rdao.batchInsert(list2);
-		for (RequestCount req : list2) {
-			System.out.println(req);
-		}
-
-		en = System.currentTimeMillis();
-		System.out.println((en - st));
-		System.out.println("=========populate table===========");
+		Thread t = new Thread(service);
+		t.start();
 	}
 }
