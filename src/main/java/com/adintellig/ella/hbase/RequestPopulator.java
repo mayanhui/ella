@@ -10,6 +10,7 @@ import java.util.Set;
 
 import com.adintellig.ella.derby.model.RegionRequestCount;
 import com.adintellig.ella.derby.model.RegionServerRequestCount;
+import com.adintellig.ella.derby.model.RequestCount;
 import com.adintellig.ella.derby.model.TableRequestCount;
 import com.adintellig.ella.hbase.beans.MasterServiceBean;
 import com.adintellig.ella.hbase.beans.MasterServiceBeans;
@@ -19,7 +20,7 @@ import com.adintellig.ella.hbase.beans.RegionsLoadValue;
 
 public class RequestPopulator {
 
-	public static List<RegionRequestCount> populateRegionRequestCount(
+	public static List<RequestCount> populateRegionRequestCount(
 			MasterServiceBeans bean) {
 		String regionName = null;
 		Long readCount = 0L;
@@ -28,7 +29,7 @@ public class RequestPopulator {
 		Timestamp insertTime = new Timestamp(System.currentTimeMillis());
 		Timestamp updateTime = new Timestamp(System.currentTimeMillis());
 
-		List<RegionRequestCount> requests = new ArrayList<RegionRequestCount>();
+		List<RequestCount> requests = new ArrayList<RequestCount>();
 
 		MasterServiceBean[] beans = bean.getBeans();
 
@@ -57,7 +58,7 @@ public class RequestPopulator {
 		return requests;
 	}
 
-	public static List<TableRequestCount> populateTableRequestCount(
+	public static List<RequestCount> populateTableRequestCount(
 			MasterServiceBeans bean) {
 		String regionName = null;
 		String tableName = null;
@@ -67,7 +68,7 @@ public class RequestPopulator {
 		Timestamp insertTime = new Timestamp(System.currentTimeMillis());
 		Timestamp updateTime = new Timestamp(System.currentTimeMillis());
 
-		List<TableRequestCount> requests = new ArrayList<TableRequestCount>();
+		List<RequestCount> requests = new ArrayList<RequestCount>();
 		Map<String, TableRequestCount> tableNameMap = new HashMap<String, TableRequestCount>();
 
 		MasterServiceBean[] beans = bean.getBeans();
@@ -121,7 +122,7 @@ public class RequestPopulator {
 		return requests;
 	}
 
-	public static List<RegionServerRequestCount> populateRegionServerRequestCount(
+	public static List<RequestCount> populateRegionServerRequestCount(
 			MasterServiceBeans bean) {
 		String host = null;
 		Long readCount = 0L;
@@ -130,7 +131,7 @@ public class RequestPopulator {
 		Timestamp insertTime = new Timestamp(System.currentTimeMillis());
 		Timestamp updateTime = new Timestamp(System.currentTimeMillis());
 
-		List<RegionServerRequestCount> requests = new ArrayList<RegionServerRequestCount>();
+		List<RequestCount> requests = new ArrayList<RequestCount>();
 
 		MasterServiceBean[] beans = bean.getBeans();
 

@@ -4,15 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 
 import com.adintellig.ella.derby.DBManager;
-import com.adintellig.ella.derby.model.RegionServerRequestCount;
+import com.adintellig.ella.derby.model.RequestCount;
 import com.adintellig.ella.derby.model.RequestDAO;
-import com.adintellig.ella.derby.model.TableRequestCount;
 import com.adintellig.ella.hbase.beans.MasterServiceBeans;
 import com.alibaba.fastjson.JSON;
 
@@ -66,7 +66,7 @@ public class JMXHMasterService {
 	}
 
 	public static void main(String[] args) throws JsonParseException,
-			JsonMappingException, IOException {
+			JsonMappingException, IOException, SQLException {
 		long st = System.currentTimeMillis();
 		JMXHMasterService service = new JMXHMasterService();
 
@@ -77,25 +77,30 @@ public class JMXHMasterService {
 		System.out.println("=========request url===========");
 		MasterServiceBeans bean = service.parseBean(result);
 
+		List<RequestCount> list0 = RequestPopulator
+				.populateRegionRequestCount(bean);
+		service.rdao.batchInsert(list0);
+		
+		
 		en = System.currentTimeMillis();
 		System.out.println((en - st));
 		st = en;
 		System.out.println("=========parseBean===========");
-		List<RegionServerRequestCount> list1 = RequestPopulator
+		List<RequestCount> list1 = RequestPopulator
 				.populateRegionServerRequestCount(bean);
-
-		for (RegionServerRequestCount req : list1) {
+		service.rdao.batchInsert(list1);
+		for (RequestCount req : list1) {
 			System.out.println(req);
 		}
-
+		
 		en = System.currentTimeMillis();
 		System.out.println((en - st));
 		st = en;
 		System.out.println("=========populate regionserver===========");
-		List<TableRequestCount> list2 = RequestPopulator
+		List<RequestCount> list2 = RequestPopulator
 				.populateTableRequestCount(bean);
-
-		for (TableRequestCount req : list2) {
+		service.rdao.batchInsert(list2);
+		for (RequestCount req : list2) {
 			System.out.println(req);
 		}
 

@@ -16,7 +16,7 @@ public class DBManager {
 	private static final String url = "jdbc:derby:";
 	private static final String dbName = "DerbyHBase";
 
-	private static final String createRegionRequestSQL = "CREATE TABLE IF NOT EXISTS HBASE.REGIONREQUEST ("
+	private static final String createRegionRequestSQL = "CREATE TABLE HBASE.REGIONREQUEST ("
 			+ "ID INT NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT rid_pk PRIMARY KEY,"
 			+ "REGIONNAME VARCHAR(200),"
 			+ "WRITECOUNT BIGINT,"
@@ -24,16 +24,16 @@ public class DBManager {
 			+ "TOTALCOUNT BIGINT,"
 			+ "UPDATETIME TIMESTAMP," + "INSERTTIME TIMESTAMP" + ")";
 
-	private static final String createTableRequestSQL = "CREATE TABLE IF NOT EXISTS HBASE.TABLEREQUEST ("
-			+ "ID INT NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT rid_pk PRIMARY KEY,"
+	private static final String createTableRequestSQL = "CREATE TABLE HBASE.TABLEREQUEST ("
+			+ "ID INT NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT tid_pk PRIMARY KEY,"
 			+ "TABLENAME VARCHAR(200),"
 			+ "WRITECOUNT BIGINT,"
 			+ "READCOUNT BIGINT,"
 			+ "TOTALCOUNT BIGINT,"
 			+ "UPDATETIME TIMESTAMP," + "INSERTTIME TIMESTAMP" + ")";
 
-	private static final String createServerRequestSQL = "CREATE TABLE IF NOT EXISTS HBASE.SERVERREQUEST ("
-			+ "ID INT NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT rid_pk PRIMARY KEY,"
+	private static final String createServerRequestSQL = "CREATE TABLE HBASE.SERVERREQUEST ("
+			+ "ID INT NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT sid_pk PRIMARY KEY,"
 			+ "HOST VARCHAR(200),"
 			+ "WRITECOUNT BIGINT,"
 			+ "READCOUNT BIGINT,"
@@ -52,14 +52,13 @@ public class DBManager {
 				processStatement(createTableRequestSQL);
 				processStatement(createServerRequestSQL);
 
-				con.setAutoCommit(false);
+//				con.setAutoCommit(false);
 				con.commit();
 
 			} catch (BatchUpdateException bue) {
 				try {
 					con.rollback();
-					System.err
-							.println("Batch Update Exception: Transaction Rolled Back");
+					System.err.println("Batch Update Exception: Transaction Rolled Back");
 					printSQLException((SQLException) bue);
 				} catch (SQLException se) {
 					printSQLException(se);
@@ -104,12 +103,11 @@ public class DBManager {
 	}
 
 	public static void main(String[] args) throws SQLException {
-		// DBManager dbm = new DBManager();
+		DBManager dbm = new DBManager();
 	}
 
 	private void printSQLException(SQLException se) {
 		while (se != null) {
-
 			System.out.print("SQLException: State:   " + se.getSQLState());
 			System.out.println("Severity: " + se.getErrorCode());
 			System.out.println(se.getMessage());

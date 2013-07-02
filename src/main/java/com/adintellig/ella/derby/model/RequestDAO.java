@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RequestDAO {
 
-	private String getRequestSQL = "SELECT * FROM hbase.requests WHERE ID = ?";
+	private String getRequestSQL = "SELECT * FROM HBASE.REGIONREQUEST WHERE ID = ?";
 	private static final String insertRegionRequestsSQL = "INSERT INTO HBASE.REGIONREQUEST(REGIONNAME, WRITECOUNT, READCOUNT, TOTALCOUNT, UPDATETIME, INSERTTIME) "
 			+ "VALUES(?, ?, ?, ?, ?, ?)";
 	private static final String insertTableRequestsSQL = "INSERT INTO HBASE.TABLEREQUEST(TABLENAME, WRITECOUNT, READCOUNT, TOTALCOUNT, UPDATETIME, INSERTTIME) "
@@ -92,38 +92,41 @@ public class RequestDAO {
 		}
 	}
 
-	private void batchInsert(String sql, List<Object> beans)
-			throws SQLException {
-
-		// PreparedStatement stmt = con.prepareStatement(sql) ;
-		//
-		// for(int itemNumber: itemNumbers){
-		// stmt.setInt(1, itemNumbers[itemNumber - 1]) ;
-		// stmt.setBigDecimal(2, prices[itemNumber - 1]) ;
-		// stmt.setDate(3, dates[itemNumber - 1]) ;
-		// stmt.setString(4, descriptions[itemNumber - 1]) ;
-		// stmt.addBatch() ;
-		// }
-		//
-		// int[] counts = stmt.executeBatch() ;
-		//
-		// stmt.close() ;
+	public void batchInsert(List<RequestCount> beans) throws SQLException {
+		String sql = null;
+		if (null != beans && beans.size() > 0) {
+			RequestCount req = beans.get(0);
+			if (req instanceof RegionRequestCount) {
+				sql = insertRegionRequestsSQL;
+			} else if (req instanceof TableRequestCount) {
+				sql = insertTableRequestsSQL;
+			} else if (req instanceof RegionServerRequestCount) {
+				sql = insertServerRequestsSQL;
+			}
+		}
 
 		PreparedStatement stmt = con.prepareStatement(sql);
 
-		stmt.setString(1, "hadoop-node-20");
-		stmt.setString(
-				2,
-				"lvv_uid,{0405BD52-C505-C3D6-EC89-C735F3D6DEB3},1372149624541.5ed9f894d4e640fa2260fdcada5fc59a.");
-		stmt.setString(3, "lvv_uid");
-		stmt.setLong(4, 100L);
-		stmt.setLong(5, 1000L);
-		stmt.setLong(6, 1100L);
-		stmt.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
-		stmt.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
-		stmt.addBatch();
+		for (RequestCount req : beans) {
+			String name = null;
+			if (req instanceof RegionRequestCount) {
+				name = ((RegionRequestCount) req).getRegionName();
+			} else if (req instanceof TableRequestCount) {
+				name = ((TableRequestCount) req).getTableName();
+			} else if (req instanceof RegionServerRequestCount) {
+				name = ((RegionServerRequestCount) req).getServerHost();
+			}
+			stmt.setString(1, name);
+			stmt.setLong(2, req.getWriteCount());
+			stmt.setLong(3, req.getReadCount());
+			stmt.setLong(4, req.getTotalCount());
+			stmt.setTimestamp(5, req.getUpdateTime());
+			stmt.setTimestamp(6, req.getInsertTime());
 
-		int[] counts = stmt.executeBatch();
+			stmt.addBatch();
+		}
+
+		stmt.executeBatch();
 		stmt.close();
 
 	}
