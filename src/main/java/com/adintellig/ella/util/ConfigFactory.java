@@ -3,7 +3,7 @@ package com.adintellig.ella.util;
 import java.util.HashMap;
 
 public class ConfigFactory {
-	public static final String INDEX_CONFIG_PATH = "/index.properties";
+	public static final String ELLA_CONFIG_PATH = "/ella.properties";
 	
 	private static ConfigFactory instance = new ConfigFactory();
 	private HashMap<String, ConfigProperties> configMap = new HashMap<String, ConfigProperties>();

@@ -30,7 +30,7 @@ public class RequestDAO {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT MAX(ID) FROM hbase.requests");
+					.executeQuery("SELECT MAX(ID) FROM HBASE.REGIONREQUEST");
 
 			if (rs.next())
 				maxItemNumber = rs.getInt(1);

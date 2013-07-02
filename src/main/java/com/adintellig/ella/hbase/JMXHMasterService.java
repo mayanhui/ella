@@ -9,18 +9,26 @@ import java.util.List;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.adintellig.ella.derby.DBManager;
 import com.adintellig.ella.derby.model.RequestCount;
 import com.adintellig.ella.derby.model.RequestDAO;
 import com.adintellig.ella.hbase.beans.MasterServiceBeans;
+import com.adintellig.ella.util.ConfigFactory;
+import com.adintellig.ella.util.ConfigProperties;
 import com.alibaba.fastjson.JSON;
 
 public class JMXHMasterService extends Thread {
+	private static Logger logger = LoggerFactory
+			.getLogger(JMXHMasterService.class);
 
+	static ConfigProperties config = ConfigFactory.getInstance()
+			.getConfigProperties(ConfigFactory.ELLA_CONFIG_PATH);
 	// public static String url =
 	// "http://hadoop-node-20:60010/jmx?qry=hadoop:service=Master,name=Master";
-	public static String url = "http://hbase-master:60010/jmx?qry=hadoop:service=Master,name=Master";
+	public static String url;
 
 	private DBManager dbm = null;
 	private RequestDAO rdao = null;
@@ -31,6 +39,8 @@ public class JMXHMasterService extends Thread {
 		this.dbm = new DBManager();
 		this.rdao = dbm.getRequestDAO();
 		// this.maxItemNumber = rdao.getMaxItemNumber();
+		url = config
+				.getProperty(ConfigProperties.CONFIG_NAME_ELLA_HBASE_MASTER_JMX_QRY_URL);
 	}
 
 	public String request(String urlString) {
@@ -69,18 +79,23 @@ public class JMXHMasterService extends Thread {
 	@Override
 	public void run() {
 		String result = request(url);
+		logger.info("Request URL: " + url);
 		MasterServiceBeans bean = parseBean(result);
 		try {
 			// region
 			List<RequestCount> list = RequestPopulator
 					.populateRegionRequestCount(bean);
 			rdao.batchInsert(list);
+			logger.info("Load Region info into Derby. Size=" + list.size());
 			// server
 			list = RequestPopulator.populateRegionServerRequestCount(bean);
 			rdao.batchInsert(list);
+			logger.info("Load RegionServer info into Derby. Size="
+					+ list.size());
 			// table
 			list = RequestPopulator.populateTableRequestCount(bean);
 			rdao.batchInsert(list);
+			logger.info("Load Table info into Derby. Size=" + list.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
