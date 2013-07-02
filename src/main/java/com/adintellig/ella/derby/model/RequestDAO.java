@@ -24,23 +24,23 @@ public class RequestDAO {
 
 	public RequestDAO(Connection theCon) {
 		this.con = theCon;
-		try {
-			this.pstmt = con.prepareStatement(getRequestSQL);
-
-			Statement stmt = con.createStatement();
-
-			ResultSet rs = stmt
-					.executeQuery("SELECT MAX(ID) FROM HBASE.REGIONREQUEST");
-
-			if (rs.next())
-				maxItemNumber = rs.getInt(1);
-
-			rs.close();
-			stmt.close();
-
-		} catch (SQLException se) {
-			printSQLException(se);
-		}
+		// try {
+		// this.pstmt = con.prepareStatement(getRequestSQL);
+		//
+		// Statement stmt = con.createStatement();
+		//
+		// ResultSet rs = stmt
+		// .executeQuery("SELECT MAX(ID) FROM HBASE.REGIONREQUEST");
+		//
+		// if (rs.next())
+		// maxItemNumber = rs.getInt(1);
+		//
+		// rs.close();
+		// stmt.close();
+		//
+		// } catch (SQLException se) {
+		// printSQLException(se);
+		// }
 	}
 
 	public int getMaxItemNumber() {
@@ -79,6 +79,21 @@ public class RequestDAO {
 		}
 
 		return product;
+	}
+
+	public void getRequests() {
+		String sql = "SELECT count(*) FROM HBASE.REGIONREQUEST WHERE UPDATETIME >'2013-07-02 00:00:00'";
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next())
+				System.out.println(rs.getString(1));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	private void printSQLException(SQLException se) {

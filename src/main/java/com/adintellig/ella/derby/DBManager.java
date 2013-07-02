@@ -104,6 +104,7 @@ public class DBManager {
 
 	public static void main(String[] args) throws SQLException {
 		DBManager dbm = new DBManager();
+		dbm.getRequestDAO().getRequests();
 	}
 
 	private void printSQLException(SQLException se) {
