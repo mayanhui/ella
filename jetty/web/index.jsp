@@ -40,10 +40,10 @@
 
 <c:forEach var="t" items="${tables}"> 
         <tr> 
-          <th>${t.tableName}</th>
-          <th>${t.writeCount}</th>
-          <th>${t.readCount}</th>
-          <th>${t.totalCount}</th>  
+          <td>${t.tableName}</td>
+          <td>${t.writeCount}</td>
+          <td>${t.readCount}</td>
+          <td>${t.totalCount}</td>  
         </tr> 
 </c:forEach> 
 
@@ -87,9 +87,6 @@
   </div>
   
     No tasks currently running on this node.
-  
-
-
 
 
 <h2>Tables</h2>
