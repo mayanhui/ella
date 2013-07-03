@@ -22,7 +22,7 @@ Derby 10.10.1.1
 JMX
 FastJson
 Quartz 1.5
-
+D3
 
 
 ##cronExpression配置说明  
