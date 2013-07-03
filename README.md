@@ -16,13 +16,14 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 
 
 ## Framwork
-Java 1.6
-Jetty 6.1.26
-Derby 10.10.1.1
-JMX
-FastJson
-Quartz 1.5
-D3
+Java 1.6 (http://www.oracle.com/technetwork/java/index.html)
+Jetty 6.1.26 (http://www.eclipse.org/jetty/)
+Derby 10.10.1.1 (http://db.apache.org/derby/)
+JMX (http://zh.wikipedia.org/wiki/JMX)
+FastJson (https://github.com/alibaba/fastjson)
+Quartz 1.5 (http://www.quartz-scheduler.org/)
+D3 (https://github.com/mbostock/d3)
+gRaphael (http://g.raphaeljs.com/)
 
 
 ##cronExpression配置说明  
