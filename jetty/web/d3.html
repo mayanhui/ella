@@ -28,8 +28,9 @@ body {
 }
 
 </style>
-<script src="js/d3.v3.js" charset="utf-8"></script>
+<script src="js/d3/d3.v3.js" charset="utf-8"></script>
 </head>
+
 <body>
 <script type="text/javascript">
 
@@ -102,7 +103,7 @@ d3.tsv("data.tsv", function(error, data) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Temperature (ºF)");
+      .text("Count");
 
   var city = svg.selectAll(".city")
       .data(cities)
