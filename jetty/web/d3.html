@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <meta charset="utf-8">
+
 <style>
 
 body {
@@ -27,10 +28,10 @@ body {
 }
 
 </style>
+<script src="js/d3.v3.js" charset="utf-8"></script>
 </head>
 <body>
-<script src="http://d3js.org/d3.v3.js"></script>
-<script>
+<script type="text/javascript">
 
 var margin = {top: 20, right: 80, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
@@ -122,10 +123,6 @@ d3.tsv("data.tsv", function(error, data) {
 });
 
 </script>
-
-d3.csv("path/to/file.csv")
-    .row(function(d) { return {key: d.key, value: +d.value}; })
-    .get(function(error, rows) { console.log(rows); });
 
 </body>
 </html>
