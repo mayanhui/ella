@@ -15,7 +15,9 @@ import org.slf4j.LoggerFactory;
 //import com.adintellig.ella.derby.DBManager;
 import com.adintellig.ella.hbase.beans.MasterServiceBeans;
 import com.adintellig.ella.model.RequestCount;
+import com.adintellig.ella.model.Table;
 import com.adintellig.ella.mysql.RequestCountDaoImpl;
+import com.adintellig.ella.mysql.TableDaoImpl;
 //import com.adintellig.ella.mysql.RequestDAO;
 import com.adintellig.ella.util.ConfigFactory;
 import com.adintellig.ella.util.ConfigProperties;
@@ -30,15 +32,12 @@ public class JMXHMasterService extends Thread {
 
 	public static String url;
 
-//	private DBManager dbm = null;
-	private RequestCountDaoImpl rdao = null;
-
-	// private int maxItemNumber = 0;
+	private RequestCountDaoImpl reqDao = null;
+	private TableDaoImpl tblDao = null;
 
 	public JMXHMasterService() {
-//		this.dbm = new DBManager();
-		this.rdao = new RequestCountDaoImpl();
-		// this.maxItemNumber = rdao.getMaxItemNumber();
+		this.reqDao = new RequestCountDaoImpl();
+		this.tblDao = new TableDaoImpl();
 		url = config.getProperty(ConfigProperties.CONFIG_NAME_ELLA_HBASE_MASTER_JMX_QRY_URL);
 	}
 
@@ -84,21 +83,26 @@ public class JMXHMasterService extends Thread {
 			// region count
 			List<RequestCount> list = RequestPopulator
 					.populateRegionRequestCount(bean);
-			rdao.batchAdd(list);
-			logger.info("Load Region info into MySQL. Size=" + list.size());
+			reqDao.batchAdd(list);
+			logger.info("Load Region Count info into MySQL. Size="
+					+ list.size());
 			// server count
 			list = RequestPopulator.populateRegionServerRequestCount(bean);
-			rdao.batchAdd(list);
-			logger.info("Load Server info into MySQL. Size="
+			reqDao.batchAdd(list);
+			logger.info("Load Server Count info into MySQL. Size="
 					+ list.size());
 			// table count
 			list = RequestPopulator.populateTableRequestCount(bean);
-			rdao.batchAdd(list);
-			logger.info("Load Table info into MySQL. Size=" + list.size());
-			
-			//table check
-			
+			reqDao.batchAdd(list);
+			logger.info("Load Table Count info into MySQL. Size=" + list.size());
+
+			// table check
+			List<Table> tables = RequestPopulator.populateTables(list);
+			tblDao.batchUpdate(tables);
+
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

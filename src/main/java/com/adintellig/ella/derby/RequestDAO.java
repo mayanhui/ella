@@ -1,4 +1,4 @@
-package com.adintellig.ella.mysql;
+package com.adintellig.ella.derby;
 
 import java.sql.Connection;
 import java.sql.Statement;

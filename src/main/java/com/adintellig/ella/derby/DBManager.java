@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.BatchUpdateException;
 import java.sql.Statement;
 
-import com.adintellig.ella.mysql.RequestDAO;
 
 public class DBManager {
 	private static Connection con = null;

@@ -17,7 +17,7 @@ import com.adintellig.ella.model.RegionRequestCount;
 import com.adintellig.ella.model.RegionServerRequestCount;
 import com.adintellig.ella.model.RequestCount;
 import com.adintellig.ella.model.TableRequestCount;
-import com.adintellig.ella.model.Tables;
+import com.adintellig.ella.model.Table;
 
 public class RequestPopulator {
 
@@ -160,17 +160,17 @@ public class RequestPopulator {
 		return requests;
 	}
 
-	public static List<Tables> populateTables(List<RequestCount> beans) {
+	public static List<Table> populateTables(List<RequestCount> beans) {
 		String tableName = null;
 		Timestamp updateTime = new Timestamp(System.currentTimeMillis());
 
-		List<Tables> tables = new ArrayList<Tables>();
+		List<Table> tables = new ArrayList<Table>();
 
 		for (RequestCount req : beans) {
 			if (req instanceof TableRequestCount) {
 				tableName = ((TableRequestCount) req).getTableName();
 				updateTime = req.getUpdateTime();
-				Tables t = new Tables();
+				Table t = new Table();
 				t.setTableName(tableName);
 				t.setUpdateTime(updateTime);
 				tables.add(t);
