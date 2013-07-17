@@ -8,15 +8,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.adintellig.ella.derby.model.RegionRequestCount;
-import com.adintellig.ella.derby.model.RegionServerRequestCount;
-import com.adintellig.ella.derby.model.RequestCount;
-import com.adintellig.ella.derby.model.TableRequestCount;
 import com.adintellig.ella.hbase.beans.MasterServiceBean;
 import com.adintellig.ella.hbase.beans.MasterServiceBeans;
 import com.adintellig.ella.hbase.beans.RegionServer;
 import com.adintellig.ella.hbase.beans.RegionsLoad;
 import com.adintellig.ella.hbase.beans.RegionsLoadValue;
+import com.adintellig.ella.model.RegionRequestCount;
+import com.adintellig.ella.model.RegionServerRequestCount;
+import com.adintellig.ella.model.RequestCount;
+import com.adintellig.ella.model.TableRequestCount;
+import com.adintellig.ella.model.Tables;
 
 public class RequestPopulator {
 
@@ -157,6 +158,25 @@ public class RequestPopulator {
 			}
 		}
 		return requests;
+	}
+
+	public static List<Tables> populateTables(List<RequestCount> beans) {
+		String tableName = null;
+		Timestamp updateTime = new Timestamp(System.currentTimeMillis());
+
+		List<Tables> tables = new ArrayList<Tables>();
+
+		for (RequestCount req : beans) {
+			if (req instanceof TableRequestCount) {
+				tableName = ((TableRequestCount) req).getTableName();
+				updateTime = req.getUpdateTime();
+				Tables t = new Tables();
+				t.setTableName(tableName);
+				t.setUpdateTime(updateTime);
+				tables.add(t);
+			}
+		}
+		return tables;
 	}
 
 }

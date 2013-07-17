@@ -1,4 +1,4 @@
-package com.adintellig.ella.derby.model;
+package com.adintellig.ella.model;
 
 import java.sql.Timestamp;
 

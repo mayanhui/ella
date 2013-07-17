@@ -12,10 +12,11 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.adintellig.ella.derby.DBManager;
-import com.adintellig.ella.derby.model.RequestCount;
-import com.adintellig.ella.derby.model.RequestDAO;
+//import com.adintellig.ella.derby.DBManager;
 import com.adintellig.ella.hbase.beans.MasterServiceBeans;
+import com.adintellig.ella.model.RequestCount;
+import com.adintellig.ella.mysql.RequestCountDaoImpl;
+//import com.adintellig.ella.mysql.RequestDAO;
 import com.adintellig.ella.util.ConfigFactory;
 import com.adintellig.ella.util.ConfigProperties;
 import com.alibaba.fastjson.JSON;
@@ -29,17 +30,16 @@ public class JMXHMasterService extends Thread {
 
 	public static String url;
 
-	private DBManager dbm = null;
-	private RequestDAO rdao = null;
+//	private DBManager dbm = null;
+	private RequestCountDaoImpl rdao = null;
 
 	// private int maxItemNumber = 0;
 
 	public JMXHMasterService() {
-		this.dbm = new DBManager();
-		this.rdao = dbm.getRequestDAO();
+//		this.dbm = new DBManager();
+		this.rdao = new RequestCountDaoImpl();
 		// this.maxItemNumber = rdao.getMaxItemNumber();
-		url = config
-				.getProperty(ConfigProperties.CONFIG_NAME_ELLA_HBASE_MASTER_JMX_QRY_URL);
+		url = config.getProperty(ConfigProperties.CONFIG_NAME_ELLA_HBASE_MASTER_JMX_QRY_URL);
 	}
 
 	public String request(String urlString) {
@@ -81,20 +81,23 @@ public class JMXHMasterService extends Thread {
 		logger.info("Request URL: " + url);
 		MasterServiceBeans bean = parseBean(result);
 		try {
-			// region
+			// region count
 			List<RequestCount> list = RequestPopulator
 					.populateRegionRequestCount(bean);
-			rdao.batchInsert(list);
-			logger.info("Load Region info into Derby. Size=" + list.size());
-			// server
+			rdao.batchAdd(list);
+			logger.info("Load Region info into MySQL. Size=" + list.size());
+			// server count
 			list = RequestPopulator.populateRegionServerRequestCount(bean);
-			rdao.batchInsert(list);
-			logger.info("Load RegionServer info into Derby. Size="
+			rdao.batchAdd(list);
+			logger.info("Load Server info into MySQL. Size="
 					+ list.size());
-			// table
+			// table count
 			list = RequestPopulator.populateTableRequestCount(bean);
-			rdao.batchInsert(list);
-			logger.info("Load Table info into Derby. Size=" + list.size());
+			rdao.batchAdd(list);
+			logger.info("Load Table info into MySQL. Size=" + list.size());
+			
+			//table check
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

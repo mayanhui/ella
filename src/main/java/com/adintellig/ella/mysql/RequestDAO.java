@@ -1,4 +1,4 @@
-package com.adintellig.ella.derby.model;
+package com.adintellig.ella.mysql;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.adintellig.ella.model.RegionRequestCount;
+import com.adintellig.ella.model.RegionServerRequestCount;
+import com.adintellig.ella.model.RequestCount;
+import com.adintellig.ella.model.TableRequestCount;
 
 public class RequestDAO {
 
