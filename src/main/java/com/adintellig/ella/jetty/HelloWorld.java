@@ -9,6 +9,8 @@ import java.io.IOException;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.Request;
 import org.mortbay.jetty.handler.AbstractHandler;
+import org.quartz.SchedulerException;
+import org.quartz.impl.StdSchedulerFactory;
  
 public class HelloWorld extends AbstractHandler
 {
@@ -26,11 +28,22 @@ public class HelloWorld extends AbstractHandler
  
     public static void main(String[] args) throws Exception
     {
+//        System.out.println("start");
+//   		System.getProperties()
+//   				.put("org.quartz.properties", "quartz.properties");
+//   		try {
+//   			StdSchedulerFactory.getDefaultScheduler().start();
+//   		} catch (SchedulerException e) {
+//   			e.printStackTrace();
+//   		}
+//   		System.out.println("end");
+    	
         Server server = new Server(8089);
         server.setHandler(new HelloWorld());
  
         server.start();
         server.join();
+        
     }
 
 	@Override

@@ -87,7 +87,7 @@ public class RequestDAO {
 		String sql = "SELECT TABLENAME,WRITECOUNT,READCOUNT,TOTALCOUNT FROM HBASE.TABLEREQUEST WHERE UPDATETIME >'2013-07-02 00:00:00'";
 		try {
 			Statement stmt = con.createStatement();
-			stmt.setMaxRows(14);
+			stmt.setMaxRows(30);
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {

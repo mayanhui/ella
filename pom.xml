@@ -114,6 +114,13 @@
 	<artifactId>quartz</artifactId>
 	<version>1.5.2</version>
 </dependency>
+
+<dependency>
+	<groupId>mysql</groupId>
+	<artifactId>mysql-connector-java</artifactId>
+	<version>5.1.25</version>
+</dependency>
+            
             
 	</dependencies>
 
@@ -325,6 +332,11 @@
 	<groupId>quartz</groupId>
 	<artifactId>quartz</artifactId>
 	<version>1.5.2</version>
+</artifactItem>
+            <artifactItem>
+	<groupId>mysql</groupId>
+	<artifactId>mysql-connector-java</artifactId>
+	<version>5.1.25</version>
 </artifactItem>
             
 

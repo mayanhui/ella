@@ -1,0 +1,46 @@
+create database hbase DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci; 
+
+grant all privileges on hbase.* to hbase@'%' identified by 'hbase'; 
+grant all privileges on hbase.* to hbase@'localhost' identified by 'hbase';
+flush privileges;
+
+
+CREATE TABLE `region_requests` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `region_name` VARCHAR(200) NOT NULL,
+  `write_count` BIGINT(20) DEFAULT NULL,
+  `read_count` BIGINT(20) DEFAULT NULL,
+  `total_count` BIGINT(20) DEFAULT NULL,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `table_requests` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `table_name` VARCHAR(255) NOT NULL,
+  `write_count` BIGINT(20) DEFAULT NULL,
+  `read_count` BIGINT(20) DEFAULT NULL,
+  `total_count` BIGINT(20) DEFAULT NULL,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `server_requests` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `host` VARCHAR(255) NOT NULL,
+  `write_count` BIGINT(20) DEFAULT NULL,
+  `read_count` BIGINT(20) DEFAULT NULL,
+  `total_count` BIGINT(20) DEFAULT NULL,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `tables` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `table_name` VARCHAR(255) NOT NULL,
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8

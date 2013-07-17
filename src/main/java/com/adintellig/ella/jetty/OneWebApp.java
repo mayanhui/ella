@@ -18,6 +18,8 @@ import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.nio.SelectChannelConnector;
 import org.mortbay.jetty.webapp.WebAppContext;
+import org.quartz.SchedulerException;
+import org.quartz.impl.StdSchedulerFactory;
 
 public class OneWebApp
 {
@@ -37,5 +39,16 @@ public class OneWebApp
         server.setHandler(webapp);
         
         server.start();
+        
+        
+        System.out.println("start");
+   		System.getProperties()
+   				.put("org.quartz.properties", "quartz.properties");
+   		try {
+   			StdSchedulerFactory.getDefaultScheduler().start();
+   		} catch (SchedulerException e) {
+   			e.printStackTrace();
+   		}
+   		System.out.println("end");
     }
 }
