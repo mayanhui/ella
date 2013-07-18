@@ -12,13 +12,11 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//import com.adintellig.ella.derby.DBManager;
 import com.adintellig.ella.hbase.beans.MasterServiceBeans;
 import com.adintellig.ella.model.RequestCount;
 import com.adintellig.ella.model.Table;
 import com.adintellig.ella.mysql.RequestCountDaoImpl;
 import com.adintellig.ella.mysql.TableDaoImpl;
-//import com.adintellig.ella.mysql.RequestDAO;
 import com.adintellig.ella.util.ConfigFactory;
 import com.adintellig.ella.util.ConfigProperties;
 import com.alibaba.fastjson.JSON;

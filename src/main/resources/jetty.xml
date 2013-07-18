@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC
+  "-//Mort Bay Consulting//DTD Configure//EN"
+  "http://jetty.mortbay.org/configure_1_2.dtd">
+<Configure class="org.mortbay.jetty.Server">
+    <Set name="ThreadPool">
+        <New class="org.mortbay.thread.BoundedThreadPool">
+            <Set name="minThreads">20</Set>
+            <Set name="maxThreads">100</Set>
+        </New>
+    </Set>
+    <Set name="connectors">
+        <Array type="org.mortbay.jetty.Connector">
+            <Item>
+                <New class="org.mortbay.jetty.bio.SocketConnector">
+                    <Set name="port">8080</Set>
+                    <Set name="maxIdleTime">50000</Set>
+                </New>
+            </Item>
+        </Array>
+    </Set>
+    <Set name="handlers">
+        <Array type="org.mortbay.jetty.Handler">
+            <Item>
+                <New class="org.mortbay.jetty.webapp.WebAppContext">
+                    <Set name="contextPath">/app</Set>
+                    <Set name="war">./src/main/webapp</Set>
+                    <Get name="SessionHandler">
+                        <Set name="SessionManager">
+                            <New class="org.mortbay.jetty.servlet.HashSessionManager" />
+                        </Set>
+                    </Get>
+                </New>
+            </Item>
+        </Array>
+    </Set>
+    <Set name="stopAtShutdown">true</Set>
+    <Call name="start" />
+</Configure>

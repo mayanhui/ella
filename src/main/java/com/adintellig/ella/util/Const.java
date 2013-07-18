@@ -1,25 +1,9 @@
 package com.adintellig.ella.util;
 
-import org.apache.hadoop.hbase.util.Bytes;
-
 public class Const {
 	public static final String HBASE_TABLE_NAME = "hbase.tablename";
 	public static final int MAX_INPUT_SPLIT_SIZE = 50 * 1000 * 1000;// MB
 	public static final int MIN_INPUT_SPLIT_SIZE = 512 * 1000 * 1000;// MB
-
-	/* Column Family */
-	public static final String COLUMN_FAMILY_CF1_STRING = "cf1";
-	public static final byte[] COLUMN_FAMILY_CF1_BYTE = Bytes
-			.toBytes(COLUMN_FAMILY_CF1_STRING);
-
-	/* Column */
-	public static final String COLUMN_RK_STRING = "rk";
-	public static final byte[] COLUMN_RK_BYTE = Bytes.toBytes(COLUMN_RK_STRING);
-
-	/* Counter */
-	public static final String COLUMN_RK_COUNTER_STRING = "rk_cnt";
-	public static final byte[] COLUMN_RK_COUNTER_BYTE = Bytes
-			.toBytes(COLUMN_RK_COUNTER_STRING);
 
 	/* hbase conf */
 	public static final String HBASE_CONF_COLUMN_NAME = "conf.column";
