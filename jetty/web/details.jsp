@@ -54,6 +54,7 @@ body {
 <hr id="head_rule" />
 <h2>"${tableName}" Requests Graph</h2>
 
+<!--
 <table id="requests_table">
 <tr><th>Table Name</th><th>Write Count</th><th>Read Count</th><th>Total Count</th></tr>
 
@@ -66,15 +67,29 @@ body {
           <td>${r.updateTime}</td>  
         </tr> 
 </c:forEach> 
-</table>
+</table> -->
 
 
+<table width="50%"  height="90%" border="1" cellspacing="0" cellpadding="1" bordercolor="#84C1FF" align="center">
+<tr>
+<td align="center">
+<iframe src="write.jsp" width="600" height="350" align="middle" scrolling="auto" frameborder="0"></iframe>
+</td>
+</tr>
 
-<iframe src="write.jsp" width="40%" height="45%"></iframe>
-adsf
-<iframe src="read.jsp" width="40%" height="45%"></iframe>
+<tr>
+<td align="center">
+<iframe src="read.jsp" width="600" height="350" align="middle" scrolling="auto" frameborder="0"></iframe>
+</td>
+</tr>
 
-<iframe src="total.jsp" width="40%" height="45%"></iframe>
+<tr>
+<td align="center">
+<iframe src="total.jsp" width="600" height="350" align="middle" scrolling="auto" frameborder="0"></iframe>
+</td>
+</tr>
+</table> 
+
 </body>
 </html>
 
