@@ -40,7 +40,6 @@ public class OneWebApp
         
         server.start();
         
-        
         System.out.println("start");
    		System.getProperties()
    				.put("org.quartz.properties", "quartz.properties");

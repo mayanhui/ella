@@ -21,8 +21,7 @@ import com.adintellig.ella.model.Table;
 import com.adintellig.ella.util.JdbcUtil;
 
 public class TableDaoImpl {
-	private static Logger logger = LoggerFactory
-			.getLogger(TableDaoImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(TableDaoImpl.class);
 
 	static final String insertTablesSQL = "INSERT INTO hbase.tables(table_name, update_time) "
 			+ "VALUES(?, ?)";
@@ -34,7 +33,7 @@ public class TableDaoImpl {
 
 		List<Table> tables = list();
 		List<Table> newTables = getDiff(beans, tables);
-		
+
 		if (null != newTables && newTables.size() > 0) {
 			for (Table t : newTables) {
 				stmt.setString(1, t.getTableName());
@@ -126,6 +125,25 @@ public class TableDaoImpl {
 		JdbcUtil.close(conn);
 		return tables;
 	}
+
+	public static int getTotalNumberOfTables() {
+		int num = -1;
+		try {
+			Connection con = JdbcUtil.getConnection();
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt
+					.executeQuery("SELECT count(*) FROM hbase.tables");
+			if (rs.next())
+				num = rs.getInt(1);
+
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return num;
+	}
+
 	//
 	// public void update(RequestCount s) throws Exception {
 	// Connection conn = JdbcUtil.getConnection();

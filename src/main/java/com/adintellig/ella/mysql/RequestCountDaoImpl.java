@@ -8,6 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.adintellig.ella.model.RegionRequestCount;
 import com.adintellig.ella.model.RegionServerRequestCount;
 import com.adintellig.ella.model.RequestCount;
@@ -15,6 +18,8 @@ import com.adintellig.ella.model.TableRequestCount;
 import com.adintellig.ella.util.JdbcUtil;
 
 public class RequestCountDaoImpl {
+	private static Logger logger = LoggerFactory
+			.getLogger(RequestCountDaoImpl.class);
 
 	static final String insertRegionRequestsSQL = "INSERT INTO hbase.region_requests(region_name, write_count, read_count, total_count, update_time) "
 			+ "VALUES(?, ?, ?, ?, ?)";
@@ -102,52 +107,75 @@ public class RequestCountDaoImpl {
 	//
 	// }
 
-//	public RequestCount find(long id) throws Exception {
-//		Connection conn = JdbcUtil.getConnection();
-//		PreparedStatement ps = conn
-//				.prepareStatement("select * from table_requests where id=?");
-//		ps.setLong(1, id);
-//		ResultSet rs = ps.executeQuery();
-//		TableRequestCount s = new RequestCount();
-//		while (rs.next()) {
-//			s.setId(id);
-//			s.setStuNum(rs.getString("stuNum"));
-//			s.setName(rs.getString("name"));
-//			s.setSex(rs.getString("sex"));
-//			s.setAddress(rs.getString("address"));
-//		}
-//		JdbcUtil.close(conn);
-//		return s;
-//	}
+	// public RequestCount find(long id) throws Exception {
+	// Connection conn = JdbcUtil.getConnection();
+	// PreparedStatement ps = conn
+	// .prepareStatement("select * from table_requests where id=?");
+	// ps.setLong(1, id);
+	// ResultSet rs = ps.executeQuery();
+	// TableRequestCount s = new RequestCount();
+	// while (rs.next()) {
+	// s.setId(id);
+	// s.setStuNum(rs.getString("stuNum"));
+	// s.setName(rs.getString("name"));
+	// s.setSex(rs.getString("sex"));
+	// s.setAddress(rs.getString("address"));
+	// }
+	// JdbcUtil.close(conn);
+	// return s;
+	// }
 
-//	public List<RequestCount> list() throws Exception {
-//		Connection conn = JdbcUtil.getConnection();
-//		Statement stmt = conn.createStatement();
-//		ResultSet rs = stmt.executeQuery("select * from t_student");
-//		List<RequestCount> students = new ArrayList<RequestCount>();
-//		while (rs.next()) {
-//			RequestCount s = new RequestCount();
-//			s.setId(rs.getLong("id"));
-//			s.setStuNum(rs.getString("stuNum"));
-//			s.setName(rs.getString("name"));
-//			s.setSex(rs.getString("sex"));
-//			s.setAddress(rs.getString("address"));
-//			students.add(s);
-//		}
-//		JdbcUtil.close(conn);
-//		return students;
-//	}
-//
-//	public void update(RequestCount s) throws Exception {
-//		Connection conn = JdbcUtil.getConnection();
-//		PreparedStatement ps = conn
-//				.prepareStatement("update t_student(stuNum,name,sex,address) values(?,?,?,?)");
-//		ps.setString(1, s.getStuNum());
-//		ps.setString(2, s.getName());
-//		ps.setString(3, s.getSex());
-//		ps.setString(4, s.getAddress());
-//		ps.executeUpdate();
-//		JdbcUtil.close(conn);
-//	}
+	public List<RequestCount> list() throws Exception {
+		Connection conn = JdbcUtil.getConnection();
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt
+				.executeQuery("select * from (select table_name,write_count,read_count,total_count from hbase.table_requests order by id desc limit "
+						+ TableDaoImpl.getTotalNumberOfTables()
+						+ ") a order by a.table_name");
+		List<RequestCount> list = new ArrayList<RequestCount>();
+		while (rs.next()) {
+			TableRequestCount req = new TableRequestCount();
+			req.setTableName(rs.getString(1));
+			req.setWriteCount(rs.getLong(2));
+			req.setReadCount(rs.getLong(3));
+			req.setTotalCount(rs.getLong(4));
+			list.add(req);
+		}
+		JdbcUtil.close(conn);
+		return list;
+	}
+
+	public List<RequestCount> listDetails(String tableName) throws Exception {
+		String sql = "select a.table_name,a.write_count,a.read_count,a.total_count,a.update_time from (select id,table_name,write_count,read_count,total_count,update_time from hbase.table_requests where table_name='"
+				+ tableName + "' order by id desc limit 100) a order by a.id";
+		Connection conn = JdbcUtil.getConnection();
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		List<RequestCount> list = new ArrayList<RequestCount>();
+		while (rs.next()) {
+			TableRequestCount req = new TableRequestCount();
+			req.setTableName(rs.getString(1));
+			req.setWriteCount(rs.getLong(2));
+			req.setReadCount(rs.getLong(3));
+			req.setTotalCount(rs.getLong(4));
+			req.setUpdateTime(rs.getTimestamp(5));
+			list.add(req);
+		}
+		JdbcUtil.close(conn);
+		logger.info("[QUERY]" + sql + " -> Result:" + list.size());
+		return list;
+	}
+
+	// public void update(RequestCount s) throws Exception {
+	// Connection conn = JdbcUtil.getConnection();
+	// PreparedStatement ps = conn
+	// .prepareStatement("update t_student(stuNum,name,sex,address) values(?,?,?,?)");
+	// ps.setString(1, s.getStuNum());
+	// ps.setString(2, s.getName());
+	// ps.setString(3, s.getSex());
+	// ps.setString(4, s.getAddress());
+	// ps.executeUpdate();
+	// JdbcUtil.close(conn);
+	// }
 
 }

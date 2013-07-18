@@ -4,12 +4,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ page language="java" import="java.util.*"%>
-<%@ page language="java" import="com.adintellig.ella.derby.*"%>
-<%@ page language="java" import="com.adintellig.ella.derby.model.*"%>
+<%@ page language="java" import="com.adintellig.ella.mysql.*"%>
+<%@ page language="java" import="com.adintellig.ella.model.*"%>
 
 <%
-       DBManager dbm = new DBManager();
-	   List<TableRequestCount> tables = dbm.getRequestDAO().getRequests();
+       RequestCountDaoImpl impl = new RequestCountDaoImpl();
+	   List<RequestCount> tables = impl.list();
 	   request.setAttribute("tables",tables);
 %>
 
@@ -40,7 +40,7 @@
 
 <c:forEach var="t" items="${tables}"> 
         <tr> 
-          <td>${t.tableName}</td>
+          <td> <a href="details.jsp?tn=${t.tableName}">${t.tableName}</a></td>
           <td>${t.writeCount}</td>
           <td>${t.readCount}</td>
           <td>${t.totalCount}</td>  
