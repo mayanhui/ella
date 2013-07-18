@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
         pageEncoding="UTF-8"%>
-        
+
+<%@ page language="java" import="java.util.*"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ page language="java" import="java.util.*"%>
@@ -17,7 +19,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-<title>HBase Master: hbase-master,60000,1363167283031</title>
+<title>HBase Monitor</title>
 <link rel="stylesheet" type="text/css" href="static/hbase.css" />
 
 <meta charset="utf-8">
@@ -52,7 +54,7 @@ body {
 <h1 id="page_title">HBase Monitor</h1>
 
 <hr id="head_rule" />
-<h2>"${tableName}" Requests Graph</h2>
+<h2>"${tableName}" Requests Graph  @<%=new java.util.Date()%></h2>
 
 <!--
 <table id="requests_table">
@@ -92,5 +94,3 @@ body {
 
 </body>
 </html>
-
-
