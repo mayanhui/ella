@@ -50,8 +50,6 @@
 </table>
 
 
-
-
 <hr id="head_rule" />
 <h2>Attributes</h2>
 <table id="attributes_table">

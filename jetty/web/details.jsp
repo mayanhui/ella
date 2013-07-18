@@ -9,14 +9,42 @@
 
 <%
        RequestCountDaoImpl impl = new RequestCountDaoImpl();
-	   List<RequestCount> reqs = impl.listDetails((String)request.getParameter("tn"));
+       String tableName = (String)request.getParameter("tn");
+	   List<RequestCount> reqs = impl.listDetails(tableName);
 	   request.setAttribute("reqs",reqs);
+	   request.setAttribute("tableName",tableName);
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <title>HBase Master: hbase-master,60000,1363167283031</title>
 <link rel="stylesheet" type="text/css" href="static/hbase.css" />
+
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+</style>
+
 </head>
 <body>
 <a id="logo" href="http://wiki.apache.org/lucene-hadoop/Hbase"><img src="static/hbase_logo.png" alt="HBase Logo" title="HBase Logo" /></a>
@@ -24,7 +52,8 @@
 <h1 id="page_title">HBase Monitor</h1>
 
 <hr id="head_rule" />
-<h2>Requests</h2>
+<h2>"${tableName}" Requests Graph</h2>
+
 <table id="requests_table">
 <tr><th>Table Name</th><th>Write Count</th><th>Read Count</th><th>Total Count</th></tr>
 
@@ -37,9 +66,15 @@
           <td>${r.updateTime}</td>  
         </tr> 
 </c:forEach> 
-
 </table>
 
+
+
+<iframe src="write.jsp" width="40%" height="45%"></iframe>
+adsf
+<iframe src="read.jsp" width="40%" height="45%"></iframe>
+
+<iframe src="total.jsp" width="40%" height="45%"></iframe>
 </body>
 </html>
 
