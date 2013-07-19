@@ -8,13 +8,18 @@
 <%@ page language="java" import="java.util.*"%>
 <%@ page language="java" import="com.adintellig.ella.mysql.*"%>
 <%@ page language="java" import="com.adintellig.ella.model.*"%>
+<%@ page language="java" import="com.adintellig.ella.util.*"%>
+
 
 <%
-       RequestCountDaoImpl impl = new RequestCountDaoImpl();
-       String tableName = (String)request.getParameter("tn");
-	   List<RequestCount> reqs = impl.listDetails(tableName);
-	   request.setAttribute("reqs",reqs);
+      // RequestCountDaoImpl impl = new RequestCountDaoImpl();
+      String tableName = (String)request.getParameter("tn");
+	//   List<RequestCount> reqs = impl.listDetails(tableName);
+	//   request.setAttribute("reqs",reqs);
 	   request.setAttribute("tableName",tableName);
+	   
+	   PersistDisk.persistMysqlToFile(tableName,"/tmp/jetty-0.0.0.0-8080-ella-0.1.war-_ella-0.1-any-/webapp/data/");
+	
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">

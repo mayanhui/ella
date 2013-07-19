@@ -34,7 +34,7 @@
 <!-- Various warnings that cluster admins should be aware of -->
 
 <hr id="head_rule" />
-<h2>Requests</h2>
+<h2>Table Requests</h2>
 <table id="requests_table">
 <tr><th>Table Name</th><th>Write Count</th><th>Read Count</th><th>Total Count</th></tr>
 

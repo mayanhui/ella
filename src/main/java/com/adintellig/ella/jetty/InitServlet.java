@@ -14,12 +14,8 @@ import org.quartz.impl.StdSchedulerFactory;
 public class InitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public InitServlet() {
-
-	}
-
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	public void init() throws ServletException {
 		System.out.println("============ Start Quartz Job =============");
 		System.getProperties()
 				.put("org.quartz.properties", "quartz.properties");
@@ -29,6 +25,10 @@ public class InitServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		System.out.println("============ Quartz Job Started! ===========");
+	}
+
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/index.jsp");

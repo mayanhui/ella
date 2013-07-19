@@ -1,18 +1,22 @@
-package com.adintellig.ella;
+package com.adintellig.ella.util;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.adintellig.ella.model.RequestCount;
 import com.adintellig.ella.model.TableRequestCount;
 import com.adintellig.ella.mysql.RequestCountDaoImpl;
-import com.adintellig.ella.util.DateFormatUtil;
 
 public class PersistDisk {
+	private static Logger logger = LoggerFactory.getLogger(PersistDisk.class);
 
 	public static void persistMysqlToFile(String tableName, String output) {
+		logger.info("Persist mysql data to local file: " + output);
 		RequestCountDaoImpl impl = new RequestCountDaoImpl();
 		if (null != tableName && tableName.trim().length() > 0) {
 			try {
@@ -20,14 +24,14 @@ public class PersistDisk {
 				if (null != reqs && reqs.size() > 0) {
 					// 3 files
 					BufferedWriter bwWrite = new BufferedWriter(
-							new OutputStreamWriter(new FileOutputStream(
-									"write.tsv")));
+							new OutputStreamWriter(new FileOutputStream(output
+									+ "write.tsv")));
 					BufferedWriter bwRead = new BufferedWriter(
-							new OutputStreamWriter(new FileOutputStream(
-									"read.tsv")));
+							new OutputStreamWriter(new FileOutputStream(output
+									+ "read.tsv")));
 					BufferedWriter bwTotal = new BufferedWriter(
-							new OutputStreamWriter(new FileOutputStream(
-									"total.tsv")));
+							new OutputStreamWriter(new FileOutputStream(output
+									+ "total.tsv")));
 					// init header
 					bwWrite.write("date\tclose");
 					bwWrite.newLine();
@@ -58,7 +62,7 @@ public class PersistDisk {
 							bwTotal.write(uts + "\t" + tc);
 							bwTotal.newLine();
 						}
-					}//for
+					}// for
 
 					bwWrite.close();
 					bwRead.close();
@@ -67,12 +71,14 @@ public class PersistDisk {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
+			logger.info("Persist over!");
 		}
 	}
 
 	public static void main(String[] args) {
-		persistMysqlToFile("message_user", null);
+		PersistDisk
+				.persistMysqlToFile("message_user",
+						"/tmp/jetty-0.0.0.0-8080-ella-0.1.war-_ella-0.1-any-/webapp/data/");
 	}
 
 }
