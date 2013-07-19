@@ -7,16 +7,15 @@
 	<display-name>test jetty</display-name>
 	<welcome-file-list>
 		<welcome-file>jump.jsp</welcome-file>
-<!--		<welcome-file>index.jsp</welcome-file>-->
 	</welcome-file-list>
 
 	<servlet>
 		<servlet-name>init</servlet-name>
 		<servlet-class>com.adintellig.ella.jetty.InitServlet</servlet-class>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>init</servlet-name>
 		<url-pattern>/init.do</url-pattern>
 	</servlet-mapping>
+	
 </web-app>
