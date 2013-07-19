@@ -53,5 +53,9 @@ public class DateFormatUtil {
 		System.out.println(s);
 		System.out.println(parseToStringDate(1358506007000L));
 		System.out.println(formatToTime(new Timestamp(System.currentTimeMillis())));
+		
+		System.out.println(Timestamp.valueOf("2013-07-19 17:23:21.122").getTime());
+		System.out.println(new Timestamp(System.currentTimeMillis()));
+		System.out.println(new Timestamp(System.currentTimeMillis()).getTime());
 	}
 }

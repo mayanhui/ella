@@ -23,27 +23,32 @@
 
 <h1 id="page_title">HBase Monitor</h1>
 
-<p id="links_menu">
-  <a href="/logs/">Local logs</a>,
-  <a href="/stacks">Thread Dump</a>,
-  <a href="/logLevel">Log Level</a>,
-  <a href="/dump">Debug dump</a>,
-
-</p>
 
 <!-- Various warnings that cluster admins should be aware of -->
 
 <hr id="head_rule" />
 <h2>Table Requests</h2>
 <table id="requests_table">
-<tr><th>Table Name</th><th>Write Count</th><th>Read Count</th><th>Total Count</th></tr>
+
+<tr>
+<th>Table Name</th>
+<th>Write Count</th>
+<th>Read Count</th>
+<th>Total Count</th>
+<th>Write TPS</th>
+<th>Read TPS</th>
+<th>Total TPS</th>
+</tr>
 
 <c:forEach var="t" items="${tables}"> 
         <tr> 
           <td> <a href="details.jsp?tn=${t.tableName}">${t.tableName}</a></td>
           <td>${t.writeCount}</td>
           <td>${t.readCount}</td>
-          <td>${t.totalCount}</td>  
+          <td>${t.totalCount}</td>
+          <td>${t.writeTps}</td> 
+          <td>${t.readTps}</td> 
+          <td>${t.totalTps}</td> 
         </tr> 
 </c:forEach> 
 

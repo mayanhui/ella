@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -131,6 +135,7 @@ public class RequestCountDaoImpl {
 		ResultSet rs = stmt
 				.executeQuery("select * from (select table_name,write_count,read_count,total_count from hbase.table_requests order by id desc limit "
 						+ TableDaoImpl.getTotalNumberOfTables()
+						* 2
 						+ ") a order by a.table_name");
 		List<RequestCount> list = new ArrayList<RequestCount>();
 		while (rs.next()) {
@@ -141,6 +146,60 @@ public class RequestCountDaoImpl {
 			req.setTotalCount(rs.getLong(4));
 			list.add(req);
 		}
+
+		// compute Tps
+		Map<String, RequestCount> map = new HashMap<String, RequestCount>();
+		for (RequestCount rc : list) {
+			if (rc instanceof TableRequestCount) {
+				TableRequestCount trc = (TableRequestCount) rc;
+				String tableName = trc.getTableName();
+				if (null != map.get(tableName)) {
+					TableRequestCount trcOld = (TableRequestCount) map
+							.get(tableName);
+					long writeDiff = trcOld.getWriteCount()
+							- trc.getWriteCount();
+					long readDiff = trcOld.getReadCount() - trc.getReadCount();
+					long totalDiff = trcOld.getTotalCount()
+							- trc.getTotalCount();
+
+					long timeDiff = (trcOld.getUpdateTime().getTime() - trc
+							.getUpdateTime().getTime()) / 1000;
+					
+					if(timeDiff == 0l){
+						timeDiff = 1l;
+						System.out.println("1" + trcOld.getUpdateTime());
+						System.out.println("2" + trc.getUpdateTime());
+					}
+
+					int writeTps = (int) (Math.abs(writeDiff / timeDiff));
+					int readTps = (int) (Math.abs(readDiff / timeDiff));
+					int totalTps = (int) (Math.abs(totalDiff / timeDiff));
+
+					if (timeDiff >= 0) {
+						trcOld.setReadTps(readTps);
+						trcOld.setWriteTps(writeTps);
+						trcOld.setTotalTps(totalTps);
+						map.put(tableName, trcOld);
+					} else {
+						trc.setReadTps(readTps);
+						trc.setWriteTps(writeTps);
+						trc.setTotalTps(totalTps);
+						map.put(tableName, trc);
+					}
+
+				} else {
+					map.put(tableName, trc);
+				}
+			}
+		}
+
+		list = new ArrayList<RequestCount>();
+		Set<String> keys = map.keySet();
+		for (Iterator<String> it = keys.iterator(); it.hasNext();) {
+			String key = it.next();
+			list.add(map.get(key));
+		}
+
 		JdbcUtil.close(conn);
 		return list;
 	}
