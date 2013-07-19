@@ -20,4 +20,4 @@ DerbyHBase
 bin
 */logs
 */webapps
-*/jetty.state
+*/*state

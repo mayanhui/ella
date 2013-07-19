@@ -4,6 +4,11 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
+ <properties>
+     <default.jetty.home>jetty-server/webapps</default.jetty.home>
+  </properties>
+
+
 	<groupId>com.adintellig</groupId>
 	<artifactId>ella</artifactId>
 	<version>0.1</version>
@@ -135,6 +140,25 @@
 					<goalPrefix>jetty</goalPrefix>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-war-to-tomcat</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<copy file="${project.build.directory}/${project.build.finalName}.war" tofile="${default.jetty.home}/${project.build.finalName}.war" failonerror="false" />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 </project>
