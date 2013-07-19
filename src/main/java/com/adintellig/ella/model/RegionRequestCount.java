@@ -11,30 +11,28 @@ public class RegionRequestCount extends RequestCount {
 	}
 
 	public RegionRequestCount(long writeCount, long readCount, long totalCount,
-			Timestamp updateTime, Timestamp insertTime) {
-		super(writeCount, readCount, totalCount, updateTime, insertTime);
-	}
-
-	public RegionRequestCount(String regionName) {
-		super();
-		this.regionName = regionName;
-	}
-
-	public RegionRequestCount(long writeCount, long readCount, long totalCount,
-			Timestamp updateTime, Timestamp insertTime, String regionName) {
-		super(writeCount, readCount, totalCount, updateTime, insertTime);
-		this.regionName = regionName;
+			Timestamp updateTime, Timestamp insertTime, int writeTps,
+			int readTps, int totalTps) {
+		super(writeCount, readCount, totalCount, updateTime, insertTime, writeTps,
+				readTps, totalTps);
 	}
 
 	@Override
 	public String toString() {
 		return "RegionRequestCount [regionName=" + regionName
-				+ ", getWriteCount()=" + getWriteCount() + ", getReadCount()="
-				+ getReadCount() + ", getTotalCount()=" + getTotalCount()
-				+ ", getUpdateTime()=" + getUpdateTime() + ", getInsertTime()="
-				+ getInsertTime() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+				+ ", getRegionName()=" + getRegionName() + ", getWriteCount()="
+				+ getWriteCount() + ", getReadCount()=" + getReadCount()
+				+ ", getTotalCount()=" + getTotalCount() + ", getUpdateTime()="
+				+ getUpdateTime() + ", getInsertTime()=" + getInsertTime()
+				+ ", getWriteTps()=" + getWriteTps() + ", getReadTps()="
+				+ getReadTps() + ", getTotalTps()=" + getTotalTps()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
+	}
+
+	public RegionRequestCount(String regionName) {
+		super();
+		this.regionName = regionName;
 	}
 
 	public String getRegionName() {
@@ -44,5 +42,5 @@ public class RegionRequestCount extends RequestCount {
 	public void setRegionName(String regionName) {
 		this.regionName = regionName;
 	}
-	
+
 }

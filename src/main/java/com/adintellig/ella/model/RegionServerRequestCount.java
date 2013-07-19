@@ -15,19 +15,10 @@ public class RegionServerRequestCount extends RequestCount {
 	}
 
 	public RegionServerRequestCount(long writeCount, long readCount,
-			long totalCount, Timestamp updateTime, Timestamp insertTime) {
-		super(writeCount, readCount, totalCount, updateTime, insertTime);
-	}
-
-	@Override
-	public String toString() {
-		return "RegionServerRequestCount [serverHost=" + serverHost
-				+ ", getWriteCount()=" + getWriteCount() + ", getReadCount()="
-				+ getReadCount() + ", getTotalCount()=" + getTotalCount()
-				+ ", getUpdateTime()=" + getUpdateTime() + ", getInsertTime()="
-				+ getInsertTime() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+			long totalCount, Timestamp updateTime, Timestamp insertTime,
+			int writeTps, int readTps, int totalTps) {
+		super(writeCount, readCount, totalCount, updateTime, insertTime,
+				writeTps, readTps, totalTps);
 	}
 
 	public String getServerHost() {
