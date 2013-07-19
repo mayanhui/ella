@@ -6,7 +6,6 @@ import org.quartz.impl.StdSchedulerFactory;
 public class QuartzMain {
 
 	public static void main(String[] args) {
-		System.out.println("start");
 		System.getProperties()
 				.put("org.quartz.properties", "quartz.properties");
 		try {
@@ -14,7 +13,6 @@ public class QuartzMain {
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
-		System.out.println("end");
 	}
 
 }
