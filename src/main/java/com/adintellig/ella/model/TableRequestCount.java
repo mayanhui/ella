@@ -29,4 +29,18 @@ public class TableRequestCount extends RequestCount {
 		this.tableName = tableName;
 	}
 
+	@Override
+	public String toString() {
+		return "TableRequestCount [tableName=" + tableName
+				+ ", getTableName()=" + getTableName() + ", getWriteCount()="
+				+ getWriteCount() + ", getReadCount()=" + getReadCount()
+				+ ", getTotalCount()=" + getTotalCount() + ", getUpdateTime()="
+				+ getUpdateTime() + ", getInsertTime()=" + getInsertTime()
+				+ ", getWriteTps()=" + getWriteTps() + ", getReadTps()="
+				+ getReadTps() + ", getTotalTps()=" + getTotalTps()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
+	}
+	
+
 }

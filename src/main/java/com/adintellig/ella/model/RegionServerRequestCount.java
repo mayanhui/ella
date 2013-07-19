@@ -29,4 +29,18 @@ public class RegionServerRequestCount extends RequestCount {
 		this.serverHost = serverHost;
 	}
 
+	@Override
+	public String toString() {
+		return "RegionServerRequestCount [serverHost=" + serverHost
+				+ ", getServerHost()=" + getServerHost() + ", getWriteCount()="
+				+ getWriteCount() + ", getReadCount()=" + getReadCount()
+				+ ", getTotalCount()=" + getTotalCount() + ", getUpdateTime()="
+				+ getUpdateTime() + ", getInsertTime()=" + getInsertTime()
+				+ ", getWriteTps()=" + getWriteTps() + ", getReadTps()="
+				+ getReadTps() + ", getTotalTps()=" + getTotalTps()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
+	}
+	
+
 }

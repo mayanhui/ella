@@ -133,7 +133,7 @@ public class RequestCountDaoImpl {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt
-				.executeQuery("select * from (select table_name,write_count,read_count,total_count from hbase.table_requests order by id desc limit "
+				.executeQuery("select * from (select table_name,write_count,read_count,total_count,update_time from hbase.table_requests order by id desc limit "
 						+ TableDaoImpl.getTotalNumberOfTables()
 						* 2
 						+ ") a order by a.table_name");
@@ -144,6 +144,7 @@ public class RequestCountDaoImpl {
 			req.setWriteCount(rs.getLong(2));
 			req.setReadCount(rs.getLong(3));
 			req.setTotalCount(rs.getLong(4));
+			req.setUpdateTime(rs.getTimestamp(5));
 			list.add(req);
 		}
 
@@ -167,8 +168,6 @@ public class RequestCountDaoImpl {
 					
 					if(timeDiff == 0l){
 						timeDiff = 1l;
-						System.out.println("1" + trcOld.getUpdateTime());
-						System.out.println("2" + trc.getUpdateTime());
 					}
 
 					int writeTps = (int) (Math.abs(writeDiff / timeDiff));

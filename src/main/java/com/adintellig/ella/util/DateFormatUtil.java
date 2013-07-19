@@ -52,10 +52,19 @@ public class DateFormatUtil {
 		String s = parseToStringDate(formatStringTimeToLong(str));
 		System.out.println(s);
 		System.out.println(parseToStringDate(1358506007000L));
-		System.out.println(formatToTime(new Timestamp(System.currentTimeMillis())));
-		
-		System.out.println(Timestamp.valueOf("2013-07-19 17:23:21.122").getTime());
+		System.out.println(formatToTime(new Timestamp(System
+				.currentTimeMillis())));
+
+		System.out.println();
 		System.out.println(new Timestamp(System.currentTimeMillis()));
-		System.out.println(new Timestamp(System.currentTimeMillis()).getTime());
+		
+		long t1 = Timestamp.valueOf("2013-07-19 18:31:39").getTime();
+		long t2 = Timestamp.valueOf("2013-07-19 18:31:09").getTime();
+		
+		long timeDiff = (t1 - t2) / 1000;
+		
+		System.out.println(timeDiff);
+		
+		
 	}
 }

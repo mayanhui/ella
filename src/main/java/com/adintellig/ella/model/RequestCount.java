@@ -6,8 +6,8 @@ public class RequestCount {
 	private long writeCount = 0l;
 	private long readCount = 0l;
 	private long totalCount = 0l;
-	private Timestamp updateTime = new Timestamp(System.currentTimeMillis());
-	private Timestamp insertTime = new Timestamp(System.currentTimeMillis());
+	private Timestamp updateTime = null;
+	private Timestamp insertTime = null;
 	private int writeTps = 0;
 	private int readTps = 0;
 	private int totalTps = 0;

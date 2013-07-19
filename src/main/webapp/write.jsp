@@ -28,7 +28,7 @@ body {
 
 .line {
   fill: none;
-  stroke: steelblue;
+  stroke: #ff7f0e;
   stroke-width: 3px;
 }
 </style>
