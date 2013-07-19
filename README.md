@@ -1,4 +1,4 @@
-#More details, see wiki page(Chinese wiki 中文使用手册): 
+#More details, see wiki page(Chinese wiki 中文使用手册，NOT AVAILABLE NOW！): 
 https://github.com/mayanhui/ella/wiki
 
 ###################################################
@@ -8,17 +8,19 @@ Ella is a "Border Collie", a handsome and smart dog.
 
 
 
-
 ##Environment
+
 
 ##License
 Released under the GPLv3 license. For full details, pleasesee the LICENSE file included in this distribution.
 
 
+
 ## Framwork
 Java 1.6 (http://www.oracle.com/technetwork/java/index.html)
-Jetty 6.1.26 (http://www.eclipse.org/jetty/)
-Derby 10.10.1.1 (http://db.apache.org/derby/)
+Jetty 8.1.11.v20130520 (http://www.eclipse.org/jetty/)
+--Derby 10.10.1.1 (http://db.apache.org/derby/)--
+MySQL 5.5.29
 JMX (http://zh.wikipedia.org/wiki/JMX)
 FastJson (https://github.com/alibaba/fastjson)
 Quartz 1.5 (http://www.quartz-scheduler.org/)
