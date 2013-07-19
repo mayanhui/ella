@@ -33,10 +33,19 @@ public class JMXHMasterService extends Thread {
 	private RequestCountDaoImpl reqDao = null;
 	private TableDaoImpl tblDao = null;
 
-	public JMXHMasterService() {
+	private static JMXHMasterService service;
+
+	private JMXHMasterService() {
 		this.reqDao = new RequestCountDaoImpl();
 		this.tblDao = new TableDaoImpl();
-		url = config.getProperty(ConfigProperties.CONFIG_NAME_ELLA_HBASE_MASTER_JMX_QRY_URL);
+		url = config
+				.getProperty(ConfigProperties.CONFIG_NAME_ELLA_HBASE_MASTER_JMX_QRY_URL);
+	}
+
+	public static synchronized JMXHMasterService getInstance() {
+		if (service == null)
+			service = new JMXHMasterService();
+		return service;
 	}
 
 	public String request(String urlString) {
@@ -108,7 +117,7 @@ public class JMXHMasterService extends Thread {
 
 	public static void main(String[] args) throws JsonParseException,
 			JsonMappingException, IOException, SQLException {
-		JMXHMasterService service = new JMXHMasterService();
+		JMXHMasterService service = JMXHMasterService.getInstance();
 		Thread t = new Thread(service);
 		t.start();
 	}

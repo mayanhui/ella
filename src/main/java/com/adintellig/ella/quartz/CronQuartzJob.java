@@ -14,7 +14,7 @@ public class CronQuartzJob implements Job {
 	@Override
 	public void execute(JobExecutionContext context)
 			throws JobExecutionException {
-		JMXHMasterService service = new JMXHMasterService();
+		JMXHMasterService service = JMXHMasterService.getInstance();
 		Thread t = new Thread(service);
 		t.start();
 	}
