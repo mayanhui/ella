@@ -1,4 +1,7 @@
-#More details, see wiki page(Chinese wiki 中文使用手册，NOT AVAILABLE NOW！): 
+<h1>Ella: HBase Cluster Monitor on Region,Table,Server Level.<br />
+<em><sup><sup>'A watchdog'</sup></sup></em></h1>
+
+##More details, see wiki page(Chinese wiki 中文使用手册，NOT AVAILABLE NOW！): 
 https://github.com/mayanhui/ella/wiki
 
 ###################################################
@@ -6,7 +9,7 @@ https://github.com/mayanhui/ella/wiki
 ###################################################
 Ella is a "Border Collie", a handsome and smart dog.
 
-A watching dog, monitor hbase.
+A watchdog, monitor hbase.
 
 Watching list:
 
