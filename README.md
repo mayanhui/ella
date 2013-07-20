@@ -43,12 +43,13 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 
 ## Roadmap
 1. Add color to TPS value, like red if bigger than 0 (done)
-2. Add Hot Region Request list
+2. Add Hot Region Request list (doing)
 3. Add Server Request list
 4. Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.
 5. Add zookeeper monitor
 6. change css style (done)
 7. Add user guide for ella
+8. Add return home page link in details page
 
 
 ## Ella First Page
