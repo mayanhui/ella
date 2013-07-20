@@ -20,7 +20,7 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 * Java 1.6 (http://www.oracle.com/technetwork/java/index.html)
 * Jetty 8.1.11.v20130520 (http://www.eclipse.org/jetty/)
 * --Derby 10.10.1.1 (http://db.apache.org/derby/)--
-* MySQL 5.5.29
+* MySQL 5.5.29 (http://www.mysql.com/)
 * JMX (http://zh.wikipedia.org/wiki/JMX)
 * FastJson (https://github.com/alibaba/fastjson)
 * Quartz 1.5 (http://www.quartz-scheduler.org/)
@@ -78,13 +78,13 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 
 "*"    表示所有值；
 
-?    表示未说明的值，即不关心它为何值； 
+"?"    表示未说明的值，即不关心它为何值； 
 
--    表示一个指定的范围； 
+"-"    表示一个指定的范围； 
 
-,    表示附加一个可能值； 
+","    表示附加一个可能值； 
 
-/    符号前表示开始时间，符号后表示每次递增的值； 
+"/"    符号前表示开始时间，符号后表示每次递增的值； 
 
 * L("last")    ("last") "L" 用在day-of-month字段意思是 "这个月最后一天"；用在 day-of-week字段, 它简单意思是 "7" or "SAT"。 如果在day-of-week字段里和数字联合使用，它的意思就是 "这个月的最后一个星期几" – 例如： "6L" means "这个月的最后一个星期五". 当我们用“L”时，不指明一个列表值或者范围是很重要的，不然的话，我们会得到一些意想不到的结果。 
 * W("weekday")    只能用在day-of-month字段。用来描叙最接近指定天的工作日（周一到周五）。例如：在day-of-month字段用“15W”指“最接近这个月第15天的工作日”，即如果这个月第15天是周六，那么触发器将会在这个月第14天即周五触发；如果这个月第15天是周日，那么触发器将会在这个月第16天即周一触发；如果这个月第15天是周二，那么就在触发器这天触发。注意一点：这个用法只会在当前月计算值，不会越过当前月。“W”字符仅能在day-of-month指明一天，不能是一个范围或列表。也可以用“LW”来指定这个月的最后一个工作日。只能用在day-of-week字段。用来指定这个月的第几个周几。例：在day-of-week字段用"6#3"指这个月第3个周五（6指周五，3指第3个）。如果指定的日期不存在，触发器就不会触发。    
