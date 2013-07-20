@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
-	<display-name>test jetty</display-name>
+	<display-name>ella</display-name>
 	<welcome-file-list>
 		<welcome-file>jump.jsp</welcome-file>
 	</welcome-file-list>
