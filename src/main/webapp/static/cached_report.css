@@ -37,7 +37,7 @@ a:active,a:focus,a:link {outline: none;star:expression(this.onFocus=this.blur())
 #doc .hd{
 }
 .hd .userHeader{
-	height:50px;
+	height:80px;
 	line-height:50px;
 	padding-right:35px;
 	border-bottom:1px solid #fff;

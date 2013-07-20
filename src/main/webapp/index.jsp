@@ -35,10 +35,11 @@
 	</div>
 	</div>
 
-	<div class="navItem currentItem">
+<!--	<div class="navItem currentItem">
 		<span class="icon icons1"></span> <span>Table Requests</span> <span
 			class="bot"></span>
 	</div>
+-->
 
 	<div class="bd clearfix">
 		<div id="leftColContainer">
