@@ -1,5 +1,5 @@
 <h1>Ella: HBase Cluster Monitor on Region,Table,Server Level.<br />
-<em><sup><sup>'A watchdog'</sup></sup></em></h1>
+<em><sup><sup>'A Watchdog on HBase'</sup></sup></em></h1>
 
 ##More details, see wiki page(Chinese wiki 中文使用手册，NOT AVAILABLE NOW！): 
 https://github.com/mayanhui/ella/wiki
