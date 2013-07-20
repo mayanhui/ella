@@ -50,6 +50,7 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 6. change css style (done)
 7. Add user guide for ella
 8. Add return home page link in details page
+9. Add footer.jsp for Copyright.(done)
 
 
 ## Ella First Page
