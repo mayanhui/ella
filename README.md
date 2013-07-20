@@ -17,27 +17,27 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 
 
 ## Framwork
-Java 1.6 (http://www.oracle.com/technetwork/java/index.html)
-Jetty 8.1.11.v20130520 (http://www.eclipse.org/jetty/)
---Derby 10.10.1.1 (http://db.apache.org/derby/)--
-MySQL 5.5.29
-JMX (http://zh.wikipedia.org/wiki/JMX)
-FastJson (https://github.com/alibaba/fastjson)
-Quartz 1.5 (http://www.quartz-scheduler.org/)
-D3 (https://github.com/mbostock/d3)
-gRaphael (http://g.raphaeljs.com/)
+* Java 1.6 (http://www.oracle.com/technetwork/java/index.html)
+* Jetty 8.1.11.v20130520 (http://www.eclipse.org/jetty/)
+* --Derby 10.10.1.1 (http://db.apache.org/derby/)--
+* MySQL 5.5.29
+* JMX (http://zh.wikipedia.org/wiki/JMX)
+* FastJson (https://github.com/alibaba/fastjson)
+* Quartz 1.5 (http://www.quartz-scheduler.org/)
+* D3 (https://github.com/mbostock/d3)
+* gRaphael (http://g.raphaeljs.com/)
 
 
 ##cronExpression配置说明  
   
 字段   允许值   允许的特殊字符
-秒    0-59    , - * /
-分    0-59    , - * /
-小时    0-23    , - * /
-日期    1-31    , - * ? / L W C
-月份    1-12 或者 JAN-DEC    , - * /
-星期    1-7 或者 SUN-SAT    , - * ? / L C #
-年（可选）    留空, 1970-2099    , - * /
+* 秒    0-59    , - * /
+* 分    0-59    , - * /
+* 小时    0-23    , - * /
+* 日期    1-31    , - * ? / L W C
+* 月份    1-12 或者 JAN-DEC    , - * /
+* 星期    1-7 或者 SUN-SAT    , - * ? / L C #
+* 年（可选）    留空, 1970-2099    , - * /
   
   
 表达式   意义
