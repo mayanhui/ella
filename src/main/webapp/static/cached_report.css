@@ -42,7 +42,7 @@ a:active,a:focus,a:link {outline: none;star:expression(this.onFocus=this.blur())
 	padding-right:35px;
 	border-bottom:1px solid #fff;
 	background:url(backg.png) repeat-x 0 0;
-	font-size:13px;
+	font-size:40px;
 	color:#bebebe;
 }
 .hd .userHeader .logo{

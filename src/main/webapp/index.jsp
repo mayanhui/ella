@@ -23,23 +23,22 @@
 
 </head>
 <body>
-	<a id="logo" href="http://wiki.apache.org/lucene-hadoop/Hbase"><img
-		src="static/hbase_logo.png" alt="HBase Logo" title="HBase Logo" />
-	</a>
 
-	<h1 id="page_title">HBase Monitor</h1>
-
-	<!-- Various warnings that cluster admins should be aware of -->
-
-	<hr id="head_rule" />
+	<div class="hd">
+	<div class="userHeader clearfix">
+	<span>Ella: HBase Monitor</span>
+		<div class="logo">
+			<a id="logo" href="http://wiki.apache.org/lucene-hadoop/Hbase"><img
+			src="static/hbase_logo.png" alt="HBase Logo" title="HBase Logo" />
+			</a>
+		</div>
+	</div>
+	</div>
 
 	<div class="navItem currentItem">
 		<span class="icon icons1"></span> <span>Table Requests</span> <span
 			class="bot"></span>
 	</div>
-
-	<font color="Red"><h3>The red tables are being accessed!</h3>
-	</font>
 
 	<div class="bd clearfix">
 		<div id="leftColContainer">
@@ -138,6 +137,7 @@
 								</c:forEach>
 							</tbody>
 						</table>
+						<font color="Red"><span>The red tables are being accessed!</span></font>
 						<div class="wait-load" style="display: none;">
 							<img src="/images/pic/ajax-loader.gif">
 						</div>
