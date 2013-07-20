@@ -52,17 +52,28 @@ body {
 }
 </style>
 
+<link href="static/cached_report.css" media="screen" rel="stylesheet"
+	type="text/css">
 </head>
 <body>
-<a id="logo" href="http://wiki.apache.org/lucene-hadoop/Hbase"><img src="static/hbase_logo.png" alt="HBase Logo" title="HBase Logo" /></a>
+	<div class="hd">
+	<div class="userHeader clearfix">
+	<span>Ella: A Watchdog on HBase</span>
+		<div class="logo">
+			<a id="logo" href="http://wiki.apache.org/lucene-hadoop/Hbase"><img
+			src="static/hbase_logo.png" alt="HBase Logo" title="HBase Logo" />
+			</a>
+		</div>
+	</div>
+	</div>
 
-<h1 id="page_title">HBase Monitor</h1>
+	<br/><br/>
 
-<hr id="head_rule" />
-<h2>"${tableName}" Requests Graph  @<%=new java.util.Date()%></h2>
+
+<center><h2>"${tableName}" Requests Graph  @<%=new java.util.Date()%></h2></center>
 
 <!--
-<table id="requests_table">
+<table id="data-load">
 <tr><th>Table Name</th><th>Write Count</th><th>Read Count</th><th>Total Count</th></tr>
 
 <c:forEach var="r" items="${reqs}"> 
@@ -77,7 +88,7 @@ body {
 </table> -->
 
 
-<table width="50%"  height="90%" border="1" cellspacing="0" cellpadding="1" bordercolor="#84C1FF" align="center">
+<table class="data-load" width="50%"  height="90%" border="1" cellspacing="0" cellpadding="1" align="center">
 <tr>
 <td align="center">
 <iframe src="write.jsp" width="600" height="350" align="middle" scrolling="auto" frameborder="0"></iframe>

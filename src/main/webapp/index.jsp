@@ -16,7 +16,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-<title>HBase Monitor</title>
+<title>Ella: HBase Monitor</title>
 
 <link href="static/cached_report.css" media="screen" rel="stylesheet"
 	type="text/css">
@@ -26,7 +26,7 @@
 
 	<div class="hd">
 	<div class="userHeader clearfix">
-	<span>Ella: HBase Monitor</span>
+	<span>Ella: A Watchdog on HBase</span>
 		<div class="logo">
 			<a id="logo" href="http://wiki.apache.org/lucene-hadoop/Hbase"><img
 			src="static/hbase_logo.png" alt="HBase Logo" title="HBase Logo" />
@@ -35,12 +35,7 @@
 	</div>
 	</div>
 
-<!--	<div class="navItem currentItem">
-		<span class="icon icons1"></span> <span>Table Requests</span> <span
-			class="bot"></span>
-	</div>
--->
-
+	<br/><br/>
 	<div class="bd clearfix">
 		<div id="leftColContainer">
 			<div class="leftCol">
@@ -76,7 +71,7 @@
 						</h2>
 					</div>
 					<div class="mod-body" id="data-load">
-						<table class="data-load">
+						<table class="data-load" width="100%" border="0" cellspacing="0">
 							<thead>
 								<tr>
 									<th>Table Name</th>

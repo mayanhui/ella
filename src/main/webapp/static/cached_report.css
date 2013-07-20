@@ -55,7 +55,7 @@ a:active,a:focus,a:link {outline: none;star:expression(this.onFocus=this.blur())
 	background:url(backg.png) repeat-x 0 -61px;
 }
 #doc .bd{
-	margin:0 12px 15px;
+	margin:0 20px 15px;
 	padding-top:15px;
 	overflow:hidden;
 }
