@@ -10,9 +10,9 @@ A watching dog, monitor hbase.
 
 Watching list:
 
-1. Table level request statistics
-2. Region level request statistics 
-3. Server level request statistics
+1. Table level request statistics (Write/Read/Total Count, TPS)
+2. Region level request statistics (Hot Region)
+3. Server level request statistics (Write/Read/Total Count, TPS, Hot Server)
 4. zookeeper monitor
 5. Chart display
 
