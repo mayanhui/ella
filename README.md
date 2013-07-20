@@ -5,10 +5,13 @@ https://github.com/mayanhui/ella/wiki
 ## Ella ############
 ###################################################
 Ella is a "Border Collie", a handsome and smart dog.
+
 A watching dog, monitor hbase.
+
 Watching list:
+
 1. Table level request statistics
-2. Region level request statistics
+2. Region level request statistics 
 3. Server level request statistics
 4. zookeeper monitor
 5. Chart display
@@ -33,7 +36,6 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 * Quartz 1.5 (http://www.quartz-scheduler.org/)
 * D3 (https://github.com/mbostock/d3)
 * gRaphael (http://g.raphaeljs.com/)
-* 
 
 
 ## Roadmap
