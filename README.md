@@ -48,3 +48,7 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 4. Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.
 5. Add zookeeper monitor
 6. change css style (done)
+
+
+## Ella First Page
+![Ella First Page](http://static.oschina.net/uploads/space/2013/0720/142647_s5dz_818358.jpg)
