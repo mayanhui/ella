@@ -5,18 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.adintellig.ella.hbase.JMXHMasterService;
-import com.adintellig.ella.model.RegionRequestCount;
-import com.adintellig.ella.model.RegionServerRequestCount;
-import com.adintellig.ella.model.RequestCount;
-import com.adintellig.ella.model.TableRequestCount;
 import com.adintellig.ella.model.Table;
 import com.adintellig.ella.util.JdbcUtil;
 
@@ -31,56 +25,34 @@ public class TableDaoImpl {
 
 		PreparedStatement stmt = con.prepareStatement(insertTablesSQL);
 
-		List<Table> tables = list();
-		List<Table> newTables = getDiff(beans, tables);
-
-		if (null != newTables && newTables.size() > 0) {
-			for (Table t : newTables) {
+		if (null != beans && beans.size() > 0) {
+			for (Table t : beans) {
 				stmt.setString(1, t.getTableName());
 				stmt.setTimestamp(2, t.getUpdateTime());
 				stmt.addBatch();
 			}
-			logger.info("Load Tables info into MySQL. Size=" + newTables.size());
+			logger.info("[INSERT] Load Tables info into 'tables'. Size=" + beans.size());
 		}
 		stmt.executeBatch();
 		JdbcUtil.close(con, stmt, null);
 	}
-
-	/**
-	 * 
-	 * @param list1
-	 * @param list2
-	 * @return Table which in list1, but not in list2
-	 */
-	private List<Table> getDiff(List<Table> list1, List<Table> list2) {
-		List<Table> diff = new ArrayList<Table>();
-		for (Table t : list1) {
-			if (!list2.contains(t)) {
-				diff.add(t);
-			}
+	
+	public boolean needUpdate(List<Table> tables) {
+		if (null != tables && tables.size() > 0) {
+			if (tables.size() != getTotalNumber())
+				return true;
 		}
-		return diff;
+		return false;
+	}
+	
+	public void truncate() throws SQLException {
+		Connection conn = JdbcUtil.getConnection();
+		Statement stmt = conn.createStatement();
+		stmt.executeUpdate("truncate table hbase.tables");
+		JdbcUtil.close(conn);
 	}
 
 	public static void main(String[] args) {
-		TableDaoImpl impl = new TableDaoImpl();
-		List<Table> list1 = new ArrayList<Table>();
-		Table t1 = new Table();
-		t1.setTableName("test1");
-		t1.setUpdateTime(new Timestamp(1000L));
-		list1.add(t1);
-
-		List<Table> list2 = new ArrayList<Table>();
-		Table t2 = new Table();
-		t2.setTableName("test2");
-		t2.setUpdateTime(new Timestamp(1001L));
-		list2.add(t2);
-
-		List<Table> list = impl.getDiff(list2, list1);
-		System.out.println(list.size());
-		for (Table t : list) {
-			System.out.println(t.getTableName());
-		}
 	}
 
 	// public void delete(long id) throws Exception {
@@ -126,7 +98,7 @@ public class TableDaoImpl {
 		return tables;
 	}
 
-	public static int getTotalNumberOfTables() {
+	public static int getTotalNumber() {
 		int num = -1;
 		try {
 			Connection con = JdbcUtil.getConnection();

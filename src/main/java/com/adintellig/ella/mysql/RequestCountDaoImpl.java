@@ -134,7 +134,7 @@ public class RequestCountDaoImpl {
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt
 				.executeQuery("select * from (select table_name,write_count,read_count,total_count,update_time from hbase.table_requests order by id desc limit "
-						+ TableDaoImpl.getTotalNumberOfTables()
+						+ TableDaoImpl.getTotalNumber()
 						* 2
 						+ ") a order by a.table_name");
 		List<RequestCount> list = new ArrayList<RequestCount>();

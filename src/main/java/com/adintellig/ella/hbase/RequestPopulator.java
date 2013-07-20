@@ -13,6 +13,7 @@ import com.adintellig.ella.hbase.beans.MasterServiceBeans;
 import com.adintellig.ella.hbase.beans.RegionServer;
 import com.adintellig.ella.hbase.beans.RegionsLoad;
 import com.adintellig.ella.hbase.beans.RegionsLoadValue;
+import com.adintellig.ella.model.Region;
 import com.adintellig.ella.model.RegionRequestCount;
 import com.adintellig.ella.model.RegionServerRequestCount;
 import com.adintellig.ella.model.RequestCount;
@@ -177,6 +178,25 @@ public class RequestPopulator {
 			}
 		}
 		return tables;
+	}
+	
+	public static List<Region> populateRegions(List<RequestCount> beans) {
+		String regionName = null;
+		Timestamp updateTime = new Timestamp(System.currentTimeMillis());
+
+		List<Region> regions = new ArrayList<Region>();
+
+		for (RequestCount req : beans) {
+			if (req instanceof RegionRequestCount) {
+				regionName = ((RegionRequestCount) req).getRegionName();
+				updateTime = req.getUpdateTime();
+				Region t = new Region();
+				t.setRegionName(regionName);
+				t.setUpdateTime(updateTime);
+				regions.add(t);
+			}
+		}
+		return regions;
 	}
 
 }

@@ -13,8 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.adintellig.ella.hbase.beans.MasterServiceBeans;
+import com.adintellig.ella.model.Region;
 import com.adintellig.ella.model.RequestCount;
 import com.adintellig.ella.model.Table;
+import com.adintellig.ella.mysql.RegionDaoImpl;
 import com.adintellig.ella.mysql.RequestCountDaoImpl;
 import com.adintellig.ella.mysql.TableDaoImpl;
 import com.adintellig.ella.util.ConfigFactory;
@@ -32,12 +34,14 @@ public class JMXHMasterService extends Thread {
 
 	private RequestCountDaoImpl reqDao = null;
 	private TableDaoImpl tblDao = null;
+	private RegionDaoImpl regDao = null;
 
 	private static JMXHMasterService service;
 
 	private JMXHMasterService() {
 		this.reqDao = new RequestCountDaoImpl();
 		this.tblDao = new TableDaoImpl();
+		this.regDao = new RegionDaoImpl();
 		url = config
 				.getProperty(ConfigProperties.CONFIG_NAME_ELLA_HBASE_MASTER_JMX_QRY_URL);
 	}
@@ -91,21 +95,33 @@ public class JMXHMasterService extends Thread {
 			List<RequestCount> list = RequestPopulator
 					.populateRegionRequestCount(bean);
 			reqDao.batchAdd(list);
-			logger.info("Load Region Count info into MySQL. Size="
+			logger.info("[INSERT] Load Region Count info into 'region_requests'. Size="
 					+ list.size());
+			
+			// region check
+			List<Region> regions = RequestPopulator.populateRegions(list);
+			if(regDao.needUpdate(regions)){
+				regDao.truncate();
+				regDao.batchUpdate(regions);
+			}
+			
 			// server count
 			list = RequestPopulator.populateRegionServerRequestCount(bean);
 			reqDao.batchAdd(list);
-			logger.info("Load Server Count info into MySQL. Size="
+			logger.info("[INSERT] Load Server Count info into 'server_requests'. Size="
 					+ list.size());
+			
 			// table count
 			list = RequestPopulator.populateTableRequestCount(bean);
 			reqDao.batchAdd(list);
-			logger.info("Load Table Count info into MySQL. Size=" + list.size());
+			logger.info("[INSERT] Load Table Count info into 'table_requests'. Size=" + list.size());
 
 			// table check
 			List<Table> tables = RequestPopulator.populateTables(list);
-			tblDao.batchUpdate(tables);
+			if(tblDao.needUpdate(tables)){
+				tblDao.truncate();
+				tblDao.batchUpdate(tables);
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
