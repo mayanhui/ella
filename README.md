@@ -52,6 +52,7 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 8. Add return home page link in details page.
 9. Add footer.jsp for Copyright. (done)
 10. Add detail page for server,region
+11. Add JVM_OPTS for Jetty Server
 
 
 ## Ella First Page
