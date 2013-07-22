@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.adintellig.ella.model.RegionRequestCount;
-import com.adintellig.ella.model.RegionServerRequestCount;
+import com.adintellig.ella.model.ServerRequestCount;
 import com.adintellig.ella.model.RequestCount;
 import com.adintellig.ella.model.TableRequestCount;
 
@@ -129,7 +129,7 @@ public class RequestDAO {
 				sql = insertRegionRequestsSQL;
 			} else if (req instanceof TableRequestCount) {
 				sql = insertTableRequestsSQL;
-			} else if (req instanceof RegionServerRequestCount) {
+			} else if (req instanceof ServerRequestCount) {
 				sql = insertServerRequestsSQL;
 			}
 		}
@@ -142,8 +142,8 @@ public class RequestDAO {
 				name = ((RegionRequestCount) req).getRegionName();
 			} else if (req instanceof TableRequestCount) {
 				name = ((TableRequestCount) req).getTableName();
-			} else if (req instanceof RegionServerRequestCount) {
-				name = ((RegionServerRequestCount) req).getServerHost();
+			} else if (req instanceof ServerRequestCount) {
+				name = ((ServerRequestCount) req).getServerHost();
 			}
 			stmt.setString(1, name);
 			stmt.setLong(2, req.getWriteCount());

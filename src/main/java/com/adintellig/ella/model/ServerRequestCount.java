@@ -2,19 +2,19 @@ package com.adintellig.ella.model;
 
 import java.sql.Timestamp;
 
-public class RegionServerRequestCount extends RequestCount {
+public class ServerRequestCount extends RequestCount {
 	private String serverHost = null;
 
-	public RegionServerRequestCount(String serverHost) {
+	public ServerRequestCount(String serverHost) {
 		super();
 		this.serverHost = serverHost;
 	}
 
-	public RegionServerRequestCount() {
+	public ServerRequestCount() {
 		super();
 	}
 
-	public RegionServerRequestCount(long writeCount, long readCount,
+	public ServerRequestCount(long writeCount, long readCount,
 			long totalCount, Timestamp updateTime, Timestamp insertTime,
 			int writeTps, int readTps, int totalTps) {
 		super(writeCount, readCount, totalCount, updateTime, insertTime,

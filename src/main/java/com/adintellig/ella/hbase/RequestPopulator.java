@@ -15,7 +15,8 @@ import com.adintellig.ella.hbase.beans.RegionsLoad;
 import com.adintellig.ella.hbase.beans.RegionsLoadValue;
 import com.adintellig.ella.model.Region;
 import com.adintellig.ella.model.RegionRequestCount;
-import com.adintellig.ella.model.RegionServerRequestCount;
+import com.adintellig.ella.model.Server;
+import com.adintellig.ella.model.ServerRequestCount;
 import com.adintellig.ella.model.RequestCount;
 import com.adintellig.ella.model.TableRequestCount;
 import com.adintellig.ella.model.Table;
@@ -142,7 +143,7 @@ public class RequestPopulator {
 			for (RegionServer r : rs) {
 				host = r.getKey();
 				RegionsLoad[] rl = r.getValue().getRegionsLoad();
-				RegionServerRequestCount request = new RegionServerRequestCount();
+				ServerRequestCount request = new ServerRequestCount();
 				request.setServerHost(host);
 				for (RegionsLoad l : rl) {
 					RegionsLoadValue regionsLoadValue = l.getValue();
@@ -179,7 +180,7 @@ public class RequestPopulator {
 		}
 		return tables;
 	}
-	
+
 	public static List<Region> populateRegions(List<RequestCount> beans) {
 		String regionName = null;
 		Timestamp updateTime = new Timestamp(System.currentTimeMillis());
@@ -197,6 +198,25 @@ public class RequestPopulator {
 			}
 		}
 		return regions;
+	}
+
+	public static List<Server> populateServers(List<RequestCount> beans) {
+		String host = null;
+		Timestamp updateTime = new Timestamp(System.currentTimeMillis());
+
+		List<Server> servers = new ArrayList<Server>();
+
+		for (RequestCount req : beans) {
+			if (req instanceof ServerRequestCount) {
+				host = ((ServerRequestCount) req).getServerHost();
+				updateTime = req.getUpdateTime();
+				Server s = new Server();
+				s.setHost(host);
+				s.setUpdateTime(updateTime);
+				servers.add(s);
+			}
+		}
+		return servers;
 	}
 
 }

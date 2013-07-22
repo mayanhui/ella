@@ -15,9 +15,11 @@ import org.slf4j.LoggerFactory;
 import com.adintellig.ella.hbase.beans.MasterServiceBeans;
 import com.adintellig.ella.model.Region;
 import com.adintellig.ella.model.RequestCount;
+import com.adintellig.ella.model.Server;
 import com.adintellig.ella.model.Table;
 import com.adintellig.ella.mysql.RegionDaoImpl;
 import com.adintellig.ella.mysql.RequestCountDaoImpl;
+import com.adintellig.ella.mysql.ServerDaoImpl;
 import com.adintellig.ella.mysql.TableDaoImpl;
 import com.adintellig.ella.util.ConfigFactory;
 import com.adintellig.ella.util.ConfigProperties;
@@ -35,6 +37,7 @@ public class JMXHMasterService extends Thread {
 	private RequestCountDaoImpl reqDao = null;
 	private TableDaoImpl tblDao = null;
 	private RegionDaoImpl regDao = null;
+	private ServerDaoImpl serDao = null;
 
 	private static JMXHMasterService service;
 
@@ -42,6 +45,7 @@ public class JMXHMasterService extends Thread {
 		this.reqDao = new RequestCountDaoImpl();
 		this.tblDao = new TableDaoImpl();
 		this.regDao = new RegionDaoImpl();
+		this.serDao = new ServerDaoImpl();
 		url = config
 				.getProperty(ConfigProperties.CONFIG_NAME_ELLA_HBASE_MASTER_JMX_QRY_URL);
 	}
@@ -110,6 +114,13 @@ public class JMXHMasterService extends Thread {
 			reqDao.batchAdd(list);
 			logger.info("[INSERT] Load Server Count info into 'server_requests'. Size="
 					+ list.size());
+			
+			//server check
+			List<Server> servers = RequestPopulator.populateServers(list);
+			if(serDao.needUpdate(servers)){
+				serDao.truncate();
+				serDao.batchUpdate(servers);
+			}
 			
 			// table count
 			list = RequestPopulator.populateTableRequestCount(bean);

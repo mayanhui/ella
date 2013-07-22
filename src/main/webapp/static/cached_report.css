@@ -92,6 +92,15 @@ a:active,a:focus,a:link {outline: none;star:expression(this.onFocus=this.blur())
 .bd #mainContainer{
 	margin-left:228px;
 }
+.bd #mainContainer2{
+	margin-left:228px;
+}
+.bd #mainContainer3{
+	margin-left:228px;
+}
+.bd #mainContainer4{
+	margin-left:228px;
+}
 .bd .contentCol{
 }
 .bd2{

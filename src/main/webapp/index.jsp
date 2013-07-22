@@ -49,19 +49,23 @@
 			<div class="leftCol">
 				<div id="siderNav">
 					<ul class="nav-items">
-						<li class="nav-item item-top current-item on"><span><a
-								href="#"
-								page_id="AppSummary"><b class="icon item-1"></b>表访问量监控 </a> </span></li>
-						<li class="nav-item "><span><a><b
-									class="icon item-2"></b>Hot Region监控</a>
+						<li class="nav-item item-top current-item on">
+						<span>
+						<a href="#">表访问量监控 </a>
+						</span></li>
+						<li class="nav-item ">
+						<span>
+						<a href="#mainContainer2">Hot Region监控</a>
 						</span></li>
 
-						<li class="nav-item "><span><a><b
-									class="icon item-4"></b>Server监控</a>
+						<li class="nav-item ">
+						<span>
+						<a href="#mainContainer3">Server监控</a>
 						</span></li>
 
-						<li class="nav-item "><span><a><b
-									class="icon item-3"></b>Zookeeper监控</a>
+						<li class="nav-item ">
+						<span>
+						<a href="#mainContainer4">Zookeeper监控</a>
 						</span></li>
 					</ul>
 				</div>
@@ -155,12 +159,12 @@
 	<div class="bd clearfix">
 		<div id="leftColContainer">
 			<div class="leftCol">
-				<div id="siderNav"></div>
+				<div id="siderNav">
 			</div>
 		</div>
 	</div>
 	
-	<div id="mainContainer">
+	<div id="mainContainer2">
 			<div class="contentCol">
 
 				<div class="mod mod1" id="today_table">
@@ -181,7 +185,7 @@
 							<tbody id="data-list">
 								<c:forEach var="w" items="${wregions}">
 									<tr>
-										<td><a href="details.jsp?tn=${w.regionName}">${w.regionName}</a></td>
+										<td><a href="#">${w.regionName}</a></td>
 										<td>${w.writeCount}</td>
 									</tr>
 								</c:forEach>
@@ -198,7 +202,7 @@
 							<tbody id="data-list">
 								<c:forEach var="r" items="${rregions}">
 									<tr>
-										<td><a href="details.jsp?tn=${r.regionName}">${r.regionName}</a></td>
+										<td><a href="#">${r.regionName}</a></td>
 										<td>${r.readCount}</td>
 									</tr>
 								</c:forEach>
