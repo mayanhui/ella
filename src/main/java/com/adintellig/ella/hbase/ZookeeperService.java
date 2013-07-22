@@ -25,9 +25,9 @@ import com.adintellig.ella.util.ConfigFactory;
 import com.adintellig.ella.util.ConfigProperties;
 import com.alibaba.fastjson.JSON;
 
-public class JMXHMasterService extends Thread {
+public class ZookeeperService extends Thread {
 	private static Logger logger = LoggerFactory
-			.getLogger(JMXHMasterService.class);
+			.getLogger(ZookeeperService.class);
 
 	static ConfigProperties config = ConfigFactory.getInstance()
 			.getConfigProperties(ConfigFactory.ELLA_CONFIG_PATH);
@@ -39,20 +39,20 @@ public class JMXHMasterService extends Thread {
 	private RegionDaoImpl regDao = null;
 	private ServerDaoImpl serDao = null;
 
-	private static JMXHMasterService service;
+	private static ZookeeperService service;
 
-	private JMXHMasterService() {
+	private ZookeeperService() {
 		this.reqDao = new RequestCountDaoImpl();
 		this.tblDao = new TableDaoImpl();
 		this.regDao = new RegionDaoImpl();
 		this.serDao = new ServerDaoImpl();
 		url = config.getProperty("ella.hbase.master.baseurl")
-				+ config.getProperty("ella.hbase.master.jmx.qry.suburl");
+				+ config.getProperty("ella.hbase.zookeeper.suburl");
 	}
 
-	public static synchronized JMXHMasterService getInstance() {
+	public static synchronized ZookeeperService getInstance() {
 		if (service == null)
-			service = new JMXHMasterService();
+			service = new ZookeeperService();
 		return service;
 	}
 
@@ -101,36 +101,35 @@ public class JMXHMasterService extends Thread {
 			reqDao.batchAdd(list);
 			logger.info("[INSERT] Load Region Count info into 'region_requests'. Size="
 					+ list.size());
-
+			
 			// region check
 			List<Region> regions = RequestPopulator.populateRegions(list);
-			if (regDao.needUpdate(regions)) {
+			if(regDao.needUpdate(regions)){
 				regDao.truncate();
 				regDao.batchUpdate(regions);
 			}
-
+			
 			// server count
 			list = RequestPopulator.populateRegionServerRequestCount(bean);
 			reqDao.batchAdd(list);
 			logger.info("[INSERT] Load Server Count info into 'server_requests'. Size="
 					+ list.size());
-
-			// server check
+			
+			//server check
 			List<Server> servers = RequestPopulator.populateServers(list);
-			if (serDao.needUpdate(servers)) {
+			if(serDao.needUpdate(servers)){
 				serDao.truncate();
 				serDao.batchUpdate(servers);
 			}
-
+			
 			// table count
 			list = RequestPopulator.populateTableRequestCount(bean);
 			reqDao.batchAdd(list);
-			logger.info("[INSERT] Load Table Count info into 'table_requests'. Size="
-					+ list.size());
+			logger.info("[INSERT] Load Table Count info into 'table_requests'. Size=" + list.size());
 
 			// table check
 			List<Table> tables = RequestPopulator.populateTables(list);
-			if (tblDao.needUpdate(tables)) {
+			if(tblDao.needUpdate(tables)){
 				tblDao.truncate();
 				tblDao.batchUpdate(tables);
 			}
@@ -145,7 +144,7 @@ public class JMXHMasterService extends Thread {
 
 	public static void main(String[] args) throws JsonParseException,
 			JsonMappingException, IOException, SQLException {
-		JMXHMasterService service = JMXHMasterService.getInstance();
+		ZookeeperService service = ZookeeperService.getInstance();
 		Thread t = new Thread(service);
 		t.start();
 	}
