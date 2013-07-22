@@ -18,6 +18,9 @@
 	   
 	   List<RequestCount> rregions = impl.listReadHotRegions();
 	   request.setAttribute("rregions",rregions);
+	   
+	   List<RequestCount> servers = impl.listServers();
+	   request.setAttribute("servers",servers);
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -156,6 +159,7 @@
 		</div>
 	</div>
 	
+	<!-- region -->
 	<div class="bd clearfix">
 		<div id="leftColContainer">
 			<div class="leftCol">
@@ -204,6 +208,97 @@
 									<tr>
 										<td><a href="#">${r.regionName}</a></td>
 										<td>${r.readCount}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<div class="wait-load" style="display: none;">
+							<img src="/images/pic/ajax-loader.gif">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- server -->
+	<div class="bd clearfix">
+		<div id="leftColContainer">
+			<div class="leftCol">
+				<div id="siderNav">
+			</div>
+		</div>
+	</div>
+	
+	<div id="mainContainer3">
+			<div class="contentCol">
+
+				<div class="mod mod1" id="today_table">
+					<div class="mod-header radius">
+						<h2>
+							今日Server数据<a class="icon help poptips" action-frame="tip_todayData"
+								title=""></a>
+						</h2>
+					</div>
+					<div class="mod-body" id="data-load">
+						<table class="data-load" width="100%" border="0" cellspacing="0">
+							<thead>
+								<tr>
+									<th>Server Name</th>
+									<th>Write Count</th>
+									<th>Read Count</th>
+									<th>Total Count</th>
+									<th>Write TPS</th>
+									<th>Read TPS</th>
+									<th>Total TPS</th>
+								</tr>
+							</thead>
+							<tbody id="data-list">
+								<c:forEach var="s" items="${servers}">
+									<tr>
+										<c:choose>
+											<c:when
+												test="${s.writeTps > 0 || s.readTps > 0 || s.totalTps > 0}">
+												<td><a href="#"><font
+														color="Red">${s.serverHost}</font>
+												</a>
+												</td>
+											</c:when>
+											<c:otherwise>
+												<td><a href="#">${t.serverHost}</a>
+												</td>
+											</c:otherwise>
+										</c:choose>
+										<td>${s.writeCount}</td>
+										<td>${s.readCount}</td>
+										<td>${s.totalCount}</td>
+										<c:choose>
+											<c:when test="${s.writeTps > 0 }">
+												<td><font color="Red">${s.writeTps}</font>
+												</td>
+											</c:when>
+											<c:otherwise>
+												<td>${s.writeTps}</td>
+											</c:otherwise>
+										</c:choose>
+										<c:choose>
+											<c:when test="${s.readTps > 0}">
+												<td><font color="Red">${s.readTps}</font>
+												</td>
+											</c:when>
+											<c:otherwise>
+												<td>${s.readTps}</td>
+											</c:otherwise>
+										</c:choose>
+										<c:choose>
+											<c:when test="${s.totalTps > 0}">
+												<td><font color="Red">${s.totalTps}</font>
+												</td>
+											</c:when>
+											<c:otherwise>
+												<td>${s.totalTps}</td>
+											</c:otherwise>
+										</c:choose>
 									</tr>
 								</c:forEach>
 							</tbody>

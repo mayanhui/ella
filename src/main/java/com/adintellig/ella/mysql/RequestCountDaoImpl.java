@@ -202,6 +202,81 @@ public class RequestCountDaoImpl {
 		JdbcUtil.close(conn);
 		return list;
 	}
+	
+	public List<RequestCount> listServers() throws Exception {
+		Connection conn = JdbcUtil.getConnection();
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt
+				.executeQuery("select * from (select host,write_count,read_count,total_count,update_time from hbase.server_requests order by id desc limit "
+						+ TableDaoImpl.getTotalNumber()
+						* 2
+						+ ") a order by a.host");
+		List<RequestCount> list = new ArrayList<RequestCount>();
+		while (rs.next()) {
+			ServerRequestCount req = new ServerRequestCount();
+			req.setServerHost(rs.getString(1));
+			req.setWriteCount(rs.getLong(2));
+			req.setReadCount(rs.getLong(3));
+			req.setTotalCount(rs.getLong(4));
+			req.setUpdateTime(rs.getTimestamp(5));
+			list.add(req);
+		}
+
+		// compute Tps
+		Map<String, RequestCount> map = new HashMap<String, RequestCount>();
+		for (RequestCount rc : list) {
+			if (rc instanceof ServerRequestCount) {
+				ServerRequestCount trc = (ServerRequestCount) rc;
+				String host = trc.getServerHost();
+				if (null != map.get(host)) {
+					ServerRequestCount trcOld = (ServerRequestCount) map
+							.get(host);
+					long writeDiff = trcOld.getWriteCount()
+							- trc.getWriteCount();
+					long readDiff = trcOld.getReadCount() - trc.getReadCount();
+					long totalDiff = trcOld.getTotalCount()
+							- trc.getTotalCount();
+
+					long timeDiff = (trcOld.getUpdateTime().getTime() - trc
+							.getUpdateTime().getTime()) / 1000;
+
+					if (timeDiff == 0l) {
+						timeDiff = 1l;
+					}
+
+					int writeTps = (int) (Math.abs(writeDiff / timeDiff));
+					int readTps = (int) (Math.abs(readDiff / timeDiff));
+					int totalTps = (int) (Math.abs(totalDiff / timeDiff));
+
+					if (timeDiff >= 0) {
+						trcOld.setReadTps(readTps);
+						trcOld.setWriteTps(writeTps);
+						trcOld.setTotalTps(totalTps);
+						map.put(host, trcOld);
+					} else {
+						trc.setReadTps(readTps);
+						trc.setWriteTps(writeTps);
+						trc.setTotalTps(totalTps);
+						map.put(host, trc);
+					}
+
+				} else {
+					map.put(host, trc);
+				}
+			}
+		}
+
+		list = new ArrayList<RequestCount>();
+		Set<String> keys = map.keySet();
+		for (Iterator<String> it = keys.iterator(); it.hasNext();) {
+			String key = it.next();
+			list.add(map.get(key));
+		}
+
+		JdbcUtil.close(conn);
+		return list;
+	}
+
 
 	public List<RequestCount> listWriteHotRegions() throws Exception {
 		Connection conn = JdbcUtil.getConnection();
