@@ -165,8 +165,8 @@ public class RequestCountDaoImpl {
 
 					long timeDiff = (trcOld.getUpdateTime().getTime() - trc
 							.getUpdateTime().getTime()) / 1000;
-					
-					if(timeDiff == 0l){
+
+					if (timeDiff == 0l) {
 						timeDiff = 1l;
 					}
 
@@ -197,6 +197,44 @@ public class RequestCountDaoImpl {
 		for (Iterator<String> it = keys.iterator(); it.hasNext();) {
 			String key = it.next();
 			list.add(map.get(key));
+		}
+
+		JdbcUtil.close(conn);
+		return list;
+	}
+
+	public List<RequestCount> listWriteHotRegions() throws Exception {
+		Connection conn = JdbcUtil.getConnection();
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt
+				.executeQuery("select a.region_name,a.write_count from (select region_name,write_count from hbase.region_requests order by id desc limit "
+						+ RegionDaoImpl.getTotalNumber()
+						+ ") a order by a.write_count desc limit 10");
+		List<RequestCount> list = new ArrayList<RequestCount>();
+		while (rs.next()) {
+			RegionRequestCount req = new RegionRequestCount();
+			req.setRegionName(rs.getString(1));
+			req.setWriteCount(rs.getLong(2));
+			list.add(req);
+		}
+
+		JdbcUtil.close(conn);
+		return list;
+	}
+
+	public List<RequestCount> listReadHotRegions() throws Exception {
+		Connection conn = JdbcUtil.getConnection();
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt
+				.executeQuery("select a.region_name,a.read_count from (select region_name,read_count from hbase.region_requests order by id desc limit "
+						+ RegionDaoImpl.getTotalNumber()
+						+ ") a order by a.read_count desc limit 10");
+		List<RequestCount> list = new ArrayList<RequestCount>();
+		while (rs.next()) {
+			RegionRequestCount req = new RegionRequestCount();
+			req.setRegionName(rs.getString(1));
+			req.setReadCount(rs.getLong(2));
+			list.add(req);
 		}
 
 		JdbcUtil.close(conn);

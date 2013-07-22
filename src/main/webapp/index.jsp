@@ -9,8 +9,15 @@
 
 <%
        RequestCountDaoImpl impl = new RequestCountDaoImpl();
+	   
 	   List<RequestCount> tables = impl.list();
 	   request.setAttribute("tables",tables);
+	   
+	   List<RequestCount> wregions = impl.listWriteHotRegions();
+	   request.setAttribute("wregions",wregions);
+	   
+	   List<RequestCount> rregions = impl.listReadHotRegions();
+	   request.setAttribute("rregions",rregions);
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -23,7 +30,7 @@
 
 </head>
 <body>
-
+	<!-- HEADER -->
 	<div class="hd">
 	<div class="userHeader clearfix">
 	<span>Ella: A Watchdog on HBase</span>
@@ -36,6 +43,7 @@
 	</div>
 
 	<br/><br/>
+	<!-- BODY LEFT -->
 	<div class="bd clearfix">
 		<div id="leftColContainer">
 			<div class="leftCol">
@@ -60,13 +68,14 @@
 			</div>
 		</div>
 
+	<!-- BODY RIGHT -->
 		<div id="mainContainer">
 			<div class="contentCol">
 
 				<div class="mod mod1" id="today_table">
 					<div class="mod-header radius">
 						<h2>
-							今日数据<a class="icon help poptips" action-frame="tip_todayData"
+							今日表数据<a class="icon help poptips" action-frame="tip_todayData"
 								title=""></a>
 						</h2>
 					</div>
@@ -142,6 +151,69 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="bd clearfix">
+		<div id="leftColContainer">
+			<div class="leftCol">
+				<div id="siderNav"></div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="mainContainer">
+			<div class="contentCol">
+
+				<div class="mod mod1" id="today_table">
+					<div class="mod-header radius">
+						<h2>
+							今日Hot Region数据<a class="icon help poptips" action-frame="tip_todayData"
+								title=""></a>
+						</h2>
+					</div>
+					<div class="mod-body" id="data-load">
+						<table class="data-load" width="100%" border="0" cellspacing="0">
+							<thead>
+								<tr>
+									<th>Region Name(写)</th>
+									<th>Write Count</th>
+								</tr>
+							</thead>
+							<tbody id="data-list">
+								<c:forEach var="w" items="${wregions}">
+									<tr>
+										<td><a href="details.jsp?tn=${w.regionName}">${w.regionName}</a></td>
+										<td>${w.writeCount}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						
+						<table class="data-load" width="100%" border="0" cellspacing="0">
+							<thead>
+								<tr>
+									<th>Region Name(读)</th>
+									<th>Read Count</th>
+								</tr>
+							</thead>
+							<tbody id="data-list">
+								<c:forEach var="r" items="${rregions}">
+									<tr>
+										<td><a href="details.jsp?tn=${r.regionName}">${r.regionName}</a></td>
+										<td>${r.readCount}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<div class="wait-load" style="display: none;">
+							<img src="/images/pic/ajax-loader.gif">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- FOOTER -->
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
