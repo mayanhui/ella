@@ -32,6 +32,8 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 ## Framwork
 * Java 1.6 (http://www.oracle.com/technetwork/java/index.html)
 * Jetty 8.1.11.v20130520 (http://www.eclipse.org/jetty/)
+* HBase 0.94.0 (http://hbase.apache.org/)
+* Hadoop 1.1.2 (http://hadoop.apache.org/)
 * --Derby 10.10.1.1 (http://db.apache.org/derby/)--
 * MySQL 5.5.29 (http://www.mysql.com/)
 * JMX (http://zh.wikipedia.org/wiki/JMX)
