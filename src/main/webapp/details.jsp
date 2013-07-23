@@ -18,7 +18,7 @@
 	//   request.setAttribute("reqs",reqs);
 	   request.setAttribute("tableName",tableName);
 	   
-	   PersistDisk.persistMysqlToFile(tableName,"/tmp/jetty-0.0.0.0-8080-ella-0.1.war-_ella-0.1-any-/webapp/data/");
+	   PersistDisk.persistMysqlToFile(tableName,"/tmp/jetty-0.0.0.0-8080-ella.war-_ella-any-/webapp/data/");
 	
 %>
 

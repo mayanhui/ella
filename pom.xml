@@ -18,6 +18,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.apache.hbase</groupId>
+			<artifactId>hbase</artifactId>
+			<version>0.94.5</version>
+		</dependency>
+		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.3</version>
@@ -51,11 +56,6 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>r09</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
-			<version>10.10.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -108,7 +108,9 @@
 	</dependencies>
 
 	<build>
+		<finalName>ella</finalName>
 		<plugins>
+			<!--
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -123,6 +125,7 @@
 					</archive>
 				</configuration>
 			</plugin>
+			-->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -130,15 +133,26 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.0.2</version>
+				<version>2.1</version>
 				<configuration>
 					<warSourceExcludes></warSourceExcludes>
+					<packagingExcludes>
+						WEB-INF/lib/jersey*.jar,
+						WEB-INF/lib/derby*.jar,
+						WEB-INF/lib/jetty-6.1.26.jar,
+						WEB-INF/lib/jetty-util-6.1.26.jar,
+						WEB-INF/lib/jsp*.jar,
+						WEB-INF/lib/servlet-api*.jar,
+						WEB-INF/lib/javax.servlet*.jar,
+						WEB-INF/lib/jasper-*.jar
+					</packagingExcludes>
 				</configuration>
 			</plugin>
-			<plugin>
+<!--			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
 				<version>6.1.26</version>
@@ -146,12 +160,13 @@
 					<goalPrefix>jetty</goalPrefix>
 				</configuration>
 			</plugin>
+-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>copy-war-to-tomcat</id>
+						<id>copy-war-to-jetty</id>
 						<phase>install</phase>
 						<goals>
 							<goal>run</goal>
