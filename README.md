@@ -35,7 +35,7 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 * HBase 0.94.0 (http://hbase.apache.org/)
 * Hadoop 1.1.2 (http://hadoop.apache.org/)
 * --Derby 10.10.1.1 (http://db.apache.org/derby/)--
-* Maven 2.2.1
+* Maven 2.2.1 (http://maven.apache.org/)
 * MySQL 5.5.29 (http://www.mysql.com/)
 * JMX (http://zh.wikipedia.org/wiki/JMX)
 * FastJson (https://github.com/alibaba/fastjson)
