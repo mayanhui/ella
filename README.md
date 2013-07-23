@@ -22,7 +22,7 @@ Watching list:
 
 
 ##Environment
-
+Only Support Linux.
 
 ##License
 Released under the GPLv3 license. For full details, pleasesee the LICENSE file included in this distribution.
