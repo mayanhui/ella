@@ -72,23 +72,17 @@ public class Base {
 		this.quorums = quorums;
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		return "Base [hdfsRoot=" + hdfsRoot + ", masterAddress="
 				+ masterAddress + ", backupMasterAddress="
 				+ backupMasterAddress + ", regionServerHoldingRoot="
 				+ regionServerHoldingRoot + ", regionServers=" + regionServers
-				+ ", updateTime=" + updateTime + ", quorums=" + quorums
-				+ ", getHdfsRoot()=" + getHdfsRoot() + ", getMasterAddress()="
-				+ getMasterAddress() + ", getBackupMasterAddress()="
-				+ getBackupMasterAddress() + ", getRegionServerHoldingRoot()="
-				+ getRegionServerHoldingRoot() + ", getRegionServers()="
-				+ getRegionServers() + ", getUpdateTime()=" + getUpdateTime()
-				+ ", getQuorums()=" + getQuorums() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+				+ ", updateTime=" + updateTime + ", quorums=" + quorums + "]";
 	}
-	
+
 	public static void main(String[] args) throws IOException{
 		ZKUtil.getServerStats("", 0);
 	}

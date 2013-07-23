@@ -58,4 +58,11 @@ public class Client {
 		this.updateTime = updateTime;
 	}
 
+	@Override
+	public String toString() {
+		return "Client [host=" + host + ", tag=" + tag + ", queued=" + queued
+				+ ", recved=" + recved + ", sent=" + sent + ", updateTime="
+				+ updateTime + "]";
+	}
+
 }

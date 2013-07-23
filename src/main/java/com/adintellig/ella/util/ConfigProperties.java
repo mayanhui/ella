@@ -14,8 +14,6 @@ public class ConfigProperties extends Properties {
 	public static final String CONFIG_NAME_HBASE_REGIONSERVER_NUM = "hbase.regionserver.num";
 	public static final String CONFIG_NAME_HBASE_ZOOKEEPER_PROPRERTY_CLIENTPORT = "hbase.zookeeper.property.clientPort";
 
-	public static final String CONFIG_NAME_ELLA_HBASE_MASTER_JMX_QRY_URL = "ella.hbase.master.jmx.qry.url";
-
 	/**
 	 * @Constructor
 	 * @param filePath

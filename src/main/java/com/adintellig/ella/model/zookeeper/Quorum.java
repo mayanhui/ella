@@ -130,17 +130,7 @@ public class Quorum {
 				+ ", latencyAvg=" + latencyAvg + ", received=" + received
 				+ ", sent=" + sent + ", outstanding=" + outstanding + ", zxid="
 				+ zxid + ", mode=" + mode + ", nodeCount=" + nodeCount
-				+ ", updateTime=" + updateTime + ", clients=" + clients
-				+ ", getHost()=" + getHost() + ", getVersion()=" + getVersion()
-				+ ", getLatencyMin()=" + getLatencyMin() + ", getLatencyMax()="
-				+ getLatencyMax() + ", getLatencyAvg()=" + getLatencyAvg()
-				+ ", getReceived()=" + getReceived() + ", getSent()="
-				+ getSent() + ", getOutstanding()=" + getOutstanding()
-				+ ", getZxid()=" + getZxid() + ", getMode()=" + getMode()
-				+ ", getNodeCount()=" + getNodeCount() + ", getUpdateTime()="
-				+ getUpdateTime() + ", getClients()=" + getClients()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+				+ ", updateTime=" + updateTime + ", clients=" + clients + "]";
 	}
 
 }
