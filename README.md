@@ -52,7 +52,7 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 5. Add zookeeper monitor. (done)
 6. change css style. (done)
 7. <b>Add user guide for ella.</b>
-8. <b>Add return home page link in details page.</b>
+8. Add return home page link in details page. (done)
 9. Add footer.jsp for Copyright. (done)
 10. <b>Add detail page for server,region</b>
 11. Add JVM_OPTS for Jetty Server (done)
