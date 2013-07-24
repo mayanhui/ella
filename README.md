@@ -44,17 +44,12 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 
 
 ## Roadmap
-1. Add color to TPS value, like red if bigger than 0. (done)
-2. Add Hot Region Request list. (done)
-3. Add Server Request list. (done)
-4. <b>Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.</b>
-5. Add zookeeper monitor. (done)
-6. change css style. (done)
-7. <b>Add user guide for ella.</b>
-8. Add return home page link in details page. (done)
-9. Add footer.jsp for Copyright. (done)
-10. <b>Add detail page for server,region</b>
-11. Add JVM_OPTS for Jetty Server (done)
+1. <b>Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.</b>
+2. Zookeeper Monitor. filter out the host(ip) from external(with red color), need find the internal ip(hbase cluster).
+3. <b>Add user guide for ella.</b>
+4. Add return home page link in details page. (done)
+5. Add footer.jsp for Copyright. (done)
+6. <b>Add detail page for server,region</b>
 
 
 ## Ella First Page
