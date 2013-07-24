@@ -48,14 +48,14 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 1. Add color to TPS value, like red if bigger than 0. (done)
 2. Add Hot Region Request list. (done)
 3. Add Server Request list. (done)
-4. Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.
+4. <b>Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.</b>
 5. Add zookeeper monitor. (done)
 6. change css style. (done)
-7. Add user guide for ella.
-8. Add return home page link in details page.
+7. <b>Add user guide for ella.</b>
+8. <b>Add return home page link in details page.</b>
 9. Add footer.jsp for Copyright. (done)
-10. Add detail page for server,region
-11. Add JVM_OPTS for Jetty Server
+10. <b>Add detail page for server,region</b>
+11. Add JVM_OPTS for Jetty Server (done)
 
 
 ## Ella First Page
