@@ -1,3 +1,0 @@
-Main-Class: DemoApp
-Class-Path: lib/derby.jar
-
