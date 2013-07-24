@@ -50,6 +50,7 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 4. Add return home page link in details page. (done)
 5. Add footer.jsp for Copyright. (done)
 6. <b>Add detail page for server,region</b>
+7. exclude unused jars in pom.xml
 
 
 ## Ella First Page
