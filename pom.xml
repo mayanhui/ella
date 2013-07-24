@@ -21,6 +21,12 @@
 			<groupId>org.apache.hbase</groupId>
 			<artifactId>hbase</artifactId>
 			<version>0.94.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>asm</groupId>
+					<artifactId>asm</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.hadoop</groupId>
@@ -107,7 +113,6 @@
 			<artifactId>commons-digester</artifactId>
 			<version>2.1</version>
 		</dependency>
-            
 
 
 	</dependencies>
@@ -115,22 +120,6 @@
 	<build>
 		<finalName>ella</finalName>
 		<plugins>
-			<!--
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<archive>
-						<manifest>
-							<mainClass></mainClass>
-							<addClasspath></addClasspath>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-			-->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -153,19 +142,11 @@
 						WEB-INF/lib/servlet-api*.jar,
 						WEB-INF/lib/javax.servlet*.jar,
 						WEB-INF/lib/jasper-*.jar,
-						WEB-INF/lib/jruby-complete-*.jar
+						WEB-INF/lib/jruby-complete-*.jar,
+						WEB-INF/lib/asm*.jar
 					</packagingExcludes>
 				</configuration>
 			</plugin>
-<!--			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-				<version>6.1.26</version>
-				<configuration>
-					<goalPrefix>jetty</goalPrefix>
-				</configuration>
-			</plugin>
--->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
