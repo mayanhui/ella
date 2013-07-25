@@ -112,7 +112,7 @@
 										<c:choose>
 											<c:when
 												test="${t.writeTps > 0 || t.readTps > 0 || t.totalTps > 0}">
-												<td><a href="details.jsp?tn=${t.tableName}"><font
+												<td style="font-weight:bold;"><a href="details.jsp?tn=${t.tableName}"><font
 														color="Red">${t.tableName}</font>
 												</a>
 												</td>
@@ -127,7 +127,7 @@
 										<td>${t.totalCount}</td>
 										<c:choose>
 											<c:when test="${t.writeTps > 0 }">
-												<td><font color="Red">${t.writeTps}</font>
+												<td style="font-weight:bold;"><font color="Red">${t.writeTps}</font>
 												</td>
 											</c:when>
 											<c:otherwise>
@@ -136,7 +136,7 @@
 										</c:choose>
 										<c:choose>
 											<c:when test="${t.readTps > 0 }">
-												<td><font color="Red">${t.readTps}</font>
+												<td style="font-weight:bold;"><font color="Red">${t.readTps}</font>
 												</td>
 											</c:when>
 											<c:otherwise>
@@ -145,7 +145,7 @@
 										</c:choose>
 										<c:choose>
 											<c:when test="${t.totalTps > 0 }">
-												<td><font color="Red">${t.totalTps}</font>
+												<td style="font-weight:bold;"><font color="Red">${t.totalTps}</font>
 												</td>
 											</c:when>
 											<c:otherwise>
@@ -156,7 +156,7 @@
 								</c:forEach>
 							</tbody>
 						</table>
-						<font color="Red"><span>The red tables are being accessed!</span></font>
+						<font color="Red" style="font-weight:bold;"><span>The red tables are being accessed!</span></font>
 						<div class="wait-load" style="display: none;">
 							<img src="/images/pic/ajax-loader.gif">
 						</div>
@@ -266,7 +266,7 @@
 										<c:choose>
 											<c:when
 												test="${s.writeTps > 0 || s.readTps > 0 || s.totalTps > 0}">
-												<td><a href="#"><font
+												<td style="font-weight:bold;"><a href="#"><font
 														color="Red">${s.serverHost}</font>
 												</a>
 												</td>
@@ -281,7 +281,7 @@
 										<td>${s.totalCount}</td>
 										<c:choose>
 											<c:when test="${s.writeTps > 0 }">
-												<td><font color="Red">${s.writeTps}</font>
+												<td style="font-weight:bold;"><font color="Red">${s.writeTps}</font>
 												</td>
 											</c:when>
 											<c:otherwise>
@@ -290,7 +290,7 @@
 										</c:choose>
 										<c:choose>
 											<c:when test="${s.readTps > 0}">
-												<td><font color="Red">${s.readTps}</font>
+												<td style="font-weight:bold;"><font color="Red">${s.readTps}</font>
 												</td>
 											</c:when>
 											<c:otherwise>
@@ -299,7 +299,7 @@
 										</c:choose>
 										<c:choose>
 											<c:when test="${s.totalTps > 0}">
-												<td><font color="Red">${s.totalTps}</font>
+												<td style="font-weight:bold;"><font color="Red">${s.totalTps}</font>
 												</td>
 											</c:when>
 											<c:otherwise>
@@ -387,7 +387,7 @@
 									<td>${quorum.sent}</td>
 									<!--<td>${quorum.outstanding}</td>-->
 									<td>${quorum.zxid}</td>
-									<td>${quorum.mode}</td>
+									<td style="font-weight:bold;">${quorum.mode}</td>
 									<td>${quorum.nodeCount}</td>
 								</tr>
 							</c:forEach>
@@ -398,7 +398,7 @@
 							<thead>
 								<tr>
 									<th>Quorum Host</th>
-									<th>Host</th>
+									<th>Host(Only External IPs)</th>
 									<th>Tag</th>
 									<th>Queued</th>
 									<th>Recved</th>
@@ -410,7 +410,7 @@
 								<c:forEach var="client" items="${quorum.clients}">
 								<tr>
 									<td>${quorum.host}</td>
-									<td>${client.host}</td>
+									<td style="font-weight:bold;">${client.host}</td>
 									<td>${client.tag}</td>
 									<td>${client.queued}</td>
 									<td>${client.recved}</td>

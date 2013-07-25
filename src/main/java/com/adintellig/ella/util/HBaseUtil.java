@@ -2,7 +2,9 @@ package com.adintellig.ella.util;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -77,9 +79,29 @@ public class HBaseUtil extends ZKUtil {
 			List<Quorum> quorums = new ArrayList<Quorum>();
 			String[] servers = watcher.getQuorum().split(",");
 
-			List<String> zkServers = new ArrayList<String>();
+			// generate inner ips
+			Set<String> zkServers = new HashSet<String>();
 			for (String server : servers) {
 				zkServers.add(server.trim().replaceAll(":2181", ""));
+			}
+
+			String masterAddress = ServerName.parseVersionedServerName(
+					getData(watcher, watcher.masterAddressZNode)).toString();
+			masterAddress = masterAddress.substring(0,
+					masterAddress.indexOf(","));
+			List<String> mips = IPHostUtil.getAllInternalHostIPs(masterAddress);
+			if (null != mips && mips.size() > 0) {
+				for (String mip : mips)
+					zkServers.add(mip);
+			}
+
+			for (String child : listChildrenNoWatch(watcher, watcher.rsZNode)) {
+				String rshost = child.substring(0, child.indexOf(","));
+				List<String> rsips = IPHostUtil.getAllInternalHostIPs(rshost);
+				if (null != rsips && rsips.size() > 0) {
+					for (String rsip : rsips)
+						zkServers.add(rsip);
+				}
 			}
 
 			for (String server : servers) {
@@ -187,7 +209,7 @@ public class HBaseUtil extends ZKUtil {
 	}
 
 	private static boolean checkExternalHost(String host,
-			List<String> internalHost) {
+			Set<String> internalHost) {
 		if (null != internalHost && internalHost.size() > 0 && null != host
 				&& host.trim().length() > 0) {
 			for (String ihost : internalHost) {
@@ -201,5 +223,6 @@ public class HBaseUtil extends ZKUtil {
 
 	public static void main(String[] args) {
 		System.out.println(dumpZookeeperInfo());
+
 	}
 }
