@@ -17,8 +17,8 @@ target
 SurfShop
 build
 DerbyHBase
-*/logs
 */webapps
 */*state
 */classes
 */classes/*
+*/logs/*log*
