@@ -143,7 +143,12 @@
 						WEB-INF/lib/javax.servlet*.jar,
 						WEB-INF/lib/jasper-*.jar,
 						WEB-INF/lib/jruby-complete-*.jar,
-						WEB-INF/lib/asm*.jar
+						WEB-INF/lib/asm*.jar,
+						WEB-INF/lib/snappy-java-*.jar,
+						WEB-INF/lib/netty-3*.jar,
+						WEB-INF/lib/core-3.1.1.jar,
+						WEB-INF/lib/jaxb-impl-2.1.12.jar,
+						WEB-INF/lib/hsqldb-*.jar
 					</packagingExcludes>
 				</configuration>
 			</plugin>
