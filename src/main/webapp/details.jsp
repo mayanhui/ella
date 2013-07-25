@@ -70,7 +70,7 @@ body {
 	<br/><br/>
 
 
-<center><h2>"${tableName}" Requests Graph  @<%=new java.util.Date()%></h2></center>
+<center><h2>"${tableName}" Requests Graph  @<%=DateFormatUtil.formatToString(new java.util.Date())%></h2></center>
 
 <!--
 <table id="data-load">

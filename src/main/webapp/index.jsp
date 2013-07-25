@@ -88,8 +88,9 @@
 				<div class="mod mod1" id="today_table">
 					<div class="mod-header radius">
 						<h2>
-							今日表数据<a class="icon help poptips" action-frame="tip_todayData"
-								title=""></a>
+							今日表数据 @<%=DateFormatUtil.formatToString(new java.util.Date())%>
+							<!--<a class="icon help poptips" action-frame="tip_todayData"
+								title=""></a>-->
 						</h2>
 					</div>
 					<div class="mod-body" id="data-load">

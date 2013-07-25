@@ -21,6 +21,14 @@ public class DateFormatUtil {
 		return time;
 	}
 
+	public static String formatToString(Date date) {
+		String time = null;
+		SimpleDateFormat format = new SimpleDateFormat(FROMAT);
+		time = format.format(date);
+
+		return time;
+	}
+
 	public static long formatStringTimeToLong2(String timeLine) {
 		long time = -1L;
 		SimpleDateFormat format = new SimpleDateFormat(FROMAT_2);
@@ -57,14 +65,16 @@ public class DateFormatUtil {
 
 		System.out.println();
 		System.out.println(new Timestamp(System.currentTimeMillis()));
-		
+
 		long t1 = Timestamp.valueOf("2013-07-19 18:31:39").getTime();
 		long t2 = Timestamp.valueOf("2013-07-19 18:31:09").getTime();
-		
+
 		long timeDiff = (t1 - t2) / 1000;
-		
+
 		System.out.println(timeDiff);
 		
 		
+		System.out.println(formatToString(new Date()));
+
 	}
 }
