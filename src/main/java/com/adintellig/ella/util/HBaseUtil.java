@@ -76,6 +76,12 @@ public class HBaseUtil extends ZKUtil {
 
 			List<Quorum> quorums = new ArrayList<Quorum>();
 			String[] servers = watcher.getQuorum().split(",");
+
+			List<String> zkServers = new ArrayList<String>();
+			for (String server : servers) {
+				zkServers.add(server.trim().replaceAll(":2181", ""));
+			}
+
 			for (String server : servers) {
 				Quorum quorum = new Quorum();
 				List<Client> clients = new ArrayList<Client>();
@@ -131,10 +137,15 @@ public class HBaseUtil extends ZKUtil {
 							// /192.168.2.62:35811[1](queued=0,recved=138146,sent=138146)
 							Client client = new Client();
 							String[] qaArr = s.split("\\[|\\]|\\(|,|\\)", -1);
+							boolean validClient = false;
 							for (String q : qaArr) {
 								if (q.startsWith("/")) {
 									String clientHost = q.replaceAll("/", "");
-									client.setHost(clientHost);
+									if (checkExternalHost(clientHost, zkServers)) {
+										client.setHost(clientHost);
+										validClient = true;
+									} else
+										break;
 								} else if (q.trim().length() == 1) {
 									int tag = Integer.parseInt(q.trim());
 									client.setTag(tag);
@@ -157,7 +168,8 @@ public class HBaseUtil extends ZKUtil {
 								client.setUpdateTime(new Timestamp(System
 										.currentTimeMillis()));
 							}
-							clients.add(client);
+							if (validClient)
+								clients.add(client);
 						}
 					}
 				} catch (Exception e) {
@@ -172,6 +184,19 @@ public class HBaseUtil extends ZKUtil {
 			ke.printStackTrace();
 		}
 		return base;
+	}
+
+	private static boolean checkExternalHost(String host,
+			List<String> internalHost) {
+		if (null != internalHost && internalHost.size() > 0 && null != host
+				&& host.trim().length() > 0) {
+			for (String ihost : internalHost) {
+				if (host.startsWith(ihost))
+					return false;
+			}
+			return true;
+		}
+		return false;
 	}
 
 	public static void main(String[] args) {
