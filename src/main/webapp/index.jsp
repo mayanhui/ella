@@ -4,16 +4,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ page language="java" import="java.util.*"%>
-<%@ page language="java" import="com.adintellig.ella.mysql.*"%>
 <%@ page language="java" import="com.adintellig.ella.model.*"%>
-<%@ page language="java" import="com.adintellig.ella.model.zookeeper.*"%>
+<%@ page language="java" import="com.adintellig.ella.mysql.*"%>
 <%@ page language="java" import="com.adintellig.ella.util.*"%>
+<%@ page language="java" import="com.adintellig.ella.model.zookeeper.*"%>
 
 <%
        RequestCountDaoImpl impl = new RequestCountDaoImpl();
 	   
 	   List<RequestCount> tables = impl.list();
 	   request.setAttribute("tables",tables);
+	   
+	   request.setAttribute("wtps",RequestCountUtil.sumTps(tables,"WRITE"));
+	   request.setAttribute("rtps",RequestCountUtil.sumTps(tables,"READ"));
+	   request.setAttribute("ttps",RequestCountUtil.sumTps(tables,"TOTAL"));
 	   
 	   List<RequestCount> wregions = impl.listWriteHotRegions();
 	   request.setAttribute("wregions",wregions);
@@ -154,6 +158,15 @@
 										</c:choose>
 									</tr>
 								</c:forEach>
+								<tr>
+										<td>--</td>
+										<td>--</td>
+										<td>--</td>
+										<td>--</td>
+										<td style="font-weight:bold;"><font color="Red">${wtps}</font></td>
+										<td style="font-weight:bold;"><font color="Red">${rtps}</font></td>
+										<td style="font-weight:bold;"><font color="Red">${ttps}</font></td>
+									</tr>
 							</tbody>
 						</table>
 						<font color="Red" style="font-weight:bold;"><span>The red tables are being accessed!</span></font>
