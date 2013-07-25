@@ -72,21 +72,6 @@ body {
 
 <center><h2>"${tableName}" Requests Graph  @<%=DateFormatUtil.formatToString(new java.util.Date())%></h2></center>
 
-<!--
-<table id="data-load">
-<tr><th>Table Name</th><th>Write Count</th><th>Read Count</th><th>Total Count</th></tr>
-
-<c:forEach var="r" items="${reqs}"> 
-        <tr> 
-          <td>${r.tableName}</td>
-          <td>${r.writeCount}</td>
-          <td>${r.readCount}</td>
-          <td>${r.totalCount}</td>
-          <td>${r.updateTime}</td>  
-        </tr> 
-</c:forEach> 
-</table> -->
-
 
 <table class="data-load" width="50%"  height="90%" border="1" cellspacing="0" cellpadding="1" align="center">
 <tr>
