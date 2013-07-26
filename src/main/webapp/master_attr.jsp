@@ -81,16 +81,9 @@
 						<a href="#mainContainer4">Zookeeper监控</a>
 						</span>
 						</li>
-						
 						<li class="nav-item ">
 						<span>
 						<a href="#">集群属性</a>
-						</span>
-						</li>
-						
-						<li class="nav-item ">
-						<span>
-						<a href="task.jsp">Task监控</a>
 						</span>
 						</li>
 					</ul>

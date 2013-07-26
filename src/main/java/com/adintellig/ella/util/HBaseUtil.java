@@ -1,8 +1,12 @@
 package com.adintellig.ella.util;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -10,11 +14,18 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.ServerName;
 import org.apache.hadoop.hbase.master.HMaster;
+import org.apache.hadoop.hbase.monitoring.MonitoredRPCHandler;
+import org.apache.hadoop.hbase.monitoring.MonitoredTask;
+import org.apache.hadoop.hbase.monitoring.TaskMonitor;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.hadoop.hbase.util.FSUtils;
 import org.apache.hadoop.hbase.zookeeper.ZKUtil;
 import org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher;
+import org.apache.hadoop.util.StringUtils;
 import org.apache.zookeeper.KeeperException;
 
+import com.adintellig.ella.model.master.Attribute;
+import com.adintellig.ella.model.master.Task;
 import com.adintellig.ella.model.zookeeper.Base;
 import com.adintellig.ella.model.zookeeper.Client;
 import com.adintellig.ella.model.zookeeper.Quorum;
@@ -22,6 +33,7 @@ import com.adintellig.ella.model.zookeeper.Quorum;
 public class HBaseUtil extends ZKUtil {
 
 	static Configuration conf;
+	static HMaster master;
 	static ZooKeeperWatcher watcher;
 	static int zkDumpConnectionTimeOut = 1500;
 	static ConfigProperties config = ConfigFactory.getInstance()
@@ -38,7 +50,8 @@ public class HBaseUtil extends ZKUtil {
 				ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_QUORUM,
 				config.getProperty(ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_QUORUM));
 		try {
-			watcher = new HMaster(conf).getZooKeeperWatcher();
+			master = new HMaster(conf);
+			watcher = master.getZooKeeperWatcher();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -219,6 +232,84 @@ public class HBaseUtil extends ZKUtil {
 			return true;
 		}
 		return false;
+	}
+
+	public static Attribute dumpMasterInfo() throws IOException {
+		String hbaseVersion = org.apache.hadoop.hbase.util.VersionInfo
+				.getVersion()
+				+ ", r"
+				+ org.apache.hadoop.hbase.util.VersionInfo.getRevision();
+		String hbaseCompiled = org.apache.hadoop.hbase.util.VersionInfo
+				.getDate()
+				+ ", "
+				+ org.apache.hadoop.hbase.util.VersionInfo.getUser();
+		String hadoopVersion = org.apache.hadoop.util.VersionInfo.getVersion()
+				+ ", " + org.apache.hadoop.util.VersionInfo.getRevision();
+		String hadoopCompiled = org.apache.hadoop.util.VersionInfo.getDate()
+				+ ", " + org.apache.hadoop.util.VersionInfo.getUser();
+		String hbaseRootDir = FSUtils.getRootDir(master.getConfiguration())
+				.toString();
+		String hbaseClusterID = master.getClusterId() != null ? master
+				.getClusterId() : "Not set";
+		String loadAvg = StringUtils.limitDecimalTo2(master.getServerManager()
+				.getAverageLoad());
+		String zkQuorum = master.getZooKeeperWatcher().getQuorum();
+		String coprocessors = java.util.Arrays.toString(master
+				.getCoprocessors());
+		String hmasterStartTime = new Date(master.getMasterStartTime())
+				.toString();
+		String hmasterActiveTime = new Date(master.getMasterActiveTime())
+				.toString();
+
+		List<ServerName> servers = null;
+		Set<ServerName> deadServers = null;
+
+		return null;
+	}
+
+	public static List<Task> dumpTaskInfo(String filter) {
+		TaskMonitor taskMonitor = TaskMonitor.get();
+
+		if (null == filter || filter.trim().length() == 0)
+			filter = "general";
+
+		List<? extends MonitoredTask> tasks = taskMonitor.getTasks();
+		Iterator<? extends MonitoredTask> iter = tasks.iterator();
+		// apply requested filter
+		while (iter.hasNext()) {
+			MonitoredTask t = iter.next();
+			if (filter.equals("general")) {
+				if (t instanceof MonitoredRPCHandler)
+					iter.remove();
+			} else if (filter.equals("handler")) {
+				if (!(t instanceof MonitoredRPCHandler))
+					iter.remove();
+			} else if (filter.equals("rpc")) {
+				if (!(t instanceof MonitoredRPCHandler)
+						|| !((MonitoredRPCHandler) t).isRPCRunning())
+					iter.remove();
+			} else if (filter.equals("operation")) {
+				if (!(t instanceof MonitoredRPCHandler)
+						|| !((MonitoredRPCHandler) t).isOperationRunning())
+					iter.remove();
+			}
+		}
+		long now = System.currentTimeMillis();
+		List<Task> taskList = new ArrayList<Task>();
+		for (MonitoredTask task : tasks) {
+			Task t = new Task();
+			t.setStartTime(new Date(task.getStartTime()).toString());
+			t.setDescription(task.getDescription());
+			t.setState(task.getState() + "(since "
+					+ StringUtils.formatTimeDiff(now, task.getStateTime())
+					+ " ago)");
+			t.setStatus(task.getStatus() + "(since "
+					+ StringUtils.formatTimeDiff(now, task.getStatusTime())
+					+ " ago)");
+			taskList.add(t);
+		}
+		return taskList;
+
 	}
 
 	public static void main(String[] args) {
