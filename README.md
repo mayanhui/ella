@@ -48,6 +48,8 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 2. <b>Add user guide for ella.</b>
 3. <b>Add detail page for server,region</b>
 4. exclude unused jars in pom.xml (done)
+5. <b>Add master attribute(hbase version,author,...hadoop version...)</b>
+6. <b>Add master and RPC statistics</b>
 
 
 ## Ella First Page
