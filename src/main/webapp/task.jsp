@@ -35,6 +35,9 @@
 	   
 	   List<Task> tasks = HBaseUtil.dumpTaskInfo("all");
 	   request.setAttribute("tasks",tasks);
+	   
+	  Attribute attr = HBaseUtil.dumpMasterInfo();
+	  request.setAttribute("attr",attr);
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -141,6 +144,10 @@
 								</tr>
 							</thead>
 							<tbody id="data-list">
+									<tr>
+										<td>${attr.hbaseVersion}</td>
+										<td>${attr.hbaseRootDir}</td>
+									</tr>
 								<c:forEach var="t" items="${tasks}">
 									<tr>
 										<td>${t.startTime}</td>

@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.adintellig.ella.hbase.beans.MasterServiceBean;
-import com.adintellig.ella.hbase.beans.MasterServiceBeans;
-import com.adintellig.ella.hbase.beans.RegionServer;
-import com.adintellig.ella.hbase.beans.RegionsLoad;
-import com.adintellig.ella.hbase.beans.RegionsLoadValue;
+import com.adintellig.ella.hbase.beans.request.MasterServiceBean;
+import com.adintellig.ella.hbase.beans.request.MasterServiceBeans;
+import com.adintellig.ella.hbase.beans.request.RegionServer;
+import com.adintellig.ella.hbase.beans.request.RegionsLoad;
+import com.adintellig.ella.hbase.beans.request.RegionsLoadValue;
 import com.adintellig.ella.model.Region;
 import com.adintellig.ella.model.RegionRequestCount;
 import com.adintellig.ella.model.Server;

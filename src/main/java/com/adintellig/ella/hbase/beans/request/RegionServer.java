@@ -1,4 +1,4 @@
-package com.adintellig.ella.hbase.beans;
+package com.adintellig.ella.hbase.beans.request;
 
 public class RegionServer {
 	private String key;

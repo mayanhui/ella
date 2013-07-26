@@ -12,7 +12,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.adintellig.ella.hbase.beans.MasterServiceBeans;
+import com.adintellig.ella.hbase.beans.request.MasterServiceBeans;
 import com.adintellig.ella.model.Region;
 import com.adintellig.ella.model.RequestCount;
 import com.adintellig.ella.model.Server;
@@ -47,7 +47,7 @@ public class JMXHMasterService extends Thread {
 		this.regDao = new RegionDaoImpl();
 		this.serDao = new ServerDaoImpl();
 		url = config.getProperty("ella.hbase.master.baseurl")
-				+ config.getProperty("ella.hbase.master.jmx.qry.suburl");
+				+ config.getProperty("ella.hbase.master.jmx.req.suburl");
 	}
 
 	public static synchronized JMXHMasterService getInstance() {
