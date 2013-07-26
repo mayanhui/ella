@@ -64,27 +64,27 @@
 					<ul class="nav-items">
 						<li class="nav-item item-top current-item on">
 						<span>
-						<a href="#">表访问量监控 </a>
+						<a href="index.jsp#">表访问量监控 </a>
 						</span></li>
 						<li class="nav-item ">
 						<span>
-						<a href="#mainContainer2">Hot Region监控</a>
-						</span></li>
-
-						<li class="nav-item ">
-						<span>
-						<a href="#mainContainer3">Server监控</a>
+						<a href="index.jsp#mainContainer2">Hot Region监控</a>
 						</span></li>
 
 						<li class="nav-item ">
 						<span>
-						<a href="#mainContainer4">Zookeeper监控</a>
+						<a href="index.jsp#mainContainer3">Server监控</a>
+						</span></li>
+
+						<li class="nav-item ">
+						<span>
+						<a href="index.jsp#mainContainer4">Zookeeper监控</a>
 						</span>
 						</li>
 						
 						<li class="nav-item ">
 						<span>
-						<a href="#">集群属性</a>
+						<a href="attr.jsp">集群属性</a>
 						</span>
 						</li>
 						
