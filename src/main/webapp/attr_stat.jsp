@@ -10,14 +10,17 @@
 <%@ page language="java" import="com.adintellig.ella.model.zookeeper.*"%>
 <%@ page language="java" import="com.adintellig.ella.hbase.*"%>
 <%@ page language="java" import="com.adintellig.ella.hbase.beans.attr.*"%>
-
+<%@ page language="java" import="com.adintellig.ella.hbase.beans.stat.*"%>
 
 <%
-		JMXHBaseAttrService attr = JMXHBaseAttrService.getInstance();
-		HBaseAttributeBeans beans = attr.getBeans();
-		HBaseAttributeBean[] beanArr = beans.getBeans();
-		request.setAttribute("attr",beanArr[0]);
+		HBaseAttributeBean[] attrArr = JMXHBaseAttrService.getInstance().genBeans().getBeans();
+		request.setAttribute("attr",attrArr[0]);
 		
+		MasterStat[] mstatsArr = JMXMasterStatService.getInstance().genBeans().getBeans();
+		request.setAttribute("mstat",mstatsArr[0]);
+		
+		RPCStat[] rstatArr = JMXRPCStatService.getInstance().genBeans().getBeans();
+		request.setAttribute("rstat",rstatArr[0]);
 		
 %>
 
@@ -52,27 +55,27 @@
 					<ul class="nav-items">
 						<li class="nav-item item-top current-item on">
 						<span>
-						<a href="#">表访问量监控 </a>
+						<a href="index.jsp#">表访问量监控 </a>
 						</span></li>
 						<li class="nav-item">
 						<span>
-						<a href="#mainContainer2">Hot Region监控</a>
-						</span></li>
-
-						<li class="nav-item">
-						<span>
-						<a href="#mainContainer3">Server监控</a>
+						<a href="index.jsp#mainContainer2">Hot Region监控</a>
 						</span></li>
 
 						<li class="nav-item">
 						<span>
-						<a href="#mainContainer4">Zookeeper监控</a>
+						<a href="index.jsp#mainContainer3">Server监控</a>
+						</span></li>
+
+						<li class="nav-item">
+						<span>
+						<a href="index.jsp#mainContainer4">Zookeeper监控</a>
 						</span>
 						</li>
 						
 						<li class="nav-item">
 						<span>
-						<a href="#">集群属性和统计</a>
+						<a href="attr_stat.jsp#">集群属性和统计</a>
 						</span>
 						</li>
 						
@@ -99,89 +102,214 @@
 						<table class="data-load" width="100%" border="0" cellspacing="0">
 							<thead>
 								<tr>
-									<th>Date</th>
-									<th>Revision</th>
-									<th>URL</th>
-									<th>User</th>
-									<th>Version</th>
-									
-									<th>HdfsDate</th>
-									<th>hdfsRev</th>
-									<th>hdfsUrl</th>
-									<th>hdfsUser</th>
-									<th>hdfsVer</th>
+									<th>Attribute Field</th>
+									<th>Value</th>
 								</tr>
 							</thead>
 							<tbody id="data-list">
 									<tr>
+										<td>Date</td>
 										<td>${attr.date}</td>
+									</tr>
+									<tr>
+										<td>Revision</td>
 										<td>${attr.revision}</td>
+									</tr>
+									<tr>
+										<td>URL</td>
 										<td>${attr.url}</td>
+									</tr>
+									<tr>
+										<td>User</td>
 										<td>${attr.user}</td>
+									</tr>
+									<tr>
+										<td>Version</td>
 										<td>${attr.version}</td>
-										
+									</tr>
+									<tr>
+										<td>HdfsDate</td>
 										<td>${attr.hdfsDate}</td>
+									</tr>
+									<tr>
+										<td>hdfsRev</td>
 										<td>${attr.hdfsRevision}</td>
+									</tr>
+									<tr>
+										<td>hdfsUrl</td>
 										<td>${attr.hdfsUrl}</td>
+									</tr>
+									<tr>
+										<td>hdfsUser</td>
 										<td>${attr.hdfsUser}</td>
+									</tr>
+									<tr>
+										<td>hdfsVer</td>
 										<td>${attr.hdfsVersion}</td>
 									</tr>
 							</tbody>
 						</table>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	
-	<!-- Attibute -->
-		<div id="mainContainer">
-			<div class="contentCol">
-				<div class="mod mod1" id="today_table">
+
+					<br/><br/>
+					
+					<!-- Master Stats -->
 					<div class="mod-header radius">
 						<h2>
-							HBase Cluster Attibutes @<%=DateFormatUtil.formatToString(new java.util.Date())%>
+							Master Stats
 						</h2>
 					</div>
 					<div class="mod-body" id="data-load">
 						<table class="data-load" width="100%" border="0" cellspacing="0">
 							<thead>
 								<tr>
-									<th>Date</th>
-									<th>Revision</th>
-									<th>URL</th>
-									<th>User</th>
-									<th>Version</th>
-									
-									<th>HdfsDate</th>
-									<th>hdfsRev</th>
-									<th>hdfsUrl</th>
-									<th>hdfsUser</th>
-									<th>hdfsVer</th>
+									<th>Stats Field</th>
+									<th>Value</th>
 								</tr>
 							</thead>
 							<tbody id="data-list">
 									<tr>
-										<td>${attr.date}</td>
-										<td>${attr.revision}</td>
-										<td>${attr.url}</td>
-										<td>${attr.user}</td>
-										<td>${attr.version}</td>
-										
-										<td>${attr.hdfsDate}</td>
-										<td>${attr.hdfsRevision}</td>
-										<td>${attr.hdfsUrl}</td>
-										<td>${attr.hdfsUser}</td>
-										<td>${attr.hdfsVersion}</td>
+										<td>modelerType</td>
+										<td>${mstat.modelerType}</td>
+									</tr>
+									<tr>
+										<td>splitTimeNumOps</td>
+										<td>${mstat.splitTimeNumOps}</td>
+									</tr>
+									<tr>
+										<td>splitTimeAvgTime</td>
+										<td>${mstat.splitTimeAvgTime}</td>
+									</tr>
+									<tr>
+										<td>splitTimeMinTime</td>
+										<td>${mstat.splitTimeMinTime}</td>
+									</tr>
+									<tr>
+										<td>splitTimeMaxTime</td>
+										<td>${mstat.splitTimeMaxTime}</td>
+									</tr>
+									<tr>
+										<td>splitSizeNumOps</td>
+										<td>${mstat.splitSizeNumOps}</td>
+									</tr>
+									<tr>
+										<td>splitSizeAvgTime</td>
+										<td>${mstat.splitSizeAvgTime}</td>
+									</tr>
+									<tr>
+										<td>splitSizeMinTime</td>
+										<td>${mstat.splitSizeMinTime}</td>
+									</tr>
+									<tr>
+										<td>splitSizeMaxTime</td>
+										<td>${mstat.splitSizeMaxTime}</td>
+									</tr>
+									<tr>
+										<td>cluster_requests</td>
+										<td>${mstat.cluster_requests}</td>
 									</tr>
 							</tbody>
 						</table>
 					</div>
+					
+					
+					
+					<br/><br/>
+					
+					<!-- RPC Stats -->
+					<div class="mod-header radius">
+						<h2>
+							RPC Stats
+						</h2>
+					</div>
+					<div class="mod-body" id="data-load">
+						<table class="data-load" width="100%" border="0" cellspacing="0">
+							<thead>
+								<tr>
+									<th>Stat Field</th>
+									<th>Value</th>
+								</tr>
+							</thead>
+							<tbody id="data-list">
+									<tr>
+										<td>modelerType</td>
+										<td>${rstat.modelerType}</td>
+									</tr>
+									<tr>
+										<td>deleteTableMinTime</td>
+										<td>${rstat.deleteTableMinTime}</td>
+									</tr>
+									<tr>
+										<td>deleteTableMaxTime</td>
+										<td>${rstat.deleteTableMaxTime}</td>
+									</tr>
+									<tr>
+										<td>getHTableDescriptorsMinTime</td>
+										<td>${rstat.getHTableDescriptorsMinTime}</td>
+									</tr>
+									<tr>
+										<td>getHTableDescriptorsMaxTime</td>
+										<td>${rstat.getHTableDescriptorsMaxTime}</td>
+									</tr>
+									<tr>
+										<td>disableTableMinTime</td>
+										<td>${rstat.disableTableMinTime}</td>
+									</tr>
+									<tr>
+										<td>disableTableMaxTime</td>
+										<td>${rstat.disableTableMaxTime}</td>
+									</tr>
+									<tr>
+										<td>createTableMinTime</td>
+										<td>${rstat.createTableMinTime}</td>
+									</tr>
+									<tr>
+										<td>createTableMaxTime</td>
+										<td>${rstat.createTableMaxTime}</td>
+									</tr>
+									<tr>
+										<td>rpcProcessingTimeMinTime</td>
+										<td>${rstat.rpcProcessingTimeMinTime}</td>
+									</tr>
+									<tr>
+										<td>rpcProcessingTimeMaxTime</td>
+										<td>${rstat.rpcProcessingTimeMaxTime}</td>
+									</tr>
+									<tr>
+										<td>regionServerStartupMinTime</td>
+										<td>${rstat.regionServerStartupMinTime}</td>
+									</tr>
+									<tr>
+										<td>regionServerStartupMaxTime</td>
+										<td>${rstat.regionServerStartupMaxTime}</td>
+									</tr>
+									<tr>
+										<td>rpcQueueTimeMinTime</td>
+										<td>${rstat.rpcQueueTimeMinTime}</td>
+									</tr>
+									<tr>
+										<td>rpcQueueTimeMaxTime</td>
+										<td>${rstat.rpcQueueTimeMaxTime}</td>
+									</tr>
+									<tr>
+										<td>regionServerReportMinTime</td>
+										<td>${rstat.regionServerReportMinTime}</td>
+									</tr>
+									<tr>
+										<td>regionServerReportMaxTime</td>
+										<td>${rstat.regionServerReportMaxTime}</td>
+									</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					
+					
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	
 <!--	
 <div style="left:178px;display:block;" class="back-to" id="toolBackTop">

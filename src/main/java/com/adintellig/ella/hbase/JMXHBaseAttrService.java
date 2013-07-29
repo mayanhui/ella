@@ -83,7 +83,7 @@ public class JMXHBaseAttrService {
 		return bean;
 	}
 
-	public HBaseAttributeBeans getBeans() {
+	public HBaseAttributeBeans genBeans() {
 		HBaseAttributeBeans beans = null;
 		if (null != url) {
 			String urlString = request(url);
@@ -94,7 +94,7 @@ public class JMXHBaseAttrService {
 
 	public static void main(String[] args) {
 		JMXHBaseAttrService attr = JMXHBaseAttrService.getInstance();
-		HBaseAttributeBeans beans = attr.getBeans();
+		HBaseAttributeBeans beans = attr.genBeans();
 		HBaseAttributeBean[] beanArr = beans.getBeans();
 		System.out.println(beanArr[0].getHdfsUrl());
 	}

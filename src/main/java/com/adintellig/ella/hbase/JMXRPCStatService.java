@@ -70,7 +70,7 @@ public class JMXRPCStatService {
 		return bean;
 	}
 
-	public RPCStats getBeans() {
+	public RPCStats genBeans() {
 		RPCStats beans = null;
 		if (null != url) {
 			String urlString = request(url);
@@ -82,7 +82,7 @@ public class JMXRPCStatService {
 
 	public static void main(String[] args) {
 		JMXRPCStatService attr = JMXRPCStatService.getInstance();
-		RPCStats beans = attr.getBeans();
+		RPCStats beans = attr.genBeans();
 		RPCStat[] beanArr = beans.getBeans();
 		System.out.println(beanArr[0].getCreateTableMaxTime());
 	}

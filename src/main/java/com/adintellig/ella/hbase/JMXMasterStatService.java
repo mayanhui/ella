@@ -70,7 +70,7 @@ public class JMXMasterStatService {
 		return bean;
 	}
 
-	public MasterStats getBeans() {
+	public MasterStats genBeans() {
 		MasterStats beans = null;
 		if (null != url) {
 			String urlString = request(url);
@@ -81,7 +81,7 @@ public class JMXMasterStatService {
 
 	public static void main(String[] args) {
 		JMXMasterStatService stat = JMXMasterStatService.getInstance();
-		MasterStats beans = stat.getBeans();
+		MasterStats beans = stat.genBeans();
 		MasterStat[] beanArr = beans.getBeans();
 		System.out.println(beanArr[0].getModelerType());
 	}
