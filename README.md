@@ -40,6 +40,8 @@ Only Support Linux.
 
 
 ##How to Use
+Please see:
+https://github.com/mayanhui/ella/wiki/How-to-Use
 
 
 ## Roadmap
