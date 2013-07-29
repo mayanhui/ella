@@ -4,25 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-//import java.sql.SQLException;
-//import java.util.List;
 
-//import org.codehaus.jackson.JsonParseException;
-//import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.adintellig.ella.hbase.beans.attr.HBaseAttributeBean;
-import com.adintellig.ella.hbase.beans.attr.HBaseAttributeBeans;
-//import com.adintellig.ella.hbase.beans.request.MasterServiceBeans;
-//import com.adintellig.ella.model.Region;
-//import com.adintellig.ella.model.RequestCount;
-//import com.adintellig.ella.model.Server;
-//import com.adintellig.ella.model.Table;
-//import com.adintellig.ella.mysql.RegionDaoImpl;
-//import com.adintellig.ella.mysql.RequestCountDaoImpl;
-//import com.adintellig.ella.mysql.ServerDaoImpl;
-//import com.adintellig.ella.mysql.TableDaoImpl;
+import com.adintellig.ella.hbase.beans.stat.RPCStat;
+import com.adintellig.ella.hbase.beans.stat.RPCStats;
 import com.adintellig.ella.util.ConfigFactory;
 import com.adintellig.ella.util.ConfigProperties;
 import com.alibaba.fastjson.JSON;
@@ -40,7 +27,7 @@ public class JMXRPCStatService {
 
 	private JMXRPCStatService() {
 		url = config.getProperty("ella.hbase.master.baseurl")
-				+ config.getProperty("ella.hbase.master.jmx.stat.master.suburl");
+				+ config.getProperty("ella.hbase.master.jmx.stat.rpc.suburl");
 	}
 
 	public static synchronized JMXRPCStatService getInstance() {
@@ -76,17 +63,18 @@ public class JMXRPCStatService {
 		return sb.toString();
 	}
 
-	private HBaseAttributeBeans parseBean(String jsonString) {
-		HBaseAttributeBeans bean = null;
+	private RPCStats parseBean(String jsonString) {
+		RPCStats bean = null;
 		if (null != jsonString && jsonString.trim().length() > 0)
-			bean = JSON.parseObject(jsonString, HBaseAttributeBeans.class);
+			bean = JSON.parseObject(jsonString, RPCStats.class);
 		return bean;
 	}
 
-	public HBaseAttributeBeans getBeans() {
-		HBaseAttributeBeans beans = null;
+	public RPCStats getBeans() {
+		RPCStats beans = null;
 		if (null != url) {
 			String urlString = request(url);
+			System.out.println(urlString);
 			beans = parseBean(urlString);
 		}
 		return beans;
@@ -94,8 +82,8 @@ public class JMXRPCStatService {
 
 	public static void main(String[] args) {
 		JMXRPCStatService attr = JMXRPCStatService.getInstance();
-		HBaseAttributeBeans beans = attr.getBeans();
-		HBaseAttributeBean[] beanArr = beans.getBeans();
-		System.out.println(beanArr[0].getHdfsUrl());
+		RPCStats beans = attr.getBeans();
+		RPCStat[] beanArr = beans.getBeans();
+		System.out.println(beanArr[0].getCreateTableMaxTime());
 	}
 }

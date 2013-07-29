@@ -1,14 +1,14 @@
 package com.adintellig.ella.hbase.beans.stat;
 
 public class RPCStats {
-	private RPCStat[] stats;
+	private RPCStat[] beans;
 
-	public RPCStat[] getStats() {
-		return stats;
+	public RPCStat[] getBeans() {
+		return beans;
 	}
 
-	public void setStats(RPCStat[] stats) {
-		this.stats = stats;
+	public void setBeans(RPCStat[] beans) {
+		this.beans = beans;
 	}
 
 }

@@ -4,25 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-//import java.sql.SQLException;
-//import java.util.List;
 
-//import org.codehaus.jackson.JsonParseException;
-//import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.adintellig.ella.hbase.beans.attr.HBaseAttributeBean;
-import com.adintellig.ella.hbase.beans.attr.HBaseAttributeBeans;
-//import com.adintellig.ella.hbase.beans.request.MasterServiceBeans;
-//import com.adintellig.ella.model.Region;
-//import com.adintellig.ella.model.RequestCount;
-//import com.adintellig.ella.model.Server;
-//import com.adintellig.ella.model.Table;
-//import com.adintellig.ella.mysql.RegionDaoImpl;
-//import com.adintellig.ella.mysql.RequestCountDaoImpl;
-//import com.adintellig.ella.mysql.ServerDaoImpl;
-//import com.adintellig.ella.mysql.TableDaoImpl;
+import com.adintellig.ella.hbase.beans.stat.MasterStat;
+import com.adintellig.ella.hbase.beans.stat.MasterStats;
 import com.adintellig.ella.util.ConfigFactory;
 import com.adintellig.ella.util.ConfigProperties;
 import com.alibaba.fastjson.JSON;
@@ -76,15 +63,15 @@ public class JMXMasterStatService {
 		return sb.toString();
 	}
 
-	private HBaseAttributeBeans parseBean(String jsonString) {
-		HBaseAttributeBeans bean = null;
+	private MasterStats parseBean(String jsonString) {
+		MasterStats bean = null;
 		if (null != jsonString && jsonString.trim().length() > 0)
-			bean = JSON.parseObject(jsonString, HBaseAttributeBeans.class);
+			bean = JSON.parseObject(jsonString, MasterStats.class);
 		return bean;
 	}
 
-	public HBaseAttributeBeans getBeans() {
-		HBaseAttributeBeans beans = null;
+	public MasterStats getBeans() {
+		MasterStats beans = null;
 		if (null != url) {
 			String urlString = request(url);
 			beans = parseBean(urlString);
@@ -93,9 +80,9 @@ public class JMXMasterStatService {
 	}
 
 	public static void main(String[] args) {
-		JMXMasterStatService attr = JMXMasterStatService.getInstance();
-		HBaseAttributeBeans beans = attr.getBeans();
-		HBaseAttributeBean[] beanArr = beans.getBeans();
-		System.out.println(beanArr[0].getHdfsUrl());
+		JMXMasterStatService stat = JMXMasterStatService.getInstance();
+		MasterStats beans = stat.getBeans();
+		MasterStat[] beanArr = beans.getBeans();
+		System.out.println(beanArr[0].getModelerType());
 	}
 }

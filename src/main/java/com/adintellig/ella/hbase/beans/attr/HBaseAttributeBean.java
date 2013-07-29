@@ -10,10 +10,10 @@ public class HBaseAttributeBean {
 
 	// hadoop info
 	private String hdfsDate;
-	private String hdfsRev;
+	private String hdfsRevision;
 	private String hdfsUrl;
 	private String hdfsUser;
-	private String hdfsVer;
+	private String hdfsVersion;
 
 	public String getDate() {
 		return date;
@@ -63,12 +63,12 @@ public class HBaseAttributeBean {
 		this.hdfsDate = hdfsDate;
 	}
 
-	public String getHdfsRev() {
-		return hdfsRev;
+	public String getHdfsRevision() {
+		return hdfsRevision;
 	}
 
-	public void setHdfsRev(String hdfsRev) {
-		this.hdfsRev = hdfsRev;
+	public void setHdfsRevision(String hdfsRevision) {
+		this.hdfsRevision = hdfsRevision;
 	}
 
 	public String getHdfsUrl() {
@@ -87,12 +87,12 @@ public class HBaseAttributeBean {
 		this.hdfsUser = hdfsUser;
 	}
 
-	public String getHdfsVer() {
-		return hdfsVer;
+	public String getHdfsVersion() {
+		return hdfsVersion;
 	}
 
-	public void setHdfsVer(String hdfsVer) {
-		this.hdfsVer = hdfsVer;
+	public void setHdfsVersion(String hdfsVersion) {
+		this.hdfsVersion = hdfsVersion;
 	}
 
 }

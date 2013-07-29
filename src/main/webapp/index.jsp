@@ -84,7 +84,7 @@
 						
 						<li class="nav-item ">
 						<span>
-						<a href="attr.jsp">集群属性</a>
+						<a href="attr_stat.jsp">集群属性和统计</a>
 						</span>
 						</li>
 						

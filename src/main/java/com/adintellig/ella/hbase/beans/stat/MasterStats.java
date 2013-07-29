@@ -1,14 +1,14 @@
 package com.adintellig.ella.hbase.beans.stat;
 
 public class MasterStats {
-	private MasterStat[] stats;
+	private MasterStat[] beans;
 
-	public MasterStat[] getStats() {
-		return stats;
+	public MasterStat[] getBeans() {
+		return beans;
 	}
 
-	public void setStats(MasterStat[] stats) {
-		this.stats = stats;
+	public void setBeans(MasterStat[] beans) {
+		this.beans = beans;
 	}
 
 }
