@@ -22,14 +22,8 @@ Watching list:
 7. master and RPC statistics
 
 
-
 ##Environment
 Only Support Linux.
-
-##License
-Released under the GPLv3 license. For full details, pleasesee the LICENSE file included in this distribution.
-
-
 
 ## Framwork
 * Java 1.6 (http://www.oracle.com/technetwork/java/index.html)
@@ -45,6 +39,9 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 * gRaphael (http://g.raphaeljs.com/)
 
 
+##How to Use
+
+
 ## Roadmap
 1. <b>Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.</b>
 2. <b>Add user guide for ella.</b>
@@ -53,3 +50,9 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 
 ## Ella First Page
 ![Ella First Page](http://static.oschina.net/uploads/space/2013/0720/142647_s5dz_818358.jpg)
+
+
+##License
+Released under the GPLv3 license. For full details, pleasesee the LICENSE file included in this distribution.
+
+
