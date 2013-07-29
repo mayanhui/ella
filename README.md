@@ -18,6 +18,8 @@ Watching list:
 3. Server level request statistics (Write/Read/Total Count, TPS, Hot Server)
 4. zookeeper monitor
 5. Chart display
+6. master attribute(hbase version,author,...hadoop version...)
+7. master and RPC statistics
 
 
 
