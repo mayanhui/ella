@@ -49,9 +49,6 @@ Released under the GPLv3 license. For full details, pleasesee the LICENSE file i
 1. <b>Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.</b>
 2. <b>Add user guide for ella.</b>
 3. <b>Add detail page for server,region</b>
-4. exclude unused jars in pom.xml (done)
-5. <b>Add master attribute(hbase version,author,...hadoop version...)</b>
-6. <b>Add master and RPC statistics</b>
 
 
 ## Ella First Page
