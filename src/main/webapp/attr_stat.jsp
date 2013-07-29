@@ -199,10 +199,12 @@
 										<td>splitSizeMaxTime</td>
 										<td>${mstat.splitSizeMaxTime}</td>
 									</tr>
+									<!--
 									<tr>
 										<td>cluster_requests</td>
 										<td>${mstat.cluster_requests}</td>
 									</tr>
+									-->
 							</tbody>
 						</table>
 					</div>
