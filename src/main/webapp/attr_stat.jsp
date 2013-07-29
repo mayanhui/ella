@@ -79,11 +79,6 @@
 						</span>
 						</li>
 						
-						<li class="nav-item">
-						<span>
-						<a href="#">Task监控</a>
-						</span>
-						</li>
 					</ul>
 				</div>
 			</div>

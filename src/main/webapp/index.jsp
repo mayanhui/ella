@@ -88,11 +88,12 @@
 						</span>
 						</li>
 						
-						<li class="nav-item ">
+						<!--<li class="nav-item ">
 						<span>
 						<a href="task.jsp">Task监控</a>
 						</span>
 						</li>
+						-->
 					</ul>
 				</div>
 			</div>
