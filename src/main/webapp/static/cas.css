@@ -1,0 +1,130 @@
+html,body{
+  background:url(bg.png) repeat 0 0;
+  height:100%;
+}
+.panel{
+  height:100%;
+}
+input:-webkit-autofill {
+    background:none !important;
+    -webkit-box-shadow:0 0 0px 1000px white inset;
+}
+.contentpanel{
+  width:470px;
+  height:560px;
+  margin:0 auto;
+  background:url(contentbg.png) no-repeat 0 0;
+}
+.formpanel{
+  padding:160px 0 0 110px;
+}
+.input-bg{
+  background:url(input-normal.png) no-repeat 0 0;
+  padding:0 10px;
+  border-radius:5px;
+  display:block;
+  width:253px;
+  height:48px;
+  line-height:48px;
+  margin-bottom:18px;
+  position:relative;
+}
+.input-bg-active{
+  background:url(input-actives.png) no-repeat 0 0;
+}
+.input-bg input {
+  border:0;
+  background:none;
+  box-shadow:none;
+  height:25px;
+  line-height:25px;
+  padding:0 15px;
+  width:204px;
+  vertical-align:middle;
+}
+.formpanel .input-bg h4{
+  position:absolute;
+  left:260px;
+  z-index:5;
+  width:114px;
+  top:11px;
+  line-height:27px;
+  height:27px;
+  padding:0 10px;
+  background:#dc5449;
+  border-radius:6px;
+  box-shadow: 4px 4px 1px #c7c7c7;
+}
+.formpanel .btnpanel{
+  padding:18px 2px;
+}
+.formpanel .btnpanel .submit{
+  background:url(btn.png) 0 0 no-repeat;
+  border:none;
+  box-shadow:none;
+  width:143px;
+  height:50px;
+  cursor:pointer;
+  color:#fff;
+  font-size:13px;
+}
+.formpanel .btnpanel .submit:hover{
+  background:url(btn-hover.png) 0 0 no-repeat;
+}
+.formpanel .btnpanel .submit:active{
+  background:url(btn-active.png) 0 0 no-repeat;
+}
+.formpanel .btnpanel span{
+  padding-left:10px;
+}
+.formpanel .btnpanel span a{
+  margin-left:5px;
+  color:#333;
+  text-decoration: underline;
+}
+.footer{
+  margin-top:-40px;
+}
+.footer p{
+  text-align:center;
+  padding:10px 0;
+}
+.footer p span{
+  padding:0 25px;
+}
+.footer p a{
+  color:#333;
+  padding:0 2px;
+}
+label.error {
+  color:#fff;
+}
+.mistake{
+  color:#dc5449;
+  padding: 0 100px 0 3px;
+  margin-bottom:10px;
+  text-indent:24px;
+  font-size:13px;
+  background:url(i.png) 3px 1px no-repeat;
+}
+.confirmation, .notice{
+  color:#2b518c;
+  padding: 0 100px 0 13px;
+  margin-bottom:10px;
+  border-left:1px solid #2b518c;
+  font-size:13px;
+}
+.input-bg .corner{
+  width:0; 
+  height:0; 
+  border-width:5px 5px 5px 5px;
+  padding:0;
+  font-size:0;
+  line-height:0;
+  border-style:solid; 
+  border-color:transparent #dc5449 transparent transparent;
+  position:absolute;
+  left:-9px;
+  top:8px;
+  z-index:99;
+}
