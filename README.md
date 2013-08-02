@@ -26,7 +26,7 @@ Watching list:
 Only Support Linux.
 
 ## Framwork
-* Java 1.6 (http://www.oracle.com/technetwork/java/index.html)
+* JDK 1.6 and above(http://www.oracle.com/technetwork/java/index.html)
 * Jetty 8.1.11.v20130520 (http://www.eclipse.org/jetty/)
 * HBase 0.94.0 (http://hbase.apache.org/)
 * Hadoop 1.1.2 (http://hadoop.apache.org/)
