@@ -50,6 +50,7 @@ https://github.com/mayanhui/ella/wiki/How-to-Use
 1. <b>Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.</b>
 2. <b>Add user guide for ella.</b>
 3. <b>Add detail page for server,region</b>
+4. <b>Add account login module</b>
 
 
 ## Ella First Page
