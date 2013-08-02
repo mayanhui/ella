@@ -38,6 +38,8 @@ Only Support Linux.
 * D3 (https://github.com/mbostock/d3)
 * gRaphael (http://g.raphaeljs.com/)
 
+## Notice
+<b>You must not install Ella on HBase Master machine.</b>
 
 ##How to Use
 Please see:
