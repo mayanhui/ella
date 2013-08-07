@@ -6,7 +6,7 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>ella</display-name>
 	<welcome-file-list>
-		<welcome-file>jump.jsp</welcome-file>
+		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
 
 	<servlet>
@@ -16,6 +16,16 @@
 	<servlet-mapping>
 		<servlet-name>init</servlet-name>
 		<url-pattern>/init.do</url-pattern>
+	</servlet-mapping>
+	
+
+	<servlet>
+		<servlet-name>login</servlet-name>
+		<servlet-class>com.adintellig.ella.jetty.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>login</servlet-name>
+		<url-pattern>/login.do</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

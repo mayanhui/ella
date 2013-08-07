@@ -16,7 +16,7 @@ input:-webkit-autofill {
   background:url(contentbg.png) no-repeat 0 0;
 }
 .formpanel{
-  padding:160px 0 0 110px;
+  padding:160px 0 0 0px;
 }
 .input-bg{
   background:url(input-normal.png) no-repeat 0 0;

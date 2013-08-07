@@ -11,7 +11,7 @@ public class ConfigFactory {
 	public static ConfigFactory getInstance() {
 		return instance;
 	}
-	
+
 	private ConfigFactory() {
 		
 	}
