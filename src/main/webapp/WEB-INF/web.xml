@@ -3,11 +3,34 @@
 	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
+	id="WebApp_ID"
+	version="2.5">
 	<display-name>ella</display-name>
 	<welcome-file-list>
 		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<listener>
+		<listener-class>com.adintellig.ella.jetty.SessionListener</listener-class>	
+	</listener>
+
+	<filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>com.adintellig.ella.jetty.LoginFilter</filter-class>
+		<init-param>
+			<param-name>LOGON_URI</param-name>
+			<param-value>/login.jsp</param-value>		
+		</init-param>
+		<init-param>
+			<param-name>ROOT_URI</param-name>
+			<param-value>/</param-value>		
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/*.jsp</url-pattern>
+		<url-pattern>/*.do</url-pattern>
+	</filter-mapping>
 
 	<servlet>
 		<servlet-name>init</servlet-name>
@@ -17,7 +40,6 @@
 		<servlet-name>init</servlet-name>
 		<url-pattern>/init.do</url-pattern>
 	</servlet-mapping>
-	
 
 	<servlet>
 		<servlet-name>login</servlet-name>
@@ -27,5 +49,10 @@
 		<servlet-name>login</servlet-name>
 		<url-pattern>/login.do</url-pattern>
 	</servlet-mapping>
-	
+
+	<!--session timeout(minutes)-->
+	<session-config>
+		<session-timeout>1</session-timeout>
+	</session-config>
+
 </web-app>

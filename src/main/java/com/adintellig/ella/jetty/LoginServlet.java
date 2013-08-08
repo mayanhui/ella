@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.adintellig.ella.model.user.User;
 import com.adintellig.ella.mysql.UserDaoImpl;
@@ -19,6 +20,7 @@ public class LoginServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
+
 	}
 
 	protected void doGet(HttpServletRequest request,
@@ -28,22 +30,35 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		RequestDispatcher dispatcher = null;
 		String username = request.getParameter("username").trim();
 		String password = request.getParameter("password").trim();
 
-		try {
-			User u = dao.findByNameAndPassword(username, password);
-			RequestDispatcher dispatcher = null;
-			if (u != null) {
-				dispatcher = request.getRequestDispatcher("/index.jsp");
-			} else {
-				dispatcher = request.getRequestDispatcher("/login.jsp");
-			}
+		HttpSession session = request.getSession(true);
 
+		String sessionUsername = (String) session.getAttribute("username");
+
+		if (null != sessionUsername && sessionUsername.length() > 0)
+			sessionUsername = sessionUsername.trim();
+
+		if (username.equals(sessionUsername)) {
+			dispatcher = request.getRequestDispatcher("/index.jsp");
 			dispatcher.forward(request, response);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} else {
+			try {
+				User u = dao.findByNameAndPassword(username, password);
+				if (u != null) {
+					dispatcher = request.getRequestDispatcher("/init.do");
+					// put username into session
+//					session.setMaxInactiveInterval(900); // alive 900 seconds
+					session.setAttribute("username", username);
+				} else {
+					dispatcher = request.getRequestDispatcher("/login.jsp");
+				}
+				dispatcher.forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
