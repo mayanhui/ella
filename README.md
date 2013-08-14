@@ -50,7 +50,7 @@ https://github.com/mayanhui/ella/wiki/How-to-Use
 ## Roadmap
 1. <b>Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.</b>
 2. <b>Add detail page for server,region</b>
-3. implement easy install script
+3. <b>Implement easy install script</b>
 
 ## Ella First Page
 
