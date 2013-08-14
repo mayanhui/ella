@@ -74,7 +74,6 @@ public class JMXRPCStatService {
 		RPCStats beans = null;
 		if (null != url) {
 			String urlString = request(url);
-			System.out.println(urlString);
 			beans = parseBean(urlString);
 		}
 		return beans;

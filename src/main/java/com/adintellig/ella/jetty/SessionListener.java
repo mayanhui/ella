@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 /**
- * session 监听 器，通过 监听 器来实现在线用户统计功能的类<br/>
+ * session 监听 器，通过 监听 器来实现在线用户统计功能的类
  * 
  */
 public class SessionListener implements HttpSessionListener,
@@ -21,7 +21,7 @@ public class SessionListener implements HttpSessionListener,
 	 * @see javax.servlet.http.HttpSessionListener#sessionCreated(javax.servlet.http.HttpSessionEvent)
 	 */
 	public void sessionCreated(HttpSessionEvent se) {
-		System.out.println("Session创建：" + se.getSession().getId());
+		System.out.println("Session created：" + se.getSession().getId());
 	}
 
 	/**

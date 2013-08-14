@@ -10,11 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.adintellig.ella.model.user.User;
 import com.adintellig.ella.mysql.UserDaoImpl;
 
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static Logger logger = LoggerFactory.getLogger(LoginServlet.class);
 
 	UserDaoImpl dao = new UserDaoImpl();
 
@@ -30,6 +34,8 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		logger.info("{POST}");
+		
 		RequestDispatcher dispatcher = null;
 		String username = request.getParameter("username").trim();
 		String password = request.getParameter("password").trim();
@@ -50,7 +56,6 @@ public class LoginServlet extends HttpServlet {
 				if (u != null) {
 					dispatcher = request.getRequestDispatcher("/init.do");
 					// put username into session
-//					session.setMaxInactiveInterval(900); // alive 900 seconds
 					session.setAttribute("username", username);
 				} else {
 					dispatcher = request.getRequestDispatcher("/login.jsp");
