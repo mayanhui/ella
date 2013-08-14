@@ -11,7 +11,7 @@ Ella is a "Border Collie", a handsome and smart dog.
 
 A watchdog, monitor hbase.
 
-Watching list:
+Keyt Feature list:
 
 1. Table level request statistics (Write/Read/Total Count, TPS)
 2. Region level request statistics (Hot Region)
