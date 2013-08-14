@@ -20,6 +20,7 @@ Watching list:
 5. Chart display
 6. master attribute(hbase version,author,...hadoop version...)
 7. master and RPC statistics
+8. Account system for login
 
 
 ##Environment
@@ -48,10 +49,8 @@ https://github.com/mayanhui/ella/wiki/How-to-Use
 
 ## Roadmap
 1. <b>Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.</b>
-2. <b>Add user guide for ella.</b>
-3. <b>Add detail page for server,region</b>
-4. <b>Add account login module</b>
-
+2. <b>Add detail page for server,region</b>
+3. implement easy install script
 
 ## Ella First Page
 
