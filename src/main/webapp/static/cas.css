@@ -36,9 +36,9 @@ input:-webkit-autofill {
   border:0;
   background:none;
   box-shadow:none;
-  height:25px;
+  height:40px;
   line-height:25px;
-  padding:0 15px;
+  padding:10 15px;
   width:204px;
   vertical-align:middle;
 }

@@ -73,3 +73,5 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8
 INSERT INTO `hbase`.`user`(`id`,`username`,`password`,`update_time`) VALUES ( '1','admin','admin123',CURRENT_TIMESTAMP);
+
+
