@@ -54,6 +54,10 @@ https://github.com/mayanhui/ella/wiki/How-to-Use
 
 
 ## Ella First Page
+
+![Ella Login Page](http://static.oschina.net/uploads/space/2013/0814/181852_duF0_818358.jpg)
+
+
 ![Ella First Page](http://static.oschina.net/uploads/space/2013/0720/142647_s5dz_818358.jpg)
 
 
