@@ -29,10 +29,8 @@ public class InitServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher("/index.jsp");
-		dispatcher.forward(request, response);
+		response.setContentType("text/html; charset=UTF-8");
+		response.sendRedirect("index.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request,
