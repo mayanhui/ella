@@ -51,9 +51,9 @@ https://github.com/mayanhui/ella/wiki/How-to-Use
 
 <b>Refactor the persistence hierarchy</b>
 
-1. <b>Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.</b>
-2. <b>Add detail page for server,region</b>
-3. <b>Implement easy install script</b>
+1. Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.
+2. Add detail page for server,region
+3. Implement easy install script
 
 ## Ella First Page
 
