@@ -347,7 +347,7 @@ if [ -z "$JETTY_STATE" ]
 then
   JETTY_STATE=$JETTY_HOME/jetty.state
 fi
-JAVA_OPTIONS+=("-Xms128m -Xmx1024m -XX:MaxPermSize=512m")
+JAVA_OPTIONS+=("-Xms512m -Xmx2048m -XX:MaxPermSize=512m -server -XX:+PrintGCDetails -Xloggc:logs/ella-gc.log -XX:+DisableExplicitGC -XX:+UseParNewGC -XX:+UseConcMarkSweepGC")
 JAVA_OPTIONS+=("-Djetty.state=$JETTY_STATE")
 rm -f $JETTY_STATE
 
