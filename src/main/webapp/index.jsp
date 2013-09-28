@@ -167,6 +167,7 @@
 										<td>--</td>
 										<td>--</td>
 										<td>--</td>
+										<td>--</td>
 										<td style="font-weight:bold;"><font color="Red">${wtps}</font></td>
 										<td style="font-weight:bold;"><font color="Red">${rtps}</font></td>
 										<td style="font-weight:bold;"><font color="Red">${ttps}</font></td>
