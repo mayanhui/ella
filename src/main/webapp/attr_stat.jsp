@@ -69,13 +69,13 @@
 
 						<li class="nav-item">
 						<span>
-						<a href="zk_index.jsp">Zookeeper监控</a>
+						<a href="zk_stat.jsp">Zookeeper监控</a>
 						</span>
 						</li>
 						
 						<li class="nav-item">
 						<span>
-						<a href="attr_stat.jsp#">集群属性和统计</a>
+						<a href="attr_stat.jsp">集群属性和统计</a>
 						</span>
 						</li>
 						
