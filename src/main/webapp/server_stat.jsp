@@ -5,7 +5,7 @@
 
 <%@ page language="java" import="java.util.*"%>
 <%@ page language="java" import="com.adintellig.ella.model.*"%>
-<%@ page language="java" import="com.adintellig.ella.mysql.*"%>
+<%@ page language="java" import="com.adintellig.ella.dao.*"%>
 <%@ page language="java" import="com.adintellig.ella.util.*"%>
 
 <%

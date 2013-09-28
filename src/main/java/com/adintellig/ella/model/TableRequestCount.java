@@ -4,14 +4,16 @@ import java.sql.Timestamp;
 
 public class TableRequestCount extends RequestCount {
 	private String tableName = null;
+	private int regionCount = 0;
 
 	public TableRequestCount() {
 		super();
 	}
 
-	public TableRequestCount(String tableName) {
+	public TableRequestCount(String tableName, int regionCount) {
 		super();
 		this.tableName = tableName;
+		this.regionCount = regionCount;
 	}
 
 	public TableRequestCount(long writeCount, long readCount, long totalCount,
@@ -29,6 +31,14 @@ public class TableRequestCount extends RequestCount {
 		this.tableName = tableName;
 	}
 
+	public int getRegionCount() {
+		return regionCount;
+	}
+
+	public void setRegionCount(int regionCount) {
+		this.regionCount = regionCount;
+	}
+
 	@Override
 	public String toString() {
 		return "TableRequestCount [tableName=" + tableName
@@ -41,6 +51,5 @@ public class TableRequestCount extends RequestCount {
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
 				+ ", toString()=" + super.toString() + "]";
 	}
-	
 
 }

@@ -5,18 +5,19 @@
 
 <%@ page language="java" import="java.util.*"%>
 <%@ page language="java" import="com.adintellig.ella.model.*"%>
-<%@ page language="java" import="com.adintellig.ella.mysql.*"%>
+<%@ page language="java" import="com.adintellig.ella.dao.*"%>
 <%@ page language="java" import="com.adintellig.ella.util.*"%>
+<%@ page language="java" import="com.adintellig.ella.service.*"%>
 
 <%
-       RequestCountDaoImpl impl = new RequestCountDaoImpl();
+	TableService service = new TableService();
+
+	List<RequestCount> tables = service.list();
+	request.setAttribute("tables",tables);
 	   
-	   List<RequestCount> tables = impl.list();
-	   request.setAttribute("tables",tables);
-	   
-	   request.setAttribute("wtps",RequestCountUtil.sumTps(tables,"WRITE"));
-	   request.setAttribute("rtps",RequestCountUtil.sumTps(tables,"READ"));
-	   request.setAttribute("ttps",RequestCountUtil.sumTps(tables,"TOTAL"));
+	request.setAttribute("wtps",RequestCountUtil.sumTps(tables,"WRITE"));
+	request.setAttribute("rtps",RequestCountUtil.sumTps(tables,"READ"));
+	request.setAttribute("ttps",RequestCountUtil.sumTps(tables,"TOTAL"));
 	   
 %>
 
@@ -103,6 +104,7 @@
 							<thead>
 								<tr>
 									<th>Table Name</th>
+									<th>Number Of Regions</th>
 									<th>Write Count</th>
 									<th>Read Count</th>
 									<th>Total Count</th>
@@ -127,6 +129,7 @@
 												</td>
 											</c:otherwise>
 										</c:choose>
+										<td>${t.regionCount}</td>
 										<td>${t.writeCount}</td>
 										<td>${t.readCount}</td>
 										<td>${t.totalCount}</td>
@@ -160,7 +163,7 @@
 									</tr>
 								</c:forEach>
 								<tr>
-										<td>--</td>
+										<td style="font-weight:bold;">[TOTAL]</td>
 										<td>--</td>
 										<td>--</td>
 										<td>--</td>

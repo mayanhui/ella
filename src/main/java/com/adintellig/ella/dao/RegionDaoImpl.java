@@ -1,4 +1,4 @@
-package com.adintellig.ella.mysql;
+package com.adintellig.ella.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +31,8 @@ public class RegionDaoImpl {
 				stmt.setTimestamp(2, r.getUpdateTime());
 				stmt.addBatch();
 			}
-			logger.info("[INSERT] Load Regions info into 'regions'. Size=" + beans.size());
+			logger.info("[INSERT] Load Regions info into 'regions'. Size="
+					+ beans.size());
 		}
 		stmt.executeBatch();
 		JdbcUtil.close(con, stmt, null);
@@ -74,6 +75,25 @@ public class RegionDaoImpl {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt
 					.executeQuery("SELECT count(*) FROM hbase.regions");
+			if (rs.next())
+				num = rs.getInt(1);
+
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return num;
+	}
+
+	public int getRegionNumberByTableName(String tableName) {
+		int num = -1;
+		try {
+			Connection con = JdbcUtil.getConnection();
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt
+					.executeQuery("SELECT count(*) FROM hbase.regions where region_name like '"
+							+ tableName + "%'");
 			if (rs.next())
 				num = rs.getInt(1);
 

@@ -6,11 +6,9 @@
 <%@ page language="java" import="java.util.*"%>
 <%@ page language="java" import="com.adintellig.ella.model.*"%>
 <%@ page language="java" import="com.adintellig.ella.mysql.*"%>
-<%@ page language="java" import="com.adintellig.ella.util.*"%>
+<%@ page language="java" import="com.adintellig.ella.dao.*"%>
 <%@ page language="java" import="com.adintellig.ella.model.zookeeper.*"%>
-<%@ page language="java" import="com.adintellig.ella.hbase.*"%>
-<%@ page language="java" import="com.adintellig.ella.hbase.beans.attr.*"%>
-<%@ page language="java" import="com.adintellig.ella.hbase.beans.stat.*"%>
+<%@ page language="java" import="com.adintellig.ella.util.*"%>
 
 <%
 	   Base base = HBaseUtil.dumpZookeeperInfo();

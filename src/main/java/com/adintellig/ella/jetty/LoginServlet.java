@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.adintellig.ella.dao.UserDaoImpl;
 import com.adintellig.ella.model.user.User;
-import com.adintellig.ella.mysql.UserDaoImpl;
 
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

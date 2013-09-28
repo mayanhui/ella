@@ -1,4 +1,4 @@
-package com.adintellig.ella.mysql;
+package com.adintellig.ella.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

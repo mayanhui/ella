@@ -8,9 +8,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.adintellig.ella.dao.RequestCountDaoImpl;
 import com.adintellig.ella.model.RequestCount;
 import com.adintellig.ella.model.TableRequestCount;
-import com.adintellig.ella.mysql.RequestCountDaoImpl;
 
 public class PersistDisk {
 	private static Logger logger = LoggerFactory.getLogger(PersistDisk.class);
