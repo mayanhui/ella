@@ -9,15 +9,13 @@
 <%@ page language="java" import="com.adintellig.ella.util.*"%>
 
 <%
-       RequestCountDaoImpl impl = new RequestCountDaoImpl();
+	RequestCountDaoImpl impl = new RequestCountDaoImpl();
+
+	List<RequestCount> wregions = impl.listWriteHotRegions();
+	request.setAttribute("wregions",wregions);
 	   
-	   List<RequestCount> tables = impl.list();
-	   request.setAttribute("tables",tables);
-	   
-	   request.setAttribute("wtps",RequestCountUtil.sumTps(tables,"WRITE"));
-	   request.setAttribute("rtps",RequestCountUtil.sumTps(tables,"READ"));
-	   request.setAttribute("ttps",RequestCountUtil.sumTps(tables,"TOTAL"));
-	   
+	List<RequestCount> rregions = impl.listReadHotRegions();
+	request.setAttribute("rregions",rregions);
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -53,124 +51,78 @@
 						<span>
 						<a href="index.jsp#">表访问量监控 </a>
 						</span></li>
-						<li class="nav-item ">
+						<li class="nav-item">
 						<span>
 						<a href="index.jsp#mainContainer2">Hot Region监控</a>
 						</span></li>
 
-						<li class="nav-item ">
+						<li class="nav-item">
 						<span>
 						<a href="server_stat.jsp">Server监控</a>
 						</span></li>
 
-						<li class="nav-item ">
+						<li class="nav-item">
 						<span>
 						<a href="zk_stat.jsp">Zookeeper监控</a>
 						</span>
 						</li>
 						
-						<li class="nav-item ">
+						<li class="nav-item">
 						<span>
 						<a href="attr_stat.jsp">集群属性和统计</a>
 						</span>
 						</li>
 						
-						<!--<li class="nav-item ">
-						<span>
-						<a href="task.jsp">Task监控</a>
-						</span>
-						</li>
-						-->
 					</ul>
 				</div>
 			</div>
 		</div>
 
-	<!-- BODY RIGHT -->
-		<div id="mainContainer">
+	<!-- region -->
+		<div id="mainContainer2">
 			<div class="contentCol">
 
 				<div class="mod mod1" id="today_table">
 					<div class="mod-header radius">
 						<h2>
-							今日表数据 @<%=DateFormatUtil.formatToString(new java.util.Date())%>
-							<!--<a class="icon help poptips" action-frame="tip_todayData"
-								title=""></a>-->
+							今日Hot Region数据<a class="icon help poptips" action-frame="tip_todayData"
+								title=""></a>
 						</h2>
 					</div>
 					<div class="mod-body" id="data-load">
 						<table class="data-load" width="100%" border="0" cellspacing="0">
 							<thead>
 								<tr>
-									<th>Table Name</th>
+									<th>Region Name(写)</th>
 									<th>Write Count</th>
-									<th>Read Count</th>
-									<th>Total Count</th>
-									<th>Write TPS</th>
-									<th>Read TPS</th>
-									<th>Total TPS</th>
 								</tr>
 							</thead>
 							<tbody id="data-list">
-								<c:forEach var="t" items="${tables}">
+								<c:forEach var="w" items="${wregions}">
 									<tr>
-										<c:choose>
-											<c:when
-												test="${t.writeTps > 0 || t.readTps > 0 || t.totalTps > 0}">
-												<td style="font-weight:bold;"><a href="details.jsp?tn=${t.tableName}"><font
-														color="Red">${t.tableName}</font>
-												</a>
-												</td>
-											</c:when>
-											<c:otherwise>
-												<td><a href="details.jsp?tn=${t.tableName}">${t.tableName}</a>
-												</td>
-											</c:otherwise>
-										</c:choose>
-										<td>${t.writeCount}</td>
-										<td>${t.readCount}</td>
-										<td>${t.totalCount}</td>
-										<c:choose>
-											<c:when test="${t.writeTps > 0 }">
-												<td style="font-weight:bold;"><font color="Red">${t.writeTps}</font>
-												</td>
-											</c:when>
-											<c:otherwise>
-												<td>${t.writeTps}</td>
-											</c:otherwise>
-										</c:choose>
-										<c:choose>
-											<c:when test="${t.readTps > 0 }">
-												<td style="font-weight:bold;"><font color="Red">${t.readTps}</font>
-												</td>
-											</c:when>
-											<c:otherwise>
-												<td>${t.readTps}</td>
-											</c:otherwise>
-										</c:choose>
-										<c:choose>
-											<c:when test="${t.totalTps > 0 }">
-												<td style="font-weight:bold;"><font color="Red">${t.totalTps}</font>
-												</td>
-											</c:when>
-											<c:otherwise>
-												<td>${t.totalTps}</td>
-											</c:otherwise>
-										</c:choose>
+										<td><a href="#">${w.regionName}</a></td>
+										<td>${w.writeCount}</td>
 									</tr>
 								</c:forEach>
-								<tr>
-										<td>--</td>
-										<td>--</td>
-										<td>--</td>
-										<td>--</td>
-										<td style="font-weight:bold;"><font color="Red">${wtps}</font></td>
-										<td style="font-weight:bold;"><font color="Red">${rtps}</font></td>
-										<td style="font-weight:bold;"><font color="Red">${ttps}</font></td>
-									</tr>
 							</tbody>
 						</table>
-						<font color="Red" style="font-weight:bold;"><span>The red tables are being accessed!</span></font>
+						
+						<table class="data-load" width="100%" border="0" cellspacing="0">
+							<thead>
+								<tr>
+									<th>Region Name(读)</th>
+									<th>Read Count</th>
+								</tr>
+							</thead>
+							<tbody id="data-list">
+								<c:forEach var="r" items="${rregions}">
+									<tr>
+										<td><a href="#">${r.regionName}</a></td>
+										<td>${r.readCount}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 						<div class="wait-load" style="display: none;">
 							<img src="/images/pic/ajax-loader.gif">
 						</div>
@@ -181,8 +133,6 @@
 	</div>
 	
 	
-	</div>
-
 <!--	
 <div style="left:178px;display:block;" class="back-to" id="toolBackTop">
 	<a title="返回顶部" onclick="window.scrollTo(0,0);return false;" href="#top" class="back-top">返回顶部</a>
