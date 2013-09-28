@@ -28,19 +28,30 @@ Only Support Linux.
 
 ## Framwork
 * JDK 1.6+ (http://www.oracle.com/technetwork/java/index.html)
-* Jetty 8.1.11.v20130520 (http://www.eclipse.org/jetty/)
-* HBase 0.94.10+ (http://hbase.apache.org/)
-* Hadoop 1.1.2 (http://hadoop.apache.org/)
-* Maven 2.2.1 (http://maven.apache.org/)
-* MySQL 5.5.29 (http://www.mysql.com/)
+* Jetty 8.1.11.v20130520 (http://www.eclipse.org/jetty)
+* HBase 0.94.10+ (http://hbase.apache.org)
+* Hadoop 1.1.2 (http://hadoop.apache.org)
+* Maven 2.2.1 (http://maven.apache.org)
+* MySQL 5.5.29 (http://www.mysql.com)
 * JMX (http://zh.wikipedia.org/wiki/JMX)
 * FastJson (https://github.com/alibaba/fastjson)
-* Quartz 1.5 (http://www.quartz-scheduler.org/)
+* Quartz 1.5 (http://www.quartz-scheduler.org)
 * D3 (https://github.com/mbostock/d3)
-* gRaphael (http://g.raphaeljs.com/)
+* NVD3 (http://nvd3.org)
+* gRaphael (http://g.raphaeljs.com)
 
 ## Notice
 <b>You must not install Ella on HBase Master machine.</b>
+
+<b>Supported Browsers</b>
+
+NVD3 runs best on WebKit based browsers.
+
+* Google Chrome: latest version (preferred)
+* Opera 15+ (preferred)
+* Safari: latest version
+* Firefox: latest version
+* Internet Explorer: 9 and 10
 
 ##How to Use
 Please see:
