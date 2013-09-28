@@ -7,14 +7,11 @@
 <%@ page language="java" import="com.adintellig.ella.model.*"%>
 <%@ page language="java" import="com.adintellig.ella.mysql.*"%>
 <%@ page language="java" import="com.adintellig.ella.util.*"%>
-<%@ page language="java" import="com.adintellig.ella.model.zookeeper.*"%>
-<%@ page language="java" import="com.adintellig.ella.hbase.*"%>
-<%@ page language="java" import="com.adintellig.ella.hbase.beans.attr.*"%>
-<%@ page language="java" import="com.adintellig.ella.hbase.beans.stat.*"%>
 
 <%
-	   List<RequestCount> servers = impl.listServers();
-	   request.setAttribute("servers",servers);
+	RequestCountDaoImpl impl = new RequestCountDaoImpl();
+	List<RequestCount> servers = impl.listServers();
+	request.setAttribute("servers",servers);
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">

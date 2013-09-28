@@ -7,7 +7,6 @@
 <%@ page language="java" import="com.adintellig.ella.model.*"%>
 <%@ page language="java" import="com.adintellig.ella.mysql.*"%>
 <%@ page language="java" import="com.adintellig.ella.util.*"%>
-<%@ page language="java" import="com.adintellig.ella.model.zookeeper.*"%>
 
 <%
        RequestCountDaoImpl impl = new RequestCountDaoImpl();
