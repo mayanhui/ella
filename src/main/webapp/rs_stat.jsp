@@ -49,7 +49,7 @@
 					<ul class="nav-items">
 						<li class="nav-item item-top current-item on">
 						<span>
-						<a href="index.jsp#">表访问量监控 </a>
+						<a href="index.jsp">表访问量监控</a>
 						</span></li>
 						<li class="nav-item">
 						<span>

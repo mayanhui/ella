@@ -55,21 +55,21 @@
 					<ul class="nav-items">
 						<li class="nav-item item-top current-item on">
 						<span>
-						<a href="index.jsp#">表访问量监控 </a>
+						<a href="index.jsp">表访问量监控 </a>
 						</span></li>
 						<li class="nav-item">
 						<span>
-						<a href="index.jsp#mainContainer2">Hot Region监控</a>
-						</span></li>
-
-						<li class="nav-item">
-						<span>
-						<a href="index.jsp#mainContainer3">Server监控</a>
+						<a href="rs_stat.jsp">Hot Region监控</a>
 						</span></li>
 
 						<li class="nav-item">
 						<span>
-						<a href="index.jsp#mainContainer4">Zookeeper监控</a>
+						<a href="server_stat.jsp">Server监控</a>
+						</span></li>
+
+						<li class="nav-item">
+						<span>
+						<a href="zk_index.jsp">Zookeeper监控</a>
 						</span>
 						</li>
 						

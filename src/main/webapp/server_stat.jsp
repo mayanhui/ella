@@ -45,11 +45,11 @@
 					<ul class="nav-items">
 						<li class="nav-item item-top current-item on">
 						<span>
-						<a href="index.jsp#">表访问量监控 </a>
+						<a href="index.jsp">表访问量监控</a>
 						</span></li>
 						<li class="nav-item">
 						<span>
-						<a href="index.jsp#mainContainer2">Hot Region监控</a>
+						<a href="rs_stat.jsp">Hot Region监控</a>
 						</span></li>
 
 						<li class="nav-item">
