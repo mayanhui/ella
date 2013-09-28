@@ -55,7 +55,7 @@
 						</span></li>
 						<li class="nav-item ">
 						<span>
-						<a href="index.jsp#mainContainer2">Hot Region监控</a>
+						<a href="rs_stat.jsp">Hot Region监控</a>
 						</span></li>
 
 						<li class="nav-item ">
