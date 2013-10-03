@@ -1,4 +1,4 @@
-package com.adintellig.ella.jetty;
+package com.adintellig.ella.action;
 
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;

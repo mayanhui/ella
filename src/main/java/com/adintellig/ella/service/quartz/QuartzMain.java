@@ -1,4 +1,4 @@
-package com.adintellig.ella.quartz;
+package com.adintellig.ella.service.quartz;
 
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;

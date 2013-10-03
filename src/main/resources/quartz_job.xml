@@ -5,7 +5,7 @@
 			<name>RunQuartzJob</name>
 			<group>DEFAULT</group>
 			<description>RunQuartzJob</description>
-			<job-class>com.adintellig.ella.quartz.CronQuartzJob</job-class>
+			<job-class>com.adintellig.ella.service.quartz.CronQuartzJob</job-class>
 			<volatility>false</volatility>
 			<durability>false</durability>
 			<recover>false</recover>

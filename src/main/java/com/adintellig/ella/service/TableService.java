@@ -25,21 +25,21 @@ public class TableService {
 	HBaseAdmin admin;
 
 	public TableService() {
-		Configuration conf = HBaseConfiguration.create();
-		// hbase master
-		conf.set(ConfigProperties.CONFIG_NAME_HBASE_MASTER,
-				config.getProperty(ConfigProperties.CONFIG_NAME_HBASE_MASTER));
-		// zookeeper quorum
-		conf.set(
-				ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_QUORUM,
-				config.getProperty(ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_QUORUM));
-		try {
-			admin = new HBaseAdmin(conf);
-		} catch (MasterNotRunningException e) {
-			e.printStackTrace();
-		} catch (ZooKeeperConnectionException e) {
-			e.printStackTrace();
-		}
+//		Configuration conf = HBaseConfiguration.create();
+//		// hbase master
+//		conf.set(ConfigProperties.CONFIG_NAME_HBASE_MASTER,
+//				config.getProperty(ConfigProperties.CONFIG_NAME_HBASE_MASTER));
+//		// zookeeper quorum
+//		conf.set(
+//				ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_QUORUM,
+//				config.getProperty(ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_QUORUM));
+//		try {
+//			admin = new HBaseAdmin(conf);
+//		} catch (MasterNotRunningException e) {
+//			e.printStackTrace();
+//		} catch (ZooKeeperConnectionException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	public List<RequestCount> list() throws Exception {
@@ -49,10 +49,10 @@ public class TableService {
 			if (rc instanceof TableRequestCount) {
 				TableRequestCount trc = (TableRequestCount) rc;
 				String tableName = trc.getTableName();
-				List<HRegionInfo> regions = admin.getTableRegions(Bytes
-						.toBytes(tableName));
-				if (null != regions)
-					trc.setRegionCount(regions.size());
+//				List<HRegionInfo> regions = admin.getTableRegions(Bytes
+//						.toBytes(tableName));
+//				if (null != regions)
+//					trc.setRegionCount(regions.size());
 
 				tempList.add(trc);
 			}
