@@ -49,7 +49,7 @@ public class TsvServlet extends HttpServlet {
 			e1.printStackTrace();
 		}
 
-		sb.append("date\tWrite Count\tRead Count\tTotal count\n");
+		sb.append("date\tWrite\tRead\tTotal\n");
 		for (RequestCount req : reqs) {
 			if (req instanceof TableRequestCount) {
 				TableRequestCount treq = (TableRequestCount) req;
