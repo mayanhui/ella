@@ -1,4 +1,4 @@
-package com.adintellig.ella.jetty;
+package com.adintellig.ella.action;
 
 public class StoreFactory {
 	/**

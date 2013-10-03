@@ -40,7 +40,7 @@ body {
 <script src="js/d3/d3.v3.js"></script>
 <script>
 
-var margin = {top: 20, right: 20, bottom: 30, left: 90},
+var margin = {top: 20, right: 30, bottom: 30, left: 90},
     width = 560 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
