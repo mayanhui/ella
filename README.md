@@ -60,7 +60,9 @@ https://github.com/mayanhui/ella/wiki/How-to-Use
 
 ## Roadmap
 
-<b>Refactor the persistence hierarchy</b>
+<b>1. Table request details page:</b>
+(1) add split page for total/write/read
+(2) add periodic statistics with hour/day/week/month
 
 1. Simple install and deploy steps. Change the index page to configuration page, input hbase jmx url and other configure.
 2. Add detail page for server,region
