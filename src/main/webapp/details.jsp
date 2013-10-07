@@ -10,9 +10,6 @@
 <%
       String tableName = (String)request.getParameter("tn");
 	  request.setAttribute("tableName",tableName);
-	   
-	  //PersistDisk.persistMysqlToFile(tableName,"/tmp/jetty-0.0.0.0-8080-ella.war-_ella-any-/webapp/data/");
-	
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -71,8 +68,8 @@ var margin = {top: 20, right: 90, bottom: 30, left: 90},
     width = 1060 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-//var parseDate = d3.time.format("%Y%m%d").parse;
-var parseDate = d3.time.format("%H:%M:%S").parse;
+var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%SZ").parse;
+//var parseDate = d3.time.format("%H:%M:%S").parse;
 
 var x = d3.time.scale()
     .range([0, width]);

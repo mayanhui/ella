@@ -9,6 +9,7 @@ public class DateFormatUtil {
 	public static final String FROMAT = "yyyy-MM-dd HH:mm:ss";
 	public static final String FROMAT_2 = "yyyyMMdd";
 	public static final String FROMAT_TIME = "HH:mm:ss";
+	public static final String FORMAT_UTC_ISO8601 = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
 	public static long formatStringTimeToLong(String timeLine) {
 		long time = -1L;
@@ -50,6 +51,11 @@ public class DateFormatUtil {
 		SimpleDateFormat format = new SimpleDateFormat(FROMAT_TIME);
 		return format.format(ts);
 	}
+	
+	public static String formatToUTC(Timestamp ts){
+		SimpleDateFormat format = new SimpleDateFormat(FORMAT_UTC_ISO8601);
+		return format.format(ts);
+	}
 
 	public static void main(String[] args) {
 		String str = "2013-01-15 17:54:29 345:asdf";
@@ -75,6 +81,8 @@ public class DateFormatUtil {
 		
 		
 		System.out.println(formatToString(new Date()));
-
+		
+		SimpleDateFormat format = new SimpleDateFormat(FORMAT_UTC_ISO8601);
+		System.out.println(format.format(new Date()));
 	}
 }

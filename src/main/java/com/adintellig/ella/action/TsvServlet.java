@@ -58,9 +58,8 @@ public class TsvServlet extends HttpServlet {
 				long wc = treq.getWriteCount();
 				long rc = treq.getReadCount();
 				long tc = treq.getTotalCount();
-				String uts = DateFormatUtil.formatToTime(treq.getUpdateTime());
-
-				sb.append(uts + "\t" + wc + "\t" + rc + "\t" + tc + "\n");
+				String utc = DateFormatUtil.formatToUTC(treq.getUpdateTime());
+				sb.append(utc + "\t" + wc + "\t" + rc + "\t" + tc + "\n");
 			}
 		}
 
