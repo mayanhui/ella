@@ -23,10 +23,8 @@ public class JdbcUtil {
 		db_passWord = config.getProperty("mysql.db.pwd");
 	}
 
-	// 获得连接
 	public static Connection getConnection() {
 		Connection con = null;
-		// 1.加载oracle驱动
 		try {
 			Class.forName(db_driver);
 		} catch (ClassNotFoundException e) {
@@ -34,7 +32,6 @@ public class JdbcUtil {
 			e.printStackTrace();
 			return null;
 		}
-		// 2.获得数据库连接
 		try {
 			con = DriverManager.getConnection(db_url, db_userName, db_passWord);
 		} catch (SQLException e) {
@@ -45,7 +42,6 @@ public class JdbcUtil {
 		return con;
 	}
 
-	// 关闭数据库资源
 	public static void close(Connection con, Statement stmt, ResultSet rs) {
 		if (rs != null) {
 			try {
@@ -73,7 +69,6 @@ public class JdbcUtil {
 		}
 	}
 
-	// 关闭数据库资源
 	public static void close(Connection con, PreparedStatement pstmt,
 			ResultSet rs) {
 		if (rs != null) {
@@ -102,7 +97,6 @@ public class JdbcUtil {
 		}
 	}
 
-	// 关闭数据库资源
 	public static void close(Connection con) {
 		if (con != null) {
 			try {
@@ -112,11 +106,6 @@ public class JdbcUtil {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public static void main(String[] args) throws SQLException {
-		Connection con = getConnection();
-		con.prepareStatement("select * from hbase.table_requests");
 	}
 
 }
