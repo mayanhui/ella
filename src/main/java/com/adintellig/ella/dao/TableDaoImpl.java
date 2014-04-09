@@ -17,7 +17,7 @@ import com.adintellig.ella.util.JdbcUtil;
 public class TableDaoImpl {
 	private static Logger logger = LoggerFactory.getLogger(TableDaoImpl.class);
 
-	static final String insertTablesSQL = "INSERT INTO hbase.tables(table_name, update_time) "
+	static final String insertTablesSQL = "INSERT INTO tables(table_name, update_time) "
 			+ "VALUES(?, ?)";
 
 	public void batchUpdate(List<Table> beans) throws Exception {
@@ -48,7 +48,7 @@ public class TableDaoImpl {
 	public void truncate() throws SQLException {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
-		stmt.executeUpdate("truncate table hbase.tables");
+		stmt.executeUpdate("truncate table tables");
 		JdbcUtil.close(conn);
 	}
 
@@ -86,7 +86,7 @@ public class TableDaoImpl {
 	public List<Table> list() throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("select * from hbase.tables");
+		ResultSet rs = stmt.executeQuery("select * from tables");
 		List<Table> tables = new ArrayList<Table>();
 		while (rs.next()) {
 			Table t = new Table();
@@ -104,7 +104,7 @@ public class TableDaoImpl {
 			Connection con = JdbcUtil.getConnection();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt
-					.executeQuery("SELECT count(*) FROM hbase.tables");
+					.executeQuery("SELECT count(*) FROM tables");
 			if (rs.next())
 				num = rs.getInt(1);
 
