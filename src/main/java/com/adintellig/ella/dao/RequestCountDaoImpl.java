@@ -25,11 +25,11 @@ public class RequestCountDaoImpl {
 	private static Logger logger = LoggerFactory
 			.getLogger(RequestCountDaoImpl.class);
 
-	static final String insertRegionRequestsSQL = "INSERT INTO hbase.region_requests(region_name, write_count, read_count, total_count, update_time) "
+	static final String insertRegionRequestsSQL = "INSERT INTO region_requests(region_name, write_count, read_count, total_count, update_time) "
 			+ "VALUES(?, ?, ?, ?, ?)";
-	static final String insertTableRequestsSQL = "INSERT INTO hbase.table_requests(table_name, write_count, read_count, total_count, update_time) "
+	static final String insertTableRequestsSQL = "INSERT INTO table_requests(table_name, write_count, read_count, total_count, update_time) "
 			+ "VALUES(?, ?, ?, ?, ?)";
-	static final String insertServerRequestsSQL = "INSERT INTO hbase.server_requests(host, write_count, read_count, total_count, update_time) "
+	static final String insertServerRequestsSQL = "INSERT INTO server_requests(host, write_count, read_count, total_count, update_time) "
 			+ "VALUES(?, ?, ?, ?, ?)";
 
 	public void add(RequestCount req) throws Exception {
@@ -133,7 +133,7 @@ public class RequestCountDaoImpl {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt
-				.executeQuery("select * from (select table_name,write_count,read_count,total_count,update_time from hbase.table_requests order by id desc limit "
+				.executeQuery("select * from (select table_name,write_count,read_count,total_count,update_time from table_requests order by id desc limit "
 						+ TableDaoImpl.getTotalNumber()
 						* 2
 						+ ") a order by a.table_name");
@@ -207,7 +207,7 @@ public class RequestCountDaoImpl {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt
-				.executeQuery("select * from (select host,write_count,read_count,total_count,update_time from hbase.server_requests order by id desc limit "
+				.executeQuery("select * from (select host,write_count,read_count,total_count,update_time from server_requests order by id desc limit "
 						+ TableDaoImpl.getTotalNumber()
 						* 2
 						+ ") a order by a.host");
@@ -282,7 +282,7 @@ public class RequestCountDaoImpl {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt
-				.executeQuery("select a.region_name,a.write_count from (select region_name,write_count from hbase.region_requests order by id desc limit "
+				.executeQuery("select a.region_name,a.write_count from (select region_name,write_count from region_requests order by id desc limit "
 						+ RegionDaoImpl.getTotalNumber()
 						+ ") a order by a.write_count desc limit 10");
 		List<RequestCount> list = new ArrayList<RequestCount>();
@@ -301,7 +301,7 @@ public class RequestCountDaoImpl {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt
-				.executeQuery("select a.region_name,a.read_count from (select region_name,read_count from hbase.region_requests order by id desc limit "
+				.executeQuery("select a.region_name,a.read_count from (select region_name,read_count from region_requests order by id desc limit "
 						+ RegionDaoImpl.getTotalNumber()
 						+ ") a order by a.read_count desc limit 10");
 		List<RequestCount> list = new ArrayList<RequestCount>();
@@ -317,7 +317,7 @@ public class RequestCountDaoImpl {
 	}
 
 	public List<RequestCount> listDetails(String tableName) throws Exception {
-		String sql = "select a.table_name,a.write_count,a.read_count,a.total_count,a.update_time from (select id,table_name,write_count,read_count,total_count,update_time from hbase.table_requests where table_name='"
+		String sql = "select a.table_name,a.write_count,a.read_count,a.total_count,a.update_time from (select id,table_name,write_count,read_count,total_count,update_time from table_requests where table_name='"
 				+ tableName + "' order by id desc limit 100) a order by a.id";
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
