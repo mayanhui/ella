@@ -17,7 +17,7 @@ import com.adintellig.ella.util.JdbcUtil;
 public class ServerDaoImpl {
 	private static Logger logger = LoggerFactory.getLogger(ServerDaoImpl.class);
 
-	static final String insertSQL = "INSERT INTO hbase.servers(host, update_time) "
+	static final String insertSQL = "INSERT INTO servers(host, update_time) "
 			+ "VALUES(?, ?)";
 
 	public void batchUpdate(List<Server> beans) throws Exception {
@@ -49,14 +49,14 @@ public class ServerDaoImpl {
 	public void truncate() throws SQLException {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
-		stmt.executeUpdate("truncate table hbase.servers");
+		stmt.executeUpdate("truncate table servers");
 		JdbcUtil.close(conn);
 	}
 
 	public List<Server> list() throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("select * from hbase.servers");
+		ResultSet rs = stmt.executeQuery("select * from servers");
 		List<Server> servers = new ArrayList<Server>();
 		while (rs.next()) {
 			Server s = new Server();
@@ -74,7 +74,7 @@ public class ServerDaoImpl {
 			Connection con = JdbcUtil.getConnection();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt
-					.executeQuery("SELECT count(*) FROM hbase.servers");
+					.executeQuery("SELECT count(*) FROM servers");
 			if (rs.next())
 				num = rs.getInt(1);
 
