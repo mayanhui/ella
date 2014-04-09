@@ -16,7 +16,7 @@ public class UserDaoImpl {
 
 	public User findByNameAndPassword(String username, String password)
 			throws SQLException {
-		String sql = "select * from hbase.user where username=? and password=?";
+		String sql = "select * from user where username=? and password=?";
 
 		Connection conn = JdbcUtil.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
