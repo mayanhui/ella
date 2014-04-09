@@ -17,7 +17,7 @@ import com.adintellig.ella.util.JdbcUtil;
 public class RegionDaoImpl {
 	private static Logger logger = LoggerFactory.getLogger(RegionDaoImpl.class);
 
-	static final String insertSQL = "INSERT INTO hbase.regions(region_name, update_time) "
+	static final String insertSQL = "INSERT INTO regions(region_name, update_time) "
 			+ "VALUES(?, ?)";
 
 	public void batchUpdate(List<Region> beans) throws Exception {
@@ -49,14 +49,14 @@ public class RegionDaoImpl {
 	public void truncate() throws SQLException {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
-		stmt.executeUpdate("truncate table hbase.regions");
+		stmt.executeUpdate("truncate table regions");
 		JdbcUtil.close(conn);
 	}
 
 	public List<Region> list() throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("select * from hbase.regions");
+		ResultSet rs = stmt.executeQuery("select * from regions");
 		List<Region> tables = new ArrayList<Region>();
 		while (rs.next()) {
 			Region t = new Region();
@@ -74,7 +74,7 @@ public class RegionDaoImpl {
 			Connection con = JdbcUtil.getConnection();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt
-					.executeQuery("SELECT count(*) FROM hbase.regions");
+					.executeQuery("SELECT count(*) FROM regions");
 			if (rs.next())
 				num = rs.getInt(1);
 
@@ -92,7 +92,7 @@ public class RegionDaoImpl {
 			Connection con = JdbcUtil.getConnection();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt
-					.executeQuery("SELECT count(*) FROM hbase.regions where region_name like '"
+					.executeQuery("SELECT count(*) FROM regions where region_name like '"
 							+ tableName + "%'");
 			if (rs.next())
 				num = rs.getInt(1);
