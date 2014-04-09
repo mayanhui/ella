@@ -40,6 +40,10 @@ public class HBaseUtil extends ZKUtil {
 		conf.set(
 				ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_QUORUM,
 				config.getProperty(ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_QUORUM));
+	        conf.set(
+                		ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_PARENT_NODE,
+                		config.getProperty(ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_PARENT_NODE));
+                
 		try {
 			master = new HMaster(conf);
 			watcher = master.getZooKeeperWatcher();

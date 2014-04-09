@@ -11,6 +11,7 @@ public class ConfigProperties extends Properties {
 	public static final String CONFIG_NAME_MAPRED_QUEUE_NAME = "mapred.job.queue.name";
 	public static final String CONFIG_NAME_HBASE_MASTER = "hbase.master";
 	public static final String CONFIG_NAME_HBASE_ZOOKEEPER_QUORUM = "hbase.zookeeper.quorum";
+	public static final String CONFIG_NAME_HBASE_ZOOKEEPER_PARENT_NODE = "zookeeper.znode.parent";
 	public static final String CONFIG_NAME_HBASE_REGIONSERVER_NUM = "hbase.regionserver.num";
 	public static final String CONFIG_NAME_HBASE_ZOOKEEPER_PROPRERTY_CLIENTPORT = "hbase.zookeeper.property.clientPort";
 
