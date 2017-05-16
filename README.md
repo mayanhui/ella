@@ -27,11 +27,11 @@ Keyt Feature list:
 Only Support Linux.
 
 ## Framwork
-* JDK 1.6+ (http://www.oracle.com/technetwork/java/index.html)
+* JDK 1.8 (http://www.oracle.com/technetwork/java/index.html)
 * Jetty 8.1.11.v20130520 (http://www.eclipse.org/jetty)
-* HBase 0.94.10+ (http://hbase.apache.org)
-* Hadoop 1.1.2 (http://hadoop.apache.org)
-* Maven 2.2.1 (http://maven.apache.org)
+* HBase 1.2.5 (http://hbase.apache.org)
+* Hadoop 2.5.2 (http://hadoop.apache.org)
+* Maven 3.2.3 (http://maven.apache.org)
 * MySQL 5.5.29 (http://www.mysql.com)
 * JMX (http://zh.wikipedia.org/wiki/JMX)
 * FastJson (https://github.com/alibaba/fastjson)
