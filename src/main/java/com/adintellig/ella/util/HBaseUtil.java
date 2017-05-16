@@ -41,8 +41,10 @@ public class HBaseUtil extends ZKUtil {
 				ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_QUORUM,
 				config.getProperty(ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_QUORUM));
 		try {
-			master = new HMaster(conf);
-			watcher = master.getZooKeeperWatcher();
+			//master = new HMaster(conf);
+			master = new HMaster(conf,null);
+			//watcher = master.getZooKeeperWatcher();
+			watcher = master.getZooKeeper();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,9 +57,14 @@ public class HBaseUtil extends ZKUtil {
 			if (null != watcher) {
 				base = new Base();
 				base.setHdfsRoot(watcher.baseZNode);
-				base.setMasterAddress(ServerName.parseVersionedServerName(
-						getData(watcher, watcher.masterAddressZNode))
-						.toString());
+				try {
+					base.setMasterAddress(ServerName.parseVersionedServerName(
+							getData(watcher, watcher.getMasterAddressZNode()))
+							.toString());
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 				StringBuilder sb = new StringBuilder();
 				for (String child : listChildrenNoWatch(watcher,
@@ -68,8 +75,17 @@ public class HBaseUtil extends ZKUtil {
 					sb.setLength(sb.length() - 1);
 				base.setBackupMasterAddress(sb.toString());
 
-				base.setRegionServerHoldingRoot(Bytes.toStringBinary(getData(
-						watcher, watcher.rootServerZNode)));
+//				base.setRegionServerHoldingRoot(Bytes.toStringBinary(getData(
+//						watcher, watcher.rootServerZNode)));
+				
+				try {
+					base.setRegionServerHoldingRoot(Bytes.toStringBinary(getData(
+							watcher, watcher.getBaseZNode())));
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				sb = new StringBuilder();
 				for (String child : listChildrenNoWatch(watcher,
 						watcher.rsZNode)) {
@@ -90,8 +106,14 @@ public class HBaseUtil extends ZKUtil {
 				zkServers.add(server.trim().replaceAll(":2181", ""));
 			}
 
-			String masterAddress = ServerName.parseVersionedServerName(
-					getData(watcher, watcher.masterAddressZNode)).toString();
+			String masterAddress = null;
+			try {
+				masterAddress = ServerName.parseVersionedServerName(
+						getData(watcher, watcher.getMasterAddressZNode())).toString();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			masterAddress = masterAddress.substring(0,
 					masterAddress.indexOf(","));
 			List<String> mips = IPHostUtil.getAllInternalHostIPs(masterAddress);

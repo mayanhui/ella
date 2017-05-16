@@ -5,21 +5,21 @@
 	<modelVersion>4.0.0</modelVersion>
 
  <properties>
-     	<default.jetty.home>jetty-server/webapps</default.jetty.home>
-     	<hadoop.version>1.1.2</hadoop.version>
-		<hbase.version>0.94.10</hbase.version>
+	<default.jetty.home>jetty-server/webapps</default.jetty.home>
+	<hadoop.version>2.5.2</hadoop.version>
+	<hbase.version>1.2.5</hbase.version>
   </properties>
 
 
 	<groupId>com.adintellig</groupId>
 	<artifactId>ella</artifactId>
-	<version>0.2</version>
+	<version>1.0</version>
 	<packaging>war</packaging>
 
 	<name>ella</name>
 
 	<dependencies>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.hbase</groupId>
 			<artifactId>hbase</artifactId>
 			<version>${hbase.version}</version>
@@ -29,12 +29,28 @@
 					<artifactId>asm</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-core</artifactId>
-			<version>${hadoop.version}</version>
-		</dependency>
+		</dependency> -->
+		<dependency>    
+          <groupId>org.apache.hadoop</groupId>    
+          <artifactId>hadoop-common</artifactId>    
+          <version>${hadoop.version}</version>    
+      </dependency>    
+      <dependency>    
+          <groupId>org.apache.hadoop</groupId>    
+          <artifactId>hadoop-hdfs</artifactId>    
+          <version>${hadoop.version}</version>    
+      </dependency>  
+      <dependency>    
+          <groupId>org.apache.hbase</groupId>    
+          <artifactId>hbase-client</artifactId>    
+          <version>${hbase.version}</version>    
+      </dependency>  
+	  <dependency>    
+          <groupId>org.apache.hbase</groupId>    
+          <artifactId>hbase-server</artifactId>    
+          <version>${hbase.version}</version>    
+      </dependency>
+		
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
@@ -125,8 +141,8 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 			
