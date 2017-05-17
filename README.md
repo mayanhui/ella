@@ -4,9 +4,11 @@
 ###More details, see wiki page(will include chinese wiki 中文使用手册，NOT AVAILABLE NOW！): 
 https://github.com/mayanhui/ella/wiki
 
-###################################################
-## Ella ############
-###################################################
+####################
+###### Ella ########
+####################
+
+
 Ella is a "Border Collie", a handsome and smart dog.
 
 A watchdog, monitor hbase.
