@@ -31,14 +31,10 @@ Only Support Linux.
 * Jetty 8.1.11.v20130520 (http://www.eclipse.org/jetty)
 * HBase 1.2.5 (http://hbase.apache.org)
 * Hadoop 2.5.2 (http://hadoop.apache.org)
-* Maven 3.2.3 (http://maven.apache.org)
 * MySQL 5.5.29 (http://www.mysql.com)
-* JMX (http://zh.wikipedia.org/wiki/JMX)
-* FastJson (https://github.com/alibaba/fastjson)
+
+* Maven 3.2.3 (http://maven.apache.org)
 * Quartz 1.5 (http://www.quartz-scheduler.org)
-* D3 (https://github.com/mbostock/d3)
-* NVD3 (http://nvd3.org)
-* gRaphael (http://g.raphaeljs.com)
 
 ## Notice
 <b>You must not install Ella on HBase Master machine.</b>
