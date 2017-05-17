@@ -30,12 +30,12 @@ Only Support Linux.
 
 ## Framwork
 * JDK 1.8 (http://www.oracle.com/technetwork/java/index.html)
-* Jetty 8.1.11.v20130520 (http://www.eclipse.org/jetty)
-* HBase 1.2.5 (http://hbase.apache.org)
-* Hadoop 2.5.2 (http://hadoop.apache.org)
-* MySQL 5.5.29 (http://www.mysql.com)
+* Jetty 8 (http://www.eclipse.org/jetty)
+* HBase 1.2.* (http://hbase.apache.org)
+* Hadoop 2.5.* (http://hadoop.apache.org)
+* MySQL 5.5.* (http://www.mysql.com)
 
-* Maven 3.2.3 (http://maven.apache.org)
+* Maven 3.2.* (http://maven.apache.org)
 * Quartz 1.5 (http://www.quartz-scheduler.org)
 
 ## Notice
