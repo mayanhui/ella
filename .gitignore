@@ -22,3 +22,4 @@ DerbyHBase
 */classes
 */classes/*
 */logs/*log*
+*/*.pid
