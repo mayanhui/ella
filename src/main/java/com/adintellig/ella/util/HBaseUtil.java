@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.CoordinatedStateManager;
+import org.apache.hadoop.hbase.CoordinatedStateManagerFactory;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.ServerName;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
@@ -41,8 +43,9 @@ public class HBaseUtil extends ZKUtil {
 				ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_QUORUM,
 				config.getProperty(ConfigProperties.CONFIG_NAME_HBASE_ZOOKEEPER_QUORUM));
 		try {
-			//master = new HMaster(conf);
-			master = new HMaster(conf,null);
+			CoordinatedStateManager csm = CoordinatedStateManagerFactory.getCoordinatedStateManager(conf);
+			master = new HMaster(conf,csm);
+			
 			//watcher = master.getZooKeeperWatcher();
 			watcher = master.getZooKeeper();
 
