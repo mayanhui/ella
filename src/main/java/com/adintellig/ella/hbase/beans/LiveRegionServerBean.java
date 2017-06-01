@@ -1,7 +1,6 @@
 package com.adintellig.ella.hbase.beans;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
-import org.codehaus.jackson.annotate.JsonProperty;
 
 @JsonAutoDetect
 public class LiveRegionServerBean {
@@ -9,21 +8,13 @@ public class LiveRegionServerBean {
 	private String modelerType;
 	private String liveRegionServers;
 	
-	/*对JSON不规范命名，需要进行标注*/
-	@JsonProperty("tag.deadRegionServers")
-	private String tagDeadRegionServers;
-	@JsonProperty("tag.zookeeperQuorum")
-	private String tagZookeeperQuorum;
-	@JsonProperty("tag.serverName")
-	private String tagServerName;
-	@JsonProperty("tag.clusterId")
-	private String tagClusterId;
-	@JsonProperty("tag.isActiveMaster")
-	private String tagIsActiveMaster;
-	@JsonProperty("tag.Context")
-	private String tagContext;
-	@JsonProperty("tag.Hostname")
-	private String tagHostname;
+	private String deadRegionServers;
+	private String zookeeperQuorum;
+	private String serverName;
+	private String clusterId;
+	private String isActiveMaster;
+	private String context;
+	private String hostname;
 	
 	private String masterActiveTime;
 	private String masterStartTime;
@@ -50,47 +41,48 @@ public class LiveRegionServerBean {
 	public void setLiveRegionServers(String liveRegionServers) {
 		this.liveRegionServers = liveRegionServers;
 	}
-	public String getTagDeadRegionServers() {
-		return tagDeadRegionServers;
+	
+	public String getDeadRegionServers() {
+		return deadRegionServers;
 	}
-	public void setTagDeadRegionServers(String tagDeadRegionServers) {
-		this.tagDeadRegionServers = tagDeadRegionServers;
+	public void setDeadRegionServers(String deadRegionServers) {
+		this.deadRegionServers = deadRegionServers;
 	}
-	public String getTagZookeeperQuorum() {
-		return tagZookeeperQuorum;
+	public String getZookeeperQuorum() {
+		return zookeeperQuorum;
 	}
-	public void setTagZookeeperQuorum(String tagZookeeperQuorum) {
-		this.tagZookeeperQuorum = tagZookeeperQuorum;
+	public void setZookeeperQuorum(String zookeeperQuorum) {
+		this.zookeeperQuorum = zookeeperQuorum;
 	}
-	public String getTagServerName() {
-		return tagServerName;
+	public String getServerName() {
+		return serverName;
 	}
-	public void setTagServerName(String tagServerName) {
-		this.tagServerName = tagServerName;
+	public void setServerName(String serverName) {
+		this.serverName = serverName;
 	}
-	public String getTagClusterId() {
-		return tagClusterId;
+	public String getClusterId() {
+		return clusterId;
 	}
-	public void setTagClusterId(String tagClusterId) {
-		this.tagClusterId = tagClusterId;
+	public void setClusterId(String clusterId) {
+		this.clusterId = clusterId;
 	}
-	public String getTagIsActiveMaster() {
-		return tagIsActiveMaster;
+	public String getIsActiveMaster() {
+		return isActiveMaster;
 	}
-	public void setTagIsActiveMaster(String tagIsActiveMaster) {
-		this.tagIsActiveMaster = tagIsActiveMaster;
+	public void setIsActiveMaster(String isActiveMaster) {
+		this.isActiveMaster = isActiveMaster;
 	}
-	public String getTagContext() {
-		return tagContext;
+	public String getContext() {
+		return context;
 	}
-	public void setTagContext(String tagContext) {
-		this.tagContext = tagContext;
+	public void setContext(String context) {
+		this.context = context;
 	}
-	public String getTagHostname() {
-		return tagHostname;
+	public String getHostname() {
+		return hostname;
 	}
-	public void setTagHostname(String tagHostname) {
-		this.tagHostname = tagHostname;
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
 	}
 	public String getMasterActiveTime() {
 		return masterActiveTime;

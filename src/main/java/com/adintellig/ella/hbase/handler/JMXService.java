@@ -77,8 +77,9 @@ public class JMXService extends Thread {
 		JMXHMasterHandler handler = JMXHMasterHandler.getInstance();
 		LiveRegionServerBeans beans = (LiveRegionServerBeans) handler.handle();
 		for (Object obj : parseLiveRSHostname(beans.getBeans()[0].getLiveRegionServers())) {
+			logger.info("测试hostname：" + obj);
 			/* 获取RS的JMX信息 */
-			RegionBeans rbs = (RegionBeans) JMXRegionServerHandler.getInstance((String) obj).handle();
+			RegionBeans rbs = (RegionBeans) new JMXRegionServerHandler((String) obj).handle();
 
 			/* 将获取RS信息转换为基础数据模型（mysql表模型），并写入数据库 */
 			try {

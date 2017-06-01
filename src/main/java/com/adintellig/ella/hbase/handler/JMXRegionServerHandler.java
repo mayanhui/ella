@@ -1,13 +1,9 @@
 package com.adintellig.ella.hbase.handler;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,22 +17,15 @@ public class JMXRegionServerHandler extends ServerHandler{
 
 	static ConfigProperties config = ConfigFactory.getInstance().getConfigProperties(ConfigFactory.ELLA_CONFIG_PATH);
 
-	public static String url;
-	public String hostname;
+	private String url;
+	private String hostname;
 
-	private static JMXRegionServerHandler service;
 
-	private JMXRegionServerHandler(String hostname) {
+	public JMXRegionServerHandler(String hostname) {
 		this.hostname = hostname;
 		url = config.getProperty("ella.hbase.rs.jmx.baseurl.prefix") + this.hostname
 				+ config.getProperty("ella.hbase.rs.jmx.baseurl.suffix")
 				+ config.getProperty("ella.hbase.rs.jmx.req.suburl");
-	}
-
-	public static synchronized JMXRegionServerHandler getInstance(String hostname) {
-		if (service == null)
-			service = new JMXRegionServerHandler(hostname);
-		return service;
 	}
 
 	
@@ -105,21 +94,9 @@ public class JMXRegionServerHandler extends ServerHandler{
 	public Object handle() {
 		String result = request(url);
 		logger.info("Request URL: " + url);
-//		RegionBeans bean = parseBean(result);
-//		System.out.println(bean.toString() + " " + url + "\n" + result);
-		
 		
 		return parseBean(result);
 		
 	}
 
-	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException, SQLException {
-		JMXRegionServerHandler handler = JMXRegionServerHandler.getInstance("slave");
-		handler.handle();
-//		String line = "Namespace_hbase_table_meta_region_1588230740_metric_storeCount";
-//		System.out.println(line.substring("Namespace_".length(), line.indexOf("_table_")));
-//		System.out.println(line.substring(line.indexOf("_table_")+"_table_".length(),line.indexOf("_region_")));
-//		System.out.println(line.substring(line.indexOf("_region_") + "_region_".length(),line.indexOf("_metric_")));
-//		System.out.println(line.substring(line.indexOf("_metric_") + "_metrics_".length()));
-	}
 }

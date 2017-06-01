@@ -9,18 +9,20 @@
 <%@ page language="java" import="com.adintellig.ella.util.*"%>
 <%@ page language="java" import="com.adintellig.ella.model.zookeeper.*"%>
 <%@ page language="java" import="com.adintellig.ella.hbase.*"%>
+<%@ page language="java" import="com.adintellig.ella.hbase.handler.*"%>
+<%@ page language="java" import="com.adintellig.ella.hbase.beans.*"%>
 <%@ page language="java" import="com.adintellig.ella.hbase.beans.attr.*"%>
 <%@ page language="java" import="com.adintellig.ella.hbase.beans.stat.*"%>
 
 <%
-		HBaseAttributeBean[] attrArr = JMXHBaseAttrService.getInstance().genBeans().getBeans();
+		LiveRegionServerBean[] attrArr = ((LiveRegionServerBeans)JMXHMasterHandler.getInstance().handle()).getBeans();
 		request.setAttribute("attr",attrArr[0]);
 		
-		MasterStat[] mstatsArr = JMXMasterStatService.getInstance().genBeans().getBeans();
-		request.setAttribute("mstat",mstatsArr[0]);
+		//MasterStat[] mstatsArr = JMXMasterStatService.getInstance().genBeans().getBeans();
+		//request.setAttribute("mstat",mstatsArr[0]);
 		
-		RPCStat[] rstatArr = JMXRPCStatService.getInstance().genBeans().getBeans();
-		request.setAttribute("rstat",rstatArr[0]);
+		//RPCStat[] rstatArr = JMXRPCStatService.getInstance().genBeans().getBeans();
+		//request.setAttribute("rstat",rstatArr[0]);
 		
 %>
 
@@ -103,44 +105,44 @@
 							</thead>
 							<tbody id="data-list">
 									<tr>
-										<td>Date</td>
-										<td>${attr.date}</td>
+										<td>Start Time</td>
+										<td>${attr.masterStartTime}</td>
 									</tr>
 									<tr>
-										<td>Revision</td>
-										<td>${attr.revision}</td>
+										<td>Server Name</td>
+										<td>${attr.serverName}</td>
 									</tr>
 									<tr>
-										<td>URL</td>
-										<td>${attr.url}</td>
+										<td>liveRegionServers</td>
+										<td>${attr.liveRegionServers}</td>
 									</tr>
 									<tr>
-										<td>User</td>
-										<td>${attr.user}</td>
+										<td>zookeeperQuorum</td>
+										<td>${attr.zookeeperQuorum}</td>
 									</tr>
 									<tr>
-										<td>Version</td>
-										<td>${attr.version}</td>
+										<td>clusterId</td>
+										<td>${attr.clusterId}</td>
 									</tr>
 									<tr>
-										<td>HdfsDate</td>
-										<td>${attr.hdfsDate}</td>
+										<td>averageLoad</td>
+										<td>${attr.averageLoad}</td>
 									</tr>
 									<tr>
-										<td>hdfsRev</td>
-										<td>${attr.hdfsRevision}</td>
+										<td>numRegionServers</td>
+										<td>${attr.numRegionServers}</td>
 									</tr>
 									<tr>
-										<td>hdfsUrl</td>
-										<td>${attr.hdfsUrl}</td>
+										<td>clusterRequests</td>
+										<td>${attr.clusterRequests}</td>
 									</tr>
 									<tr>
-										<td>hdfsUser</td>
-										<td>${attr.hdfsUser}</td>
+										<td>isActiveMaster</td>
+										<td>${attr.isActiveMaster}</td>
 									</tr>
 									<tr>
-										<td>hdfsVer</td>
-										<td>${attr.hdfsVersion}</td>
+										<td>deadRegionServers</td>
+										<td>${attr.deadRegionServers}</td>
 									</tr>
 							</tbody>
 						</table>
