@@ -45,6 +45,8 @@ public class HBaseUtil extends ZKUtil {
 		try {
 			CoordinatedStateManager csm = CoordinatedStateManagerFactory.getCoordinatedStateManager(conf);
 			master = new HMaster(conf,csm);
+			//HMaster master = (HMaster)getServletContext().getAttribute(HMaster.MASTER);
+			  
 			
 			//watcher = master.getZooKeeperWatcher();
 			watcher = master.getZooKeeper();

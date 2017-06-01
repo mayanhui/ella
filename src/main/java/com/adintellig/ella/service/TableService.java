@@ -17,6 +17,7 @@ import com.adintellig.ella.model.TableRequestCount;
 import com.adintellig.ella.util.ConfigFactory;
 import com.adintellig.ella.util.ConfigProperties;
 
+@Deprecated
 public class TableService {
 
 	RequestCountDaoImpl rcDao = new RequestCountDaoImpl();

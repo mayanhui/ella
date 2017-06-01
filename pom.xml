@@ -6,7 +6,7 @@
 
  <properties>
 	<default.jetty.home>jetty-server/webapps</default.jetty.home>
-	<hadoop.version>2.5.2</hadoop.version>
+	<hadoop.version>2.6.5</hadoop.version>
 	<hbase.version>1.2.5</hbase.version>
   </properties>
 

@@ -18,7 +18,7 @@
 				<description>RunQuartzJobTrigger</description>
 				<job-name>RunQuartzJob</job-name>
 				<job-group>DEFAULT</job-group>
-
+				<!-- 每30秒执行一次，在hbase 1.2+后该时间太短，需要设置为分钟级别 -->
 				<cron-expression>0/30 * * * * ?</cron-expression>
 			</cron>
 		</trigger>
