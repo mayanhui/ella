@@ -110,7 +110,7 @@
 												</td>
 											</c:when>
 											<c:otherwise>
-												<td><a href="#">${t.serverHost}</a>
+												<td><a href="#">${s.serverHost}</a>
 												</td>
 											</c:otherwise>
 										</c:choose>

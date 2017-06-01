@@ -220,6 +220,8 @@ public class RequestCountDaoImpl {
 			req.setTotalCount(rs.getLong(4));
 			req.setUpdateTime(rs.getTimestamp(5));
 			list.add(req);
+			
+			logger.info(req.toString());
 		}
 
 		// compute Tps
@@ -274,6 +276,9 @@ public class RequestCountDaoImpl {
 		}
 
 		JdbcUtil.close(conn);
+		
+		logger.info(list.toString());
+		
 		return list;
 	}
 

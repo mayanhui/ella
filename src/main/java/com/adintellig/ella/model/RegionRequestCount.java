@@ -16,6 +16,12 @@ public class RegionRequestCount extends RequestCount {
 		super(writeCount, readCount, totalCount, updateTime, insertTime, writeTps,
 				readTps, totalTps);
 	}
+	
+	public RegionRequestCount(long writeCount, long readCount, long totalCount, Timestamp updateTime,
+			Timestamp insertTime, int writeTps, int readTps, int totalTps, String regionName) {
+		super(writeCount, readCount, totalCount, updateTime, insertTime, writeTps, readTps, totalTps);
+		this.regionName = regionName;
+	}
 
 	@Override
 	public String toString() {

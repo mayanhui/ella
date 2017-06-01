@@ -21,6 +21,12 @@ public class ServerRequestCount extends RequestCount {
 				writeTps, readTps, totalTps);
 	}
 
+	public ServerRequestCount(long writeCount, long readCount, long totalCount, Timestamp updateTime,
+			Timestamp insertTime, int writeTps, int readTps, int totalTps, String serverHost) {
+		super(writeCount, readCount, totalCount, updateTime, insertTime, writeTps, readTps, totalTps);
+		this.serverHost = serverHost;
+	}
+
 	public String getServerHost() {
 		return serverHost;
 	}
@@ -31,8 +37,7 @@ public class ServerRequestCount extends RequestCount {
 
 	@Override
 	public String toString() {
-		return "RegionServerRequestCount [serverHost=" + serverHost
-				+ ", getServerHost()=" + getServerHost() + ", getWriteCount()="
+		return "RegionServerRequestCount [getServerHost()=" + getServerHost() + ", getWriteCount()="
 				+ getWriteCount() + ", getReadCount()=" + getReadCount()
 				+ ", getTotalCount()=" + getTotalCount() + ", getUpdateTime()="
 				+ getUpdateTime() + ", getInsertTime()=" + getInsertTime()
