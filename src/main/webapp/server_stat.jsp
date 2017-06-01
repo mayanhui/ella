@@ -43,7 +43,7 @@
 			<div class="leftCol">
 				<div id="siderNav">
 					<ul class="nav-items">
-						<li class="nav-item item-top current-item on">
+						<li class="nav-item">
 						<span>
 						<a href="index.jsp">表访问量监控</a>
 						</span></li>
@@ -52,7 +52,7 @@
 						<a href="rs_stat.jsp">Hot Region监控</a>
 						</span></li>
 
-						<li class="nav-item">
+						<li class="nav-item item-top current-item on ">
 						<span>
 						<a href="server_stat.jsp">Server监控</a>
 						</span></li>

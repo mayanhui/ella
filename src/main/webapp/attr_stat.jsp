@@ -55,7 +55,7 @@
 			<div class="leftCol">
 				<div id="siderNav">
 					<ul class="nav-items">
-						<li class="nav-item item-top current-item on">
+						<li class="nav-item">
 						<span>
 						<a href="index.jsp">表访问量监控 </a>
 						</span></li>
@@ -75,7 +75,7 @@
 						</span>
 						</li>
 						
-						<li class="nav-item">
+						<li class="nav-item item-top current-item on">
 						<span>
 						<a href="attr_stat.jsp">集群属性和统计</a>
 						</span>
