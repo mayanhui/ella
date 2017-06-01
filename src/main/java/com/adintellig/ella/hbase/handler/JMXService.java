@@ -73,6 +73,11 @@ public class JMXService extends Thread {
 
 	@Override
 	public void run() {
+
+		List<Region> rgs = new ArrayList<Region>();
+		List<Server> ses = new ArrayList<Server>();
+		List<Table> tbs = new ArrayList<Table>();
+
 		// 获取Master的JMX信息
 		JMXHMasterHandler handler = JMXHMasterHandler.getInstance();
 		LiveRegionServerBeans beans = (LiveRegionServerBeans) handler.handle();
@@ -88,36 +93,27 @@ public class JMXService extends Thread {
 				reqDao.batchAdd(list);
 				logger.info("[INSERT] Load Region Count info into 'region_requests'. Size=" + list.size());
 
-				// region check
+				// add region check
 				List<Region> regions = RequestPopulator.populateRegions(list);
-				if (regDao.needUpdate(regions)) {
-					regDao.truncate();
-					regDao.batchUpdate(regions);
-				}
+				rgs.addAll(regions);
 
 				// server count
 				list = RequestPopulator.populateRegionServerRequestCount(rbs);
 				reqDao.batchAdd(list);
 				logger.info("[INSERT] Load Server Count info into 'server_requests'. Size=" + list.size());
 
-				// server check
+				// add server check
 				List<Server> servers = RequestPopulator.populateServers(list);
-				if (serDao.needUpdate(servers)) {
-					serDao.truncate();
-					serDao.batchUpdate(servers);
-				}
+				ses.addAll(servers);
 
 				// table count
 				list = RequestPopulator.populateTableRequestCount(rbs);
 				reqDao.batchAdd(list);
 				logger.info("[INSERT] Load Table Count info into 'table_requests'. Size=" + list.size());
 
-				// table check
+				// add table check
 				List<Table> tables = RequestPopulator.populateTables(list);
-				if (tblDao.needUpdate(tables)) {
-					tblDao.truncate();
-					tblDao.batchUpdate(tables);
-				}
+				tbs.addAll(tables);
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -125,6 +121,27 @@ public class JMXService extends Thread {
 				e.printStackTrace();
 			}
 		}
+
+		/* region/table/server check */
+		try {
+			if (regDao.needUpdate(rgs)) {
+				regDao.truncate();
+				regDao.batchUpdate(rgs);
+			}
+
+			if (serDao.needUpdate(ses)) {
+				serDao.truncate();
+				serDao.batchUpdate(ses);
+			}
+
+			if (tblDao.needUpdate(tbs)) {
+				tblDao.truncate();
+				tblDao.batchUpdate(tbs);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException, SQLException {
