@@ -8,62 +8,54 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.adintellig.ella.hbase.beans.request.MasterServiceBean;
-import com.adintellig.ella.hbase.beans.request.MasterServiceBeans;
-import com.adintellig.ella.hbase.beans.request.RegionServer;
-import com.adintellig.ella.hbase.beans.request.RegionsLoad;
-import com.adintellig.ella.hbase.beans.request.RegionsLoadValue;
+import com.adintellig.ella.hbase.beans.RegionBean;
+import com.adintellig.ella.hbase.beans.RegionBeans;
 import com.adintellig.ella.model.Region;
 import com.adintellig.ella.model.RegionRequestCount;
+import com.adintellig.ella.model.RequestCount;
 import com.adintellig.ella.model.Server;
 import com.adintellig.ella.model.ServerRequestCount;
-import com.adintellig.ella.model.RequestCount;
-import com.adintellig.ella.model.TableRequestCount;
 import com.adintellig.ella.model.Table;
+import com.adintellig.ella.model.TableRequestCount;
 
 public class RequestPopulator {
 
+	/**
+	 * 将RegionBeans转为RegionRequestCount
+	 * @param bean
+	 * @return  List<RegionRequestCount>
+	 */
 	public static List<RequestCount> populateRegionRequestCount(
-			MasterServiceBeans bean) {
-		String regionName = null;
-		Long readCount = 0L;
-		Long writeCount = 0L;
-		Long totalCount = 0L;
+			RegionBeans bean) {
 		Timestamp insertTime = new Timestamp(System.currentTimeMillis());
 		Timestamp updateTime = new Timestamp(System.currentTimeMillis());
 
 		List<RequestCount> requests = new ArrayList<RequestCount>();
 
-		MasterServiceBean[] beans = bean.getBeans();
+		RegionBean[] beans = bean.getBeans();
 
 		if (null != beans && beans.length > 0) {
-			RegionServer[] rs = beans[0].getRegionServers();
-			for (RegionServer r : rs) {
-				RegionsLoad[] rl = r.getValue().getRegionsLoad();
-				for (RegionsLoad l : rl) {
-					RegionsLoadValue regionsLoadValue = l.getValue();
-					regionName = regionsLoadValue.getNameAsString();
-					readCount = regionsLoadValue.getReadRequestsCount();
-					writeCount = regionsLoadValue.getWriteRequestsCount();
-					totalCount = regionsLoadValue.getRequestsCount();
-
-					RegionRequestCount request = new RegionRequestCount();
-					request.setRegionName(regionName);
-					request.setReadCount(readCount);
-					request.setWriteCount(writeCount);
-					request.setTotalCount(totalCount);
-					request.setInsertTime(insertTime);
-					request.setUpdateTime(updateTime);
-					requests.add(request);
-				}
+			for(RegionBean rb : beans){
+				RegionRequestCount request = new RegionRequestCount();
+				request.setRegionName(rb.getRegionName());
+				request.setReadCount(rb.getReadCount());
+				request.setWriteCount(rb.getWriteCount());
+				request.setTotalCount(rb.getReadCount() + rb.getWriteCount());
+				request.setInsertTime(insertTime);
+				request.setUpdateTime(updateTime);
+				requests.add(request);
 			}
 		}
 		return requests;
 	}
 
+	/**
+	 * 转换为TableRequestCount
+	 * @param bean
+	 * @return
+	 */
 	public static List<RequestCount> populateTableRequestCount(
-			MasterServiceBeans bean) {
-		String regionName = null;
+			RegionBeans bean) {
 		String tableName = null;
 		Long readCount = null;
 		Long writeCount = null;
@@ -74,41 +66,34 @@ public class RequestPopulator {
 		List<RequestCount> requests = new ArrayList<RequestCount>();
 		Map<String, TableRequestCount> tableNameMap = new HashMap<String, TableRequestCount>();
 
-		MasterServiceBean[] beans = bean.getBeans();
+		RegionBean[] beans = bean.getBeans();
 
 		if (null != beans && beans.length > 0) {
-			RegionServer[] rs = beans[0].getRegionServers();
-			for (RegionServer r : rs) {
-				RegionsLoad[] rl = r.getValue().getRegionsLoad();
-				for (RegionsLoad l : rl) {
-					RegionsLoadValue regionsLoadValue = l.getValue();
-					regionName = regionsLoadValue.getNameAsString();
-					readCount = regionsLoadValue.getReadRequestsCount();
-					writeCount = regionsLoadValue.getWriteRequestsCount();
-					totalCount = regionsLoadValue.getRequestsCount();
-					// table name
-					tableName = regionName
-							.substring(0, regionName.indexOf(","));
-					TableRequestCount request = null;
+			for(RegionBean rb : beans){
+				readCount = rb.getReadCount();
+				writeCount = rb.getWriteCount();
+				totalCount = rb.getReadCount() + rb.getWriteCount();
+				tableName = rb.getTableName();
+				
+				TableRequestCount request = null;
 
-					if (null != tableNameMap.get(tableName)) {
-						request = tableNameMap.get(tableName);
-						request.setReadCount(request.getReadCount() + readCount);
-						request.setWriteCount(request.getWriteCount()
-								+ writeCount);
-						request.setTotalCount(request.getTotalCount()
-								+ totalCount);
-					} else {
-						request = new TableRequestCount();
-						request.setTableName(tableName);
-						request.setReadCount(readCount);
-						request.setWriteCount(writeCount);
-						request.setTotalCount(totalCount);
-						request.setInsertTime(insertTime);
-						request.setUpdateTime(updateTime);
-					}
-					tableNameMap.put(tableName, request);
+				if (null != tableNameMap.get(tableName)) {
+					request = tableNameMap.get(tableName);
+					request.setReadCount(request.getReadCount() + readCount);
+					request.setWriteCount(request.getWriteCount()
+							+ writeCount);
+					request.setTotalCount(request.getTotalCount()
+							+ totalCount);
+				} else {
+					request = new TableRequestCount();
+					request.setTableName(tableName);
+					request.setReadCount(readCount);
+					request.setWriteCount(writeCount);
+					request.setTotalCount(totalCount);
+					request.setInsertTime(insertTime);
+					request.setUpdateTime(updateTime);
 				}
+				tableNameMap.put(tableName, request);
 			}
 		}
 
@@ -126,7 +111,7 @@ public class RequestPopulator {
 	}
 
 	public static List<RequestCount> populateRegionServerRequestCount(
-			MasterServiceBeans bean) {
+			RegionBeans bean) {
 		String host = null;
 		Long readCount = 0L;
 		Long writeCount = 0L;
@@ -136,28 +121,23 @@ public class RequestPopulator {
 
 		List<RequestCount> requests = new ArrayList<RequestCount>();
 
-		MasterServiceBean[] beans = bean.getBeans();
+		RegionBean[] beans = bean.getBeans();
 
 		if (null != beans && beans.length > 0) {
-			RegionServer[] rs = beans[0].getRegionServers();
-			for (RegionServer r : rs) {
-				host = r.getKey();
-				RegionsLoad[] rl = r.getValue().getRegionsLoad();
-				ServerRequestCount request = new ServerRequestCount();
-				request.setServerHost(host);
-				for (RegionsLoad l : rl) {
-					RegionsLoadValue regionsLoadValue = l.getValue();
-					readCount += regionsLoadValue.getReadRequestsCount();
-					writeCount += regionsLoadValue.getWriteRequestsCount();
-					totalCount += regionsLoadValue.getRequestsCount();
-				}
-				request.setReadCount(readCount);
-				request.setWriteCount(writeCount);
-				request.setTotalCount(totalCount);
-				request.setInsertTime(insertTime);
-				request.setUpdateTime(updateTime);
-				requests.add(request);
+			ServerRequestCount request = new ServerRequestCount();
+			for(RegionBean rb : beans){
+					host = rb.getRsName();
+					readCount += rb.getReadCount();
+					writeCount += rb.getWriteCount();
+					totalCount += rb.getReadCount() + rb.getWriteCount();
 			}
+			request.setServerHost(host);
+			request.setReadCount(readCount);
+			request.setWriteCount(writeCount);
+			request.setTotalCount(totalCount);
+			request.setInsertTime(insertTime);
+			request.setUpdateTime(updateTime);
+			requests.add(request);
 		}
 		return requests;
 	}
