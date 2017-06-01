@@ -4,7 +4,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import com.adintellig.ella.hbase.JMXHMasterService;
+import com.adintellig.ella.hbase.handler.JMXService;
 
 public class CronQuartzJob implements Job {
 
@@ -14,7 +14,7 @@ public class CronQuartzJob implements Job {
 	@Override
 	public void execute(JobExecutionContext context)
 			throws JobExecutionException {
-		JMXHMasterService service = JMXHMasterService.getInstance();
+		JMXService service = JMXService.getInstance();
 		Thread t = new Thread(service);
 		t.start();
 	}
