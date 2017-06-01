@@ -43,6 +43,9 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 
 		String sessionUsername = (String) session.getAttribute("username");
+		
+		logger.info("username=" + username + 
+				" password=" + password + " sessionuname=" + sessionUsername);
 
 		if (null != sessionUsername && sessionUsername.length() > 0)
 			sessionUsername = sessionUsername.trim();
@@ -54,12 +57,17 @@ public class LoginServlet extends HttpServlet {
 			try {
 				User u = dao.findByNameAndPassword(username, password);
 				if (u != null) {
-					dispatcher = request.getRequestDispatcher("/init.do");
 					// put username into session
 					session.setAttribute("username", username);
+					//response.setContentType("text/html; charset=UTF-8");
+					//response.sendRedirect("index.jsp");
+					dispatcher = request.getRequestDispatcher("/index.jsp");
+					logger.info("username=" + username + " hit!");
+
 				} else {
 					dispatcher = request.getRequestDispatcher("/login.jsp");
 				}
+				
 				dispatcher.forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();

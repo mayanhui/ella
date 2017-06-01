@@ -26,8 +26,8 @@ public class LoginFilter implements Filter {
 	public void destroy() {
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		logger.info("{POST}");
 
 		HttpServletRequest req = (HttpServletRequest) request;
@@ -35,29 +35,21 @@ public class LoginFilter implements Filter {
 		String requestUri = req.getRequestURI();
 		String ctxPath = req.getContextPath();
 		String uri = requestUri.substring(ctxPath.length());
+		
+		//判断需要直接通过的URI
+		if (requestUri.indexOf(login_page) >= 0 || requestUri.indexOf(login_servlet) >= 0
+				|| requestUri.indexOf(login_servlet) >= 0) {
+			chain.doFilter(request, response);
+			return;
+		}
 
-		if (uri.equals(login_page) || uri.equals(root_page)
-				|| uri.equals(login_servlet)) {
-			if (null != session.getAttribute("username")
-					&& ((String) session.getAttribute("username")).length() > 0) {
-				RequestDispatcher dispatcher = request
-						.getRequestDispatcher("/init.do");
-				dispatcher.forward(request, response);
-			} else {
-				chain.doFilter(request, response);
-			}
-
+		if (null != session.getAttribute("username") && ((String) session.getAttribute("username")).length() > 0) {
+			System.out.println("{session}" + uri);
+			chain.doFilter(request, response);
 		} else {
-			if (null != session.getAttribute("username")
-					&& ((String) session.getAttribute("username")).length() > 0) {
-				System.out.println("{session}" + uri);
-				chain.doFilter(request, response);
-			} else {
-				System.out.println("{no session}" + uri);
-				RequestDispatcher dispatcher = request
-						.getRequestDispatcher("/login.jsp");
-				dispatcher.forward(request, response);
-			}
+			System.out.println("{no session}" + uri);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 

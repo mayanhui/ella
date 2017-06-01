@@ -11,7 +11,10 @@
 	</welcome-file-list>
 	
 	<listener>
-		<listener-class>com.adintellig.ella.action.SessionListener</listener-class>	
+		<listener-class>com.adintellig.ella.action.SessionListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.adintellig.ella.action.QuartzInitListener</listener-class>
 	</listener>
 
 	<filter>
@@ -35,15 +38,6 @@
 		<url-pattern>*.jsp</url-pattern>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
-	
-	<servlet>
-		<servlet-name>init</servlet-name>
-		<servlet-class>com.adintellig.ella.action.InitServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>init</servlet-name>
-		<url-pattern>/init.do</url-pattern>
-	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>login</servlet-name>
