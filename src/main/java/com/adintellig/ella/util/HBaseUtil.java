@@ -2,6 +2,7 @@ package com.adintellig.ella.util;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +12,6 @@ import org.apache.hadoop.hbase.CoordinatedStateManager;
 import org.apache.hadoop.hbase.CoordinatedStateManagerFactory;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.ServerName;
-import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.master.HMaster;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.zookeeper.ZKUtil;
@@ -22,15 +22,20 @@ import com.adintellig.ella.model.zookeeper.Base;
 import com.adintellig.ella.model.zookeeper.Client;
 import com.adintellig.ella.model.zookeeper.Quorum;
 
+/**
+ * 操作HBase ZK的util，访问ZK的时候不太稳定
+ * TODO: 筛选问题所在，初步定为很多ZK的类都是HBase内部使用，runtime用的类。
+ * @author didi
+ *
+ */
 public class HBaseUtil extends ZKUtil {
 
 	static Configuration conf;
 	static HMaster master;
 	static ZooKeeperWatcher watcher;
-	static int zkDumpConnectionTimeOut = 1500;
+	static int zkDumpConnectionTimeOut = 15000;
 	static ConfigProperties config = ConfigFactory.getInstance()
 			.getConfigProperties(ConfigFactory.ELLA_CONFIG_PATH);
-	static HBaseAdmin admin;
 
 	static {
 		conf = HBaseConfiguration.create();
@@ -62,14 +67,23 @@ public class HBaseUtil extends ZKUtil {
 			if (null != watcher) {
 				base = new Base();
 				base.setHdfsRoot(watcher.baseZNode);
-				try {
-					base.setMasterAddress(ServerName.parseVersionedServerName(
-							getData(watcher, watcher.getMasterAddressZNode()))
-							.toString());
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				System.out.println(watcher.baseZNode);
+//				System.out.println(watcher.toString());
+//				try {
+//					System.out.println(Bytes.toStringBinary(getData(watcher, watcher.getMasterAddressZNode())));
+//				} catch (InterruptedException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+				
+//				try {
+//					base.setMasterAddress(ServerName.parseVersionedServerName(
+//							getData(watcher, watcher.getMasterAddressZNode()))
+//							.toString());
+					base.setMasterAddress(watcher.getMasterAddressZNode());
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
 
 				StringBuilder sb = new StringBuilder();
 				for (String child : listChildrenNoWatch(watcher,
@@ -87,7 +101,6 @@ public class HBaseUtil extends ZKUtil {
 					base.setRegionServerHoldingRoot(Bytes.toStringBinary(getData(
 							watcher, watcher.getBaseZNode())));
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -104,28 +117,27 @@ public class HBaseUtil extends ZKUtil {
 
 			List<Quorum> quorums = new ArrayList<Quorum>();
 			String[] servers = watcher.getQuorum().split(",");
-
+			System.out.println(Arrays.toString(servers));
 			// generate inner ips
 			Set<String> zkServers = new HashSet<String>();
 			for (String server : servers) {
 				zkServers.add(server.trim().replaceAll(":2181", ""));
 			}
 
-			String masterAddress = null;
-			try {
-				masterAddress = ServerName.parseVersionedServerName(
-						getData(watcher, watcher.getMasterAddressZNode())).toString();
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			masterAddress = masterAddress.substring(0,
-					masterAddress.indexOf(","));
-			List<String> mips = IPHostUtil.getAllInternalHostIPs(masterAddress);
-			if (null != mips && mips.size() > 0) {
-				for (String mip : mips)
-					zkServers.add(mip);
-			}
+//			String masterAddress = null;
+//			try {
+//				masterAddress = ServerName.parseVersionedServerName(
+//						getData(watcher, watcher.getMasterAddressZNode())).toString();
+//			} catch (InterruptedException e1) {
+//				e1.printStackTrace();
+//			}
+//			masterAddress = masterAddress.substring(0,
+//					masterAddress.indexOf(","));
+//			List<String> mips = IPHostUtil.getAllInternalHostIPs(masterAddress);
+//			if (null != mips && mips.size() > 0) {
+//				for (String mip : mips)
+//					zkServers.add(mip);
+//			}
 
 			for (String child : listChildrenNoWatch(watcher, watcher.rsZNode)) {
 				String rshost = child.substring(0, child.indexOf(","));
@@ -141,9 +153,9 @@ public class HBaseUtil extends ZKUtil {
 				List<Client> clients = new ArrayList<Client>();
 				quorum.setHost(server);
 				try {
+					System.out.println(dump(watcher));
 					String[] stat = getServerStats(server,
-							zkDumpConnectionTimeOut);
-
+								zkDumpConnectionTimeOut);
 					for (String s : stat) {
 						s = s.trim();
 						if (s.startsWith("Zookeeper version:")) {
