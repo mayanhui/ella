@@ -18,9 +18,6 @@
 		LiveRegionServerBean[] attrArr = ((LiveRegionServerBeans)JMXHMasterHandler.getInstance().handle()).getBeans();
 		request.setAttribute("attr",attrArr[0]);
 		
-		//MasterStat[] mstatsArr = JMXMasterStatService.getInstance().genBeans().getBeans();
-		//request.setAttribute("mstat",mstatsArr[0]);
-		
 		//RPCStat[] rstatArr = JMXRPCStatService.getInstance().genBeans().getBeans();
 		//request.setAttribute("rstat",rstatArr[0]);
 		
@@ -150,73 +147,8 @@
 
 					<br/><br/>
 					
-					<!-- Master Stats -->
-					<div class="mod-header radius">
-						<h2>
-							Master Stats
-						</h2>
-					</div>
-					<div class="mod-body" id="data-load">
-						<table class="data-load" width="100%" border="0" cellspacing="0">
-							<thead>
-								<tr>
-									<th>Stats Field</th>
-									<th>Value</th>
-								</tr>
-							</thead>
-							<tbody id="data-list">
-									<tr>
-										<td>modelerType</td>
-										<td>${mstat.modelerType}</td>
-									</tr>
-									<tr>
-										<td>splitTimeNumOps</td>
-										<td>${mstat.splitTimeNumOps}</td>
-									</tr>
-									<tr>
-										<td>splitTimeAvgTime</td>
-										<td>${mstat.splitTimeAvgTime}</td>
-									</tr>
-									<tr>
-										<td>splitTimeMinTime</td>
-										<td>${mstat.splitTimeMinTime}</td>
-									</tr>
-									<tr>
-										<td>splitTimeMaxTime</td>
-										<td>${mstat.splitTimeMaxTime}</td>
-									</tr>
-									<tr>
-										<td>splitSizeNumOps</td>
-										<td>${mstat.splitSizeNumOps}</td>
-									</tr>
-									<tr>
-										<td>splitSizeAvgTime</td>
-										<td>${mstat.splitSizeAvgTime}</td>
-									</tr>
-									<tr>
-										<td>splitSizeMinTime</td>
-										<td>${mstat.splitSizeMinTime}</td>
-									</tr>
-									<tr>
-										<td>splitSizeMaxTime</td>
-										<td>${mstat.splitSizeMaxTime}</td>
-									</tr>
-									<!--
-									<tr>
-										<td>cluster_requests</td>
-										<td>${mstat.cluster_requests}</td>
-									</tr>
-									-->
-							</tbody>
-						</table>
-					</div>
-					
-					
-					
-					<br/><br/>
-					
 					<!-- RPC Stats -->
-					<div class="mod-header radius">
+					<!-- <div class="mod-header radius">
 						<h2>
 							RPC Stats
 						</h2>
@@ -301,7 +233,7 @@
 							</tbody>
 						</table>
 					</div>
-					
+					 -->
 					
 					
 				</div>

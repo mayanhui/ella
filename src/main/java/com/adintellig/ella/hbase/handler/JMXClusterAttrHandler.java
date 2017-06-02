@@ -1,28 +1,10 @@
 package com.adintellig.ella.hbase.handler;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-//import java.sql.SQLException;
-//import java.util.List;
-
-//import org.codehaus.jackson.JsonParseException;
-//import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.adintellig.ella.hbase.beans.attr.HBaseAttributeBean;
 import com.adintellig.ella.hbase.beans.attr.HBaseAttributeBeans;
-//import com.adintellig.ella.hbase.beans.request.MasterServiceBeans;
-//import com.adintellig.ella.model.Region;
-//import com.adintellig.ella.model.RequestCount;
-//import com.adintellig.ella.model.Server;
-//import com.adintellig.ella.model.Table;
-//import com.adintellig.ella.mysql.RegionDaoImpl;
-//import com.adintellig.ella.mysql.RequestCountDaoImpl;
-//import com.adintellig.ella.mysql.ServerDaoImpl;
-//import com.adintellig.ella.mysql.TableDaoImpl;
 import com.adintellig.ella.util.ConfigFactory;
 import com.adintellig.ella.util.ConfigProperties;
 import com.alibaba.fastjson.JSON;
@@ -59,6 +41,7 @@ public class JMXClusterAttrHandler extends ServerHandler{
 	public HBaseAttributeBeans genBeans() {
 		HBaseAttributeBeans beans = null;
 		if (null != url) {
+			logger.info("[attr]" + url);
 			String urlString = request(url);
 			beans = parseBean(urlString);
 		}
