@@ -8,7 +8,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.adintellig.ella.hbase.beans.LiveRegionServerBeans;
+import com.adintellig.ella.model.jmxbeans.LiveRegionServerBeans;
 import com.adintellig.ella.util.ConfigFactory;
 import com.adintellig.ella.util.ConfigProperties;
 import com.alibaba.fastjson.JSON;

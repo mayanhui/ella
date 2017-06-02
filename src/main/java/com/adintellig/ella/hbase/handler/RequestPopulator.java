@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.adintellig.ella.hbase.beans.RegionBean;
-import com.adintellig.ella.hbase.beans.RegionBeans;
 import com.adintellig.ella.model.Region;
 import com.adintellig.ella.model.RegionRequestCount;
 import com.adintellig.ella.model.RequestCount;
@@ -17,6 +15,8 @@ import com.adintellig.ella.model.Server;
 import com.adintellig.ella.model.ServerRequestCount;
 import com.adintellig.ella.model.Table;
 import com.adintellig.ella.model.TableRequestCount;
+import com.adintellig.ella.model.jmxbeans.RegionBean;
+import com.adintellig.ella.model.jmxbeans.RegionBeans;
 
 public class RequestPopulator {
 

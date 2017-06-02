@@ -14,12 +14,12 @@ import com.adintellig.ella.dao.RegionDaoImpl;
 import com.adintellig.ella.dao.RequestCountDaoImpl;
 import com.adintellig.ella.dao.ServerDaoImpl;
 import com.adintellig.ella.dao.TableDaoImpl;
-import com.adintellig.ella.hbase.beans.LiveRegionServerBeans;
-import com.adintellig.ella.hbase.beans.RegionBeans;
 import com.adintellig.ella.model.Region;
 import com.adintellig.ella.model.RequestCount;
 import com.adintellig.ella.model.Server;
 import com.adintellig.ella.model.Table;
+import com.adintellig.ella.model.jmxbeans.LiveRegionServerBeans;
+import com.adintellig.ella.model.jmxbeans.RegionBeans;
 
 /**
  * JMXService 直接被Quartz调用的入口类
@@ -27,26 +27,26 @@ import com.adintellig.ella.model.Table;
  * @author didi
  *
  */
-public class JMXService extends Thread {
-	private static Logger logger = LoggerFactory.getLogger(JMXService.class);
+public class JMXHandler extends Thread {
+	private static Logger logger = LoggerFactory.getLogger(JMXHandler.class);
 
-	private static JMXService service;
+	private static JMXHandler service;
 
 	private RequestCountDaoImpl reqDao = null;
 	private TableDaoImpl tblDao = null;
 	private RegionDaoImpl regDao = null;
 	private ServerDaoImpl serDao = null;
 
-	private JMXService() {
+	private JMXHandler() {
 		this.reqDao = new RequestCountDaoImpl();
 		this.tblDao = new TableDaoImpl();
 		this.regDao = new RegionDaoImpl();
 		this.serDao = new ServerDaoImpl();
 	}
 
-	public static synchronized JMXService getInstance() {
+	public static synchronized JMXHandler getInstance() {
 		if (service == null)
-			service = new JMXService();
+			service = new JMXHandler();
 		return service;
 	}
 
@@ -145,7 +145,7 @@ public class JMXService extends Thread {
 	}
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException, SQLException {
-		JMXService service = JMXService.getInstance();
+		JMXHandler service = JMXHandler.getInstance();
 		Thread t = new Thread(service);
 		t.start();
 	}

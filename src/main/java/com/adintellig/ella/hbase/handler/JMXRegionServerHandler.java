@@ -7,8 +7,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.adintellig.ella.hbase.beans.RegionBean;
-import com.adintellig.ella.hbase.beans.RegionBeans;
+import com.adintellig.ella.model.jmxbeans.RegionBean;
+import com.adintellig.ella.model.jmxbeans.RegionBeans;
 import com.adintellig.ella.util.ConfigFactory;
 import com.adintellig.ella.util.ConfigProperties;
 

@@ -8,11 +8,8 @@
 <%@ page language="java" import="com.adintellig.ella.dao.*"%>
 <%@ page language="java" import="com.adintellig.ella.util.*"%>
 <%@ page language="java" import="com.adintellig.ella.model.zookeeper.*"%>
-<%@ page language="java" import="com.adintellig.ella.hbase.*"%>
+<%@ page language="java" import="com.adintellig.ella.model.jmxbeans.*"%>
 <%@ page language="java" import="com.adintellig.ella.hbase.handler.*"%>
-<%@ page language="java" import="com.adintellig.ella.hbase.beans.*"%>
-<%@ page language="java" import="com.adintellig.ella.hbase.beans.attr.*"%>
-<%@ page language="java" import="com.adintellig.ella.hbase.beans.stat.*"%>
 
 <%
 		LiveRegionServerBean[] attrArr = ((LiveRegionServerBeans)JMXHMasterHandler.getInstance().handle()).getBeans();
