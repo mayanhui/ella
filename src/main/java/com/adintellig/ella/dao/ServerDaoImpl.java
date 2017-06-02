@@ -50,7 +50,7 @@ public class ServerDaoImpl {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
 		stmt.executeUpdate("truncate table hbase.servers");
-		JdbcUtil.close(conn);
+		JdbcUtil.close(conn,stmt,null);
 	}
 
 	public List<Server> list() throws Exception {
@@ -64,7 +64,7 @@ public class ServerDaoImpl {
 			s.setUpdateTime(rs.getTimestamp("update_time"));
 			servers.add(s);
 		}
-		JdbcUtil.close(conn);
+		JdbcUtil.close(conn,stmt,rs);
 		return servers;
 	}
 
@@ -78,8 +78,7 @@ public class ServerDaoImpl {
 			if (rs.next())
 				num = rs.getInt(1);
 
-			rs.close();
-			stmt.close();
+			JdbcUtil.close(con,stmt,rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

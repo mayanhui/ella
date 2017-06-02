@@ -50,7 +50,7 @@ public class RegionDaoImpl {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
 		stmt.executeUpdate("truncate table hbase.regions");
-		JdbcUtil.close(conn);
+		JdbcUtil.close(conn,stmt,null);
 	}
 
 	public List<Region> list() throws Exception {
@@ -64,25 +64,27 @@ public class RegionDaoImpl {
 			t.setUpdateTime(rs.getTimestamp("update_time"));
 			tables.add(t);
 		}
-		JdbcUtil.close(conn);
+		JdbcUtil.close(conn,stmt,rs);
 		return tables;
 	}
 
 	public static int getTotalNumber() {
 		int num = -1;
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
-			Connection con = JdbcUtil.getConnection();
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt
-					.executeQuery("SELECT count(*) FROM hbase.regions");
+			conn = JdbcUtil.getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT count(*) FROM hbase.regions");
 			if (rs.next())
 				num = rs.getInt(1);
-
-			rs.close();
-			stmt.close();
+			
+			JdbcUtil.close(conn, stmt, rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return num;
 	}
 
@@ -97,8 +99,7 @@ public class RegionDaoImpl {
 			if (rs.next())
 				num = rs.getInt(1);
 
-			rs.close();
-			stmt.close();
+			JdbcUtil.close(con,stmt,rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

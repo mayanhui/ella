@@ -60,7 +60,7 @@ public class RequestCountDaoImpl {
 		stmt.setTimestamp(5, req.getUpdateTime());
 
 		stmt.executeUpdate();
-		JdbcUtil.close(con);
+		JdbcUtil.close(con,stmt,null);
 	}
 
 	public void batchAdd(List<RequestCount> beans) throws SQLException {
@@ -199,7 +199,7 @@ public class RequestCountDaoImpl {
 			list.add(map.get(key));
 		}
 
-		JdbcUtil.close(conn);
+		JdbcUtil.close(conn,stmt,rs);
 		return list;
 	}
 	
@@ -275,7 +275,7 @@ public class RequestCountDaoImpl {
 			list.add(map.get(key));
 		}
 
-		JdbcUtil.close(conn);
+		JdbcUtil.close(conn,stmt,rs);
 		
 		logger.info(list.toString());
 		
@@ -298,7 +298,7 @@ public class RequestCountDaoImpl {
 			list.add(req);
 		}
 
-		JdbcUtil.close(conn);
+		JdbcUtil.close(conn,stmt,rs);
 		return list;
 	}
 
@@ -317,7 +317,7 @@ public class RequestCountDaoImpl {
 			list.add(req);
 		}
 
-		JdbcUtil.close(conn);
+		JdbcUtil.close(conn,stmt,rs);
 		return list;
 	}
 
@@ -337,7 +337,7 @@ public class RequestCountDaoImpl {
 			req.setUpdateTime(rs.getTimestamp(5));
 			list.add(req);
 		}
-		JdbcUtil.close(conn);
+		JdbcUtil.close(conn,stmt,rs);
 		logger.info("[QUERY]" + sql + " -> Result:" + list.size());
 		return list;
 	}

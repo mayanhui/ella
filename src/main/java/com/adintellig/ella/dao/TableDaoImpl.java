@@ -49,7 +49,7 @@ public class TableDaoImpl {
 		Connection conn = JdbcUtil.getConnection();
 		Statement stmt = conn.createStatement();
 		stmt.executeUpdate("truncate table hbase.tables");
-		JdbcUtil.close(conn);
+		JdbcUtil.close(conn,stmt,null);
 	}
 
 	public static void main(String[] args) {
@@ -94,7 +94,7 @@ public class TableDaoImpl {
 			t.setUpdateTime(rs.getTimestamp("update_time"));
 			tables.add(t);
 		}
-		JdbcUtil.close(conn);
+		JdbcUtil.close(conn,stmt,rs);
 		return tables;
 	}
 
@@ -108,8 +108,7 @@ public class TableDaoImpl {
 			if (rs.next())
 				num = rs.getInt(1);
 
-			rs.close();
-			stmt.close();
+			JdbcUtil.close(con, stmt, rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

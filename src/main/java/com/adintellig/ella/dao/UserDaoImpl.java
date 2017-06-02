@@ -31,7 +31,7 @@ public class UserDaoImpl {
 			u.setUsername(rs.getString("username"));
 			u.setPassword(rs.getString("password"));
 		}
-		JdbcUtil.close(conn);
+		JdbcUtil.close(conn,ps,rs);
 		return u;
 	}
 }
