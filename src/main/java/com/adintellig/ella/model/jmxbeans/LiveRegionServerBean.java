@@ -21,7 +21,7 @@ public class LiveRegionServerBean {
 	private Float averageLoad;
     private Integer numRegionServers;
     private Integer numDeadRegionServers;
-	private Integer clusterRequests;
+	private Long clusterRequests;
 	
 	public String getName() {
 		return name;
@@ -114,10 +114,10 @@ public class LiveRegionServerBean {
 	public void setNumDeadRegionServers(Integer numDeadRegionServers) {
 		this.numDeadRegionServers = numDeadRegionServers;
 	}
-	public Integer getClusterRequests() {
+	public Long getClusterRequests() {
 		return clusterRequests;
 	}
-	public void setClusterRequests(Integer clusterRequests) {
+	public void setClusterRequests(Long clusterRequests) {
 		this.clusterRequests = clusterRequests;
 	}
 	
